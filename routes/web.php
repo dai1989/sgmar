@@ -52,3 +52,12 @@ Route::get('prueba/pdf', function (\App\Extensiones\Fpdf $fpdf) {
 
 Route::resource('clientes', 'ClienteController');
 
+
+
+Route::resource('marcas', 'MarcaController');
+
+Route::resource('categorias', 'CategoriaController');
+
+Route::resource('productos', 'ProductoController');
+
+Route::resource('stocks', 'StockController');

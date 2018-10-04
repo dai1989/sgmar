@@ -52,6 +52,11 @@
 <script>
     $('div.alert').not('.alert-important').delay({{config('app.delay_fade_out_div_alert',3000)}}).fadeOut(350);
 </script>
+<script src="{{asset ('js/manifest.js')}}"></script>
+<script src="{{asset ('js/vendor.js')}}"></script>
+<script src="{{asset ('js/app.js')}}"></script>
+
+
 
 @stack('scripts')
 @yield('scripts')
