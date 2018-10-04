@@ -59,9 +59,7 @@ desired effect
 </div><!-- ./wrapper -->
 </div>
  <!-- Scripts -->
-    <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+  
 @include('adminlte::layouts.partials.scripts')
 
 </body>

@@ -27,6 +27,79 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 });
+Route::middleware(['auth'])->group(function () 
+{
+	//Productos
+	Route::post('productos/store', 'ProductoController@store')->name('productos.store')
+		->middleware('permission:productos.create');
+
+	Route::get('productos', 'ProductoController@index')->name('productos.index')
+		->middleware('permission:productos.index');
+
+	Route::get('productos/create', 'ProductoController@create')->name('productos.create')
+		->middleware('permission:productos.create');
+
+	Route::put('productos/{producto}', 'ProductoController@update')->name('productos.update')
+		->middleware('permission:productos.edit');
+
+	Route::get('productos/{producto}', 'ProductoController@show')->name('productos.show')
+		->middleware('permission:productos.show');
+
+	Route::delete('productos/{producto}', 'ProductoController@destroy')->name('productos.destroy')
+		->middleware('permission:productos.destroy');
+
+	Route::get('productos/{producto}/edit', 'ProductoController@edit')->name('productos.edit')
+		->middleware('permission:productos.edit');
+
+		//CATEGORIAS
+	Route::post('categorias/store', 'CategoriaController@store')->name('categorias.store')
+		->middleware('permission:categorias.create');
+
+	Route::get('categorias', 'CategoriaController@index')->name('categorias.index')
+		->middleware('permission:categorias.index');
+
+	Route::get('categorias/create', 'CategoriaController@create')->name('categorias.create')
+		->middleware('permission:categorias.create');
+
+	Route::put('categorias/{categoria}', 'CategoriaController@update')->name('categorias.update')
+		->middleware('permission:categorias.edit');
+
+	Route::get('categorias/{categoria}', 'CategoriaController@show')->name('categorias.show')
+		->middleware('permission:categorias.show');
+
+	Route::delete('categorias/{categoria}', 'CategoriaController@destroy')->name('categorias.destroy')
+		->middleware('permission:categorias.destroy');
+
+	Route::get('categorias/{categoria}/edit', 'CategoriaController@edit')->name('categorias.edit')
+		->middleware('permission:categorias.edit');
+
+		//MARCAS
+	Route::post('marcas/store', 'MarcaController@store')->name('marcas.store')
+		->middleware('permission:marcas.create');
+
+	Route::get('marcas', 'MarcaController@index')->name('marcas.index')
+		->middleware('permission:marcas.index');
+
+	Route::get('marcas/create', 'MarcaController@create')->name('marcas.create')
+		->middleware('permission:marcas.create');
+
+	Route::put('marcas/{marca}', 'MarcaController@update')->name('marcas.update')
+		->middleware('permission:marcas.edit');
+
+	Route::get('marcas/{marca}', 'MarcaController@show')->name('marcas.show')
+		->middleware('permission:marcas.show');
+
+	Route::delete('marcas/{marca}', 'MarcaController@destroy')->name('marcas.destroy')
+		->middleware('permission:marcas.destroy');
+
+	Route::get('marcas/{marca}/edit', 'MarcaController@edit')->name('marcas.edit')
+		->middleware('permission:marcas.edit');
+
+
+
+
+
+	});
 
 Route::get('user/profile/{user}', 'UserController@editProfile')->name('user.edit.profile');;
 Route::patch('user/profile/{user}', 'UserController@updateProfile')->name('user.update.profile');;
@@ -54,11 +127,11 @@ Route::resource('clientes', 'ClienteController');
 
 
 
-Route::resource('marcas', 'MarcaController');
 
-Route::resource('categorias', 'CategoriaController');
 
-Route::resource('productos', 'ProductoController');
+
+
+
 
 Route::resource('stock', 'StockController');
 

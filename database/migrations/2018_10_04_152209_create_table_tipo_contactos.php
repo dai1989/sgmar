@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotasTable extends Migration
+class CreateTableTipoContactos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateNotasTable extends Migration
      */
     public function up()
     {
-        Schema::create('notas', function (Blueprint $table) {
+        Schema::create('tipo_contactos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo');
-            $table->string('descripcion');
-//            $table->integer('user_id')->unsigned()->index('fk_notas_users1_idx');
+             $table->string('contacto_descripcion');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,6 +27,6 @@ class CreateNotasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notas');
+        Schema::dropIfExists('tipo_contactos');
     }
 }

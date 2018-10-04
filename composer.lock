@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7eb0d4e6c282e25dc931d21ffd8fb69a",
+    "content-hash": "d46d41550f9febf8eac6c4e2e3f16035",
     "packages": [
         {
             "name": "acacha/admin-lte-template-laravel",
@@ -301,6 +301,72 @@
                 "wkhtmltopdf"
             ],
             "time": "2018-09-06T10:14:15+00:00"
+        },
+        {
+            "name": "caffeinated/shinobi",
+            "version": "v3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caffeinated/shinobi.git",
+                "reference": "9b5e60f1b59a57ffe6f8a938ff9f896dc3075a54"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caffeinated/shinobi/zipball/9b5e60f1b59a57ffe6f8a938ff9f896dc3075a54",
+                "reference": "9b5e60f1b59a57ffe6f8a938ff9f896dc3075a54",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/database": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/filesystem": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "^6.4",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Caffeinated\\Shinobi\\ShinobiServiceProvider"
+                    ],
+                    "aliases": {
+                        "Shinobi": "Caffeinated\\Shinobi\\Facades\\Shinobi"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Caffeinated\\Shinobi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shea Lewis",
+                    "email": "shea.lewis89@gmail.com"
+                }
+            ],
+            "description": "Laravel 5 Roles and Permissions",
+            "keywords": [
+                "auth",
+                "caffeinated",
+                "laravel",
+                "permissions",
+                "roles",
+                "shinobi"
+            ],
+            "time": "2018-09-11T17:30:07+00:00"
         },
         {
             "name": "codedge/laravel-fpdf",
