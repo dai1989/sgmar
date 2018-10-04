@@ -60,4 +60,5 @@ Route::resource('categorias', 'CategoriaController');
 
 Route::resource('productos', 'ProductoController');
 
-Route::resource('stocks', 'StockController');
+Route::resource('stock', 'StockController');
+

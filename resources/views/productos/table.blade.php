@@ -22,6 +22,12 @@
                 {!! Form::open(['route' => ['productos.destroy', $producto->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('productos.show', [$producto->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                     <a href="#" class="btn btn-info download"
+                                            data-barcode="{{ $producto->barcode }}"
+                                            data-name="{{ str_slug($producto->descripcion) }}"
+                                            title="Download">
+                                            <i class="fa fa-download"></i>
+                                        </a>
                     <a href="{!! route('productos.edit', [$producto->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>

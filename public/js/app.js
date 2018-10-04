@@ -40206,10 +40206,10 @@ exports.NoElementException = NoElementException;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(43);
-__webpack_require__(150);
 __webpack_require__(151);
 __webpack_require__(152);
-module.exports = __webpack_require__(153);
+__webpack_require__(153);
+module.exports = __webpack_require__(154);
 
 
 /***/ }),
@@ -40239,6 +40239,8 @@ Vue.component('unique-barcode-input', __webpack_require__(112));
 var app = new Vue({
   el: '#app'
 });
+
+window.downloadBarcode = __webpack_require__(150);
 
 /***/ }),
 /* 44 */
@@ -64860,9 +64862,40 @@ if (false) {
 
 /***/ }),
 /* 150 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    init: function init() {
+        var links = document.querySelectorAll('a.download');
+        for (var i in links) {
+            if (!links.hasOwnProperty(i)) continue;
+            links[i].addEventListener('click', function (event) {
+                this.downloadCanvas(event.currentTarget, 'canvas');
+            }.bind(this), false);
+        }
+    },
+    downloadCanvas: function downloadCanvas(link, canvasId) {
+        var canvas = document.getElementById(canvasId);
+        JsBarcode(canvas, link.dataset['barcode'], {
+            format: "EAN13",
+            width: 1,
+            height: 20,
+            marginTop: 20
+        });
+
+        // Add text
+        var ctx = canvas.getContext("2d");
+        ctx.font = "12px Monospace";
+        ctx.fillText(link.dataset['name'], -50, 15);
+
+        link.href = canvas.toDataURL();
+        link.download = 'barcode_' + link.dataset['name'] + '.png';
+    }
+});
 
 /***/ }),
 /* 151 */
@@ -64878,6 +64911,12 @@ if (false) {
 
 /***/ }),
 /* 153 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 154 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

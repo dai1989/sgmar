@@ -15,14 +15,14 @@
             <div class="box-body">
                 <div class="row">
                     <div class="form-group col-sm-12">
-                    @include('stocks.show_fields')
+                    @include('stock.show_fields')
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-12">
-            <a href="{!! route('stocks.index') !!}" class="btn btn-default">Regresar</a>
+            <a href="{!! route('stock.index') !!}" class="btn btn-default">Regresar</a>
             </div>
         </div>
     </div>

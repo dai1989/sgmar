@@ -2,151 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\StockDataTable;
-use App\Http\Requests;
-use App\Http\Requests\CreateStockRequest;
-use App\Http\Requests\UpdateStockRequest;
-use App\Repositories\StockRepository;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Response;
+use Illuminate\Http\Request;
+use App\Models\Stock;
+use App\Models\Producto;
 
-class StockController extends AppBaseController
+
+class StockController extends Controller
 {
-    /** @var  StockRepository */
-    private $stockRepository;
-
-    public function __construct(StockRepository $stockRepo)
+    public function index()
     {
-        $this->stockRepository = $stockRepo;
-        $this->middleware('auth');
+        /*$stock_list = Stock::all();
+        return view('stock.index', ["stock_list" => $stock_list]);*/
+         $stock_list = Stock::latest()->paginate(5);
+        return view('stock.index', compact('stock_list'))->with('i',(request()->input('page',1) -1) *5);
     }
 
+  
+
+   
     /**
-     * Display a listing of the Stock.
+     * Display the specified resource.
      *
-     * @param StockDataTable $stockDataTable
-     * @return Response
-     */
-    public function index(StockDataTable $stockDataTable)
-    {
-        return $stockDataTable->render('stocks.index');
-    }
-
-    /**
-     * Show the form for creating a new Stock.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('stocks.create');
-    }
-
-    /**
-     * Store a newly created Stock in storage.
-     *
-     * @param CreateStockRequest $request
-     *
-     * @return Response
-     */
-    public function store(CreateStockRequest $request)
-    {
-        $input = $request->all();
-
-        $stock = $this->stockRepository->create($input);
-
-        Flash::success('Stock guardado exitosamente.');
-
-        return redirect(route('stocks.index'));
-    }
-
-    /**
-     * Display the specified Stock.
-     *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $stock = $this->stockRepository->findWithoutFail($id);
-
-        if (empty($stock)) {
-            Flash::error('Stock no encontrado');
-
-            return redirect(route('stocks.index'));
-        }
-
-        return view('stocks.show')->with('stock', $stock);
+         $stock = Stock::find($id);
+        return view('stock.show', compact('stock'));
     }
 
     /**
-     * Show the form for editing the specified Stock.
+     * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $stock = $this->stockRepository->findWithoutFail($id);
-
-        if (empty($stock)) {
-            Flash::error('Stock no encontrado');
-
-            return redirect(route('stocks.index'));
-        }
-
-        return view('stocks.edit')->with('stock', $stock);
+         $stock = Stock::find($id);
+        return view('stock.edit', compact('stock'));
     }
 
     /**
-     * Update the specified Stock in storage.
+     * Update the specified resource in storage.
      *
-     * @param  int              $id
-     * @param UpdateStockRequest $request
-     *
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update($id, UpdateStockRequest $request)
+    public function update(Request $request, $id)
     {
-        $stock = $this->stockRepository->findWithoutFail($id);
+         // obtener datos enviados desde formulario
+        $cantidadMinima = $request->input("txtCantidadMinima");
+        $cantidadActual = $request->input("txtCantidadActual");
 
-        if (empty($stock)) {
-            Flash::error('Stock no encontrado');
-
-            return redirect(route('stocks.index'));
+       // validacion
+        if ($cantidadActual < $cantidadMinima) {
+            $mensaje = "CANTIDAD ACTUAL DEBE SER MAYOR O IGUAL A MINIMA";
+            return redirect("stock/" . $id . "/edit")->with('success','Stock actualizado exitosamente',"mensaje", $mensaje);
         }
+     
 
-        $stock = $this->stockRepository->update($request->all(), $id);
+     // obtener el stock
+        $stock = Stock::find($id);
+        $stock->cantidad_minima = $cantidadMinima;
+        $stock->cantidad_actual = $cantidadActual;
+        $stock->save();
 
-        Flash::success('Stock actualizado exitosamente.');
-
-        return redirect(route('stocks.index'));
-    }
-
-    /**
-     * Remove the specified Stock from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $stock = $this->stockRepository->findWithoutFail($id);
-
-        if (empty($stock)) {
-            Flash::error('Stock no encontrado');
-
-            return redirect(route('stocks.index'));
-        }
-
-        $this->stockRepository->delete($id);
-
-        Flash::success('Stock eliminado exitosamente.');
-
-        return redirect(route('stocks.index'));
+        $mensaje = "STOCK ACTUALIZADO!";
+        return redirect("stock/" . $id . "/edit")->with("mensaje", $mensaje);
     }
 }
+
+

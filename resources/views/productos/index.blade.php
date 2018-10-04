@@ -26,5 +26,14 @@
             </div>
         </div>
     </div>
+    <div class="hidden">
+    <canvas id="canvas"></canvas>
+</div>
+
+<script>
+    window.onload = function() {
+        window.downloadBarcode.default.init();
+    };
+</script>
 @endsection
 

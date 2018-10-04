@@ -18,7 +18,7 @@ class StockDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'stocks.datatables_actions');
+        return $dataTable->addColumn('action', 'stock.datatables_actions');
     }
 
     /**
@@ -50,11 +50,7 @@ class StockDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                    'create',
-                    'export',
-                    'print',
-                    'reset',
-                    'reload',
+                  
                 ],
             ]);
     }
@@ -80,6 +76,6 @@ class StockDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'stocksdatatable_' . time();
+        return 'stockdatatable_' . time();
     }
 }

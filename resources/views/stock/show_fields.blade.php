@@ -3,9 +3,7 @@
 {!! $stock->id !!}<br>
 
 
-<!-- Producto Id Field -->
-{!! Form::label('producto_id', 'Producto Id:') !!}
-{!! $stock->producto_id !!}<br>
+
 
 
 <!-- Cantidad Actual Field -->
@@ -26,5 +24,10 @@
 <!-- Updated At Field -->
 {!! Form::label('updated_at', 'Updated At:') !!}
 {!! $stock->updated_at !!}<br>
+
+
+<!-- Deleted At Field -->
+{!! Form::label('deleted_at', 'Deleted At:') !!}
+{!! $stock->deleted_at !!}<br>
 
 
