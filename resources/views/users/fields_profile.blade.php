@@ -48,7 +48,7 @@
 @push('scripts')
 <script>
     $(function () {
-        $("#rols").select2();
+        $("#role").select2();
 
         var $input = $("#files");
         $input.fileinput({

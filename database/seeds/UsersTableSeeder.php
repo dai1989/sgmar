@@ -30,8 +30,8 @@ class UsersTableSeeder extends Seeder
         ]);
 
         //asigna todos los roles al usuario 1
-        User::findOrFail(1)->rols()->sync([
-            1,2,3
+        User::findOrFail(1)->role()->sync([
+            1
         ]);
     }
 }

@@ -6,7 +6,7 @@ use App\Models\Rol;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class RolDataTable extends DataTable
+class RoleDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class RolDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'rols.datatables_actions');
+        return $dataTable->addColumn('action', 'roles.datatables_actions');
     }
 
     /**
@@ -62,7 +62,9 @@ class RolDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'descripcion'
+            'name',
+            'slug',
+            'description',
         ];
     }
 
@@ -73,6 +75,6 @@ class RolDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'rolsdatatable_' . time();
+        return 'roledatatable_' . time();
     }
 }

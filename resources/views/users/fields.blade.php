@@ -18,11 +18,11 @@
 
 <!-- Rols Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('rols', 'Roles:') !!}
-    <select name="rols[]" id="rols" class="form-control" multiple="multiple">
+    {!! Form::label('roles', 'Roles:') !!}
+    <select name="roles[]" id="roles" class="form-control" multiple="multiple">
         <option value=""> -- Select One -- </option>
-        @foreach($rols as $rol)
-            <option value="{{$rol->id}}" {{ in_array($rol->id,$rolsUser) ? "selected" : ""}}>{{$rol->descripcion}}</option>
+        @foreach($roles as $role)
+            <option value="{{$role->id}}">{{$role->name}}</option>
         @endforeach
     </select>
 </div>
@@ -68,7 +68,7 @@
 @push('scripts')
 <script>
     $(function () {
-        $("#rols").select2();
+        $("#roles").select2();
 
         var $input = $("#files");
         $input.fileinput({

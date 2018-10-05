@@ -17,6 +17,7 @@ class CreateTableTipoContactos extends Migration
             $table->increments('id');
              $table->string('contacto_descripcion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

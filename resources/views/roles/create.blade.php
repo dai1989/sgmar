@@ -1,9 +1,13 @@
 @extends('adminlte::layouts.app')
 
+@section('htmlheader_title')
+	Crear Role
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
-            Rol
+            Crear Role
         </h1>
     </section>
     <div class="content">
@@ -12,9 +16,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'rols.store']) !!}
+                    {!! Form::open(['route' => 'roles.store']) !!}
 
-                        @include('rols.fields')
+                        @include('roles.fields')
 
                     {!! Form::close() !!}
                 </div>

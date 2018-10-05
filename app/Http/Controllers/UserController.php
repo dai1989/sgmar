@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\UserDataTable;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\Rol;
+use App\Models\Role;
 use App\Models\Uimage;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -45,10 +45,10 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        $rols = Rol::all();
-        $rolsUser= [];
+        $roles = Role::all();
+        $rolesUser= [];
         $create =1;
-        return view('users.create',compact('rols','rolsUser','create'));
+        return view('users.create',compact('roles','rolesUser','create'));
     }
 
     /**
@@ -65,8 +65,8 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->create($input);
 
-        if($user && $request->rols){
-            $user->rols()->sync($request->rols);
+        if($user && $request->roles){
+           
         }
 
         if ($user && $request->imagen){
@@ -115,10 +115,10 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $rols = Rol::all();
-        $rolsUser = array_pluck($user->rols->toArray(),"id");
+        $user = User::find($id);
+        $roles = Role::get();
 
-        return view('users.edit',compact('user','rolsUser','rols'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -152,8 +152,8 @@ class UserController extends AppBaseController
 
         $user->save();
 
-        $rols = $request->rols ? $request->rols : [];
-        $user->rols()->sync($rols);
+        $roles = $request->roles ? $request->roles : [];
+        $user->role()->sync($roles);
 
         if ($user && $request->imagen){
             $this->saveImage($user,$request);

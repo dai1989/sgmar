@@ -105,7 +105,7 @@ Route::get('user/profile/{user}', 'UserController@editProfile')->name('user.edit
 Route::patch('user/profile/{user}', 'UserController@updateProfile')->name('user.update.profile');;
 
 Route::resource('admin/configurations', 'ConfigurationController');
-Route::resource('admin/rols', 'RolController');
+Route::resource('admin/roles', 'RoleController');
 Route::resource('admin/users', 'UserController');
 Route::get('/admin/user/{user}/menu', 'UserController@menu')->name('user.menu');;
 Route::patch('/admin/user/menu/{user}', 'UserController@menuStore')->name('users.menuStore');
@@ -135,3 +135,6 @@ Route::resource('clientes', 'ClienteController');
 
 Route::resource('stock', 'StockController');
 
+
+
+Route::resource('roles', 'RoleController');

@@ -10,7 +10,9 @@ class Rol extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      "descripcion"
+      "name",
+      "slug",
+      "description",
     ];
 
     public function usuarios(){

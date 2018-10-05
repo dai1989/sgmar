@@ -21,6 +21,7 @@ class CreateTableStock extends Migration
             $table->integer('cantidad_actual');
             $table->integer('cantidad_minima');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,17 +18,14 @@ class CreateTableProductos extends Migration
             $table->string('codigo',100);
             $table->string ('descripcion', 100);
             $table->string ('precio_venta', 100);
-        
-             
+            $table->string('barcode')->unique();
             $table->integer ('marca_id')->unsigned();
             $table->foreign ('marca_id')->references('id')->on('marcas');
              $table->integer ('categoria_id')->unsigned();
             $table->foreign ('categoria_id')->references('id')->on('categorias')
             ->onUpdate('cascade')->onDelete('cascade');
-            
-            
-           
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
