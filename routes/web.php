@@ -137,3 +137,6 @@ Route::get('/invoice/findPersona', 'InvoiceController@findPersona');
 Route::get('/invoice/findProducto', 'InvoiceController@findProducto');
 Route::post('/invoice/save', 'InvoiceController@save');
 
+
+
+Route::resource('contactos', 'ContactoController');

@@ -11,18 +11,18 @@
         position: absolute;
         left: 0;
         top: 0;
-        background: url("{{asset('/img/fondo_login.png')}}") no-repeat;
+        background: url("{{asset('/img/harley_davidson.jpg')}}") no-repeat;
         background-size: cover;
         -moz-background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
         width: 100%;
         height: 100%;
-        -webkit-filter: blur(5px);
-        -moz-filter: blur(5px);
+        
+        /*-moz-filter: blur(5px);
         -o-filter: blur(5px);
         -ms-filter: blur(5px);
-        filter: blur(5px);
+        filter: blur(5px);*/
 
     }
 </style>
@@ -35,7 +35,7 @@
 
         <dvi class="row">
             <div class="col-md-4 col-md-offset-4">
-                <div class="panel panel-primary" style="margin-top: 100px">
+                <div class="panel panel-info" style="margin-top: 100px">
                     <div class="panel-heading">
                         <h2 class="panel-title text-bold">
                             <a href="{{ url('/home') }}"><b>{{config('app.nombre_negocio')}}</b></a>
