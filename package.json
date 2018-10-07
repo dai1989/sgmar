@@ -47,6 +47,7 @@
   "license": "ISC",
   "dependencies": {
     "jsbarcode": "^3.11.0",
-    "vue-barcode": "^1.1.0"
+    "vue-barcode": "^1.1.0",
+    "vue-select": "^2.5.1"
   }
 }

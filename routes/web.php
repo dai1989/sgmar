@@ -125,16 +125,15 @@ Route::get('prueba/pdf', function (\App\Extensiones\Fpdf $fpdf) {
 
 Route::resource('clientes', 'ClienteController');
 
-
-
-
-
-
-
-
-
 Route::resource('stock', 'StockController');
 
-
-
 Route::resource('roles', 'RoleController');
+
+Route::get('/invoice', 'InvoiceController@index');
+Route::get('/invoice/add', 'InvoiceController@add');
+Route::get('/invoice/detail/{id}', 'InvoiceController@detail');
+Route::get('/invoice/pdf/{id}', 'InvoiceController@pdf');
+Route::get('/invoice/findPersona', 'InvoiceController@findPersona');
+Route::get('/invoice/findProducto', 'InvoiceController@findProducto');
+Route::post('/invoice/save', 'InvoiceController@save');
+

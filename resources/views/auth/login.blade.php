@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.auth')
 
 @section('htmlheader_title')
-    Log in
+    SGMAR
 @endsection
 
 @push('css')

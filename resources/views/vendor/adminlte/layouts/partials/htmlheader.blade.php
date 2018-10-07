@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="{{ asset('bower/bootstrap-toggle/css/bootstrap-toggle.min.css') }}">
     {{--<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">--}}
 
-    <link rel="stylesheet" href="{{asset("/bower/toastr/toastr.min.css")}}">
+    <link rel="stylesheet" href="{{asset('/bower/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css')}}">
 
     <!--App css -->
     <style>

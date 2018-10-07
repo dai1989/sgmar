@@ -46,6 +46,18 @@
 <script>
     $('div.alert').not('.alert-important').delay({{config('app.delay_fade_out_div_alert',3000)}}).fadeOut(350);
 </script>
+ <script src="{{asset('ini.js')}}"></script>
+    <script src="{{asset('bower_components/riot/riot.min.js')}}"></script>
+    <script src="{{asset('bower_components/riot/riot+compiler.min.js')}}"></script>
+    <script src="{{asset('bower_components/EasyAutocomplete//dist/jquery.easy-autocomplete.min.js')}}"></script>
+
+    @yield('bottom')
+
+    <script>
+        function baseUrl(url) {
+            return '{{url('')}}/' + url;
+        }
+    </script>
 
 
 

@@ -2,38 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\Producto;
-use InfyOm\Generator\Common\BaseRepository;
+use App\Models\Producto    ;
 
-/**
- * Class ProductoRepository
- * @package App\Repositories
- * @version October 3, 2018, 8:09 pm -03
- *
- * @method Producto findWithoutFail($id, $columns = ['*'])
- * @method Producto find($id, $columns = ['*'])
- * @method Producto first($columns = ['*'])
-*/
-class ProductoRepository extends BaseRepository
-{
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'codigo',
-        'descripcion',
-        'precio_venta',
-        'stock',
-        'condicion',
-        'marca_id',
-        'categoria_id'
-    ];
+class ProductoRepository {
+    private $model;
+    
+    public function __construct(){
+        $this->model = new Producto();
+    }
 
-    /**
-     * Configure the Model
-     **/
-    public function model()
-    {
-        return Producto::class;
+    public function findByDescripcion($q) {
+        return $this->model->where('descripcion', 'like', "%$q%")
+                           ->get();
     }
 }

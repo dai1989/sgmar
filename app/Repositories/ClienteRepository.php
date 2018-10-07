@@ -3,32 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Cliente;
-use InfyOm\Generator\Common\BaseRepository;
 
-/**
- * Class ClienteRepository
- * @package App\Repositories
- * @version October 3, 2018, 3:28 am -03
- *
- * @method Cliente findWithoutFail($id, $columns = ['*'])
- * @method Cliente find($id, $columns = ['*'])
- * @method Cliente first($columns = ['*'])
-*/
-class ClienteRepository extends BaseRepository
-{
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'persona_id',
-        'activo'
-    ];
+class ClienteRepository {
+    private $model;
+    
+    public function __construct(){
+        $this->model = new Cliente();
+    }
 
-    /**
-     * Configure the Model
-     **/
-    public function model()
-    {
-        return Cliente::class;
+    public function findByNombre($q) {
+        return $this->model->where('nombre', 'like', "%$q%")
+                           ->get();
     }
 }
