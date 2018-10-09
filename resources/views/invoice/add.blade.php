@@ -1,5 +1,5 @@
 @extends('adminlte::layouts.app')
-
+{{ session("mensaje") }} 
 @section('content')
 <div class="container">
     <div class="row">

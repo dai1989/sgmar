@@ -137,8 +137,8 @@
                 total += e.total;
             });
 
-            self.total = total + self.iva;
-            self.subTotal = parseFloat(total + self.iva);
+            self.total = total * 0.21 + total;
+            self.subTotal = parseFloat(total * 0.21 + total);
             self.iva = parseFloat(total * 21 / 100);
         }
 

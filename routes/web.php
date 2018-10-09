@@ -115,13 +115,7 @@ Route::get('/admin/option/orden', 'OptionMenuController@updateOrden');
 Route::post('/admin/option/orden', 'OptionMenuController@updateOrden');
 Route::resource('/admin/option',"OptionMenuController");
 
-Route::get('prueba/pdf', function (\App\Extensiones\Fpdf $fpdf) {
-    $fpdf->AddPage();
-    $fpdf->SetFont('Courier', 'B', 18);
-    $fpdf->Cell(50, 25, 'Hello World!');
-    $fpdf->Output();
-    exit();
-});
+
 
 Route::resource('clientes', 'ClienteController');
 
@@ -140,3 +134,11 @@ Route::post('/invoice/save', 'InvoiceController@save');
 
 
 Route::resource('contactos', 'ContactoController');
+
+	//FACTURA COMPRA
+	Route::resource("factura_compra", "FacturaCompraController");
+	Route::post('factura_compra/{factura_compra_id}/detalle/store', 'FacturaCompraController@detalleaddstore');
+	Route::get('factura_compra/{id}/detalle/add', 'FacturaCompraController@detalleadd');
+	Route::get('factura_compra/detalle/delete/{detalle_id}', 'FacturaCompraController@detalledelete');
+
+Route::resource('proveedores', 'ProveedorController');

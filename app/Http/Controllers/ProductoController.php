@@ -37,11 +37,10 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        $this->productoRepository->pushCriteria(new RequestCriteria($request));
-        $productos = $this->productoRepository->all();
+        $productos= Producto::all(); 
 
-        return view('productos.index')
-            ->with('productos', $productos);
+        return view('productos.index',["productos"=>$productos]);
+            
 
     }
 
@@ -70,8 +69,7 @@ class ProductoController extends Controller
      
       $descripcion = $request->input ("Descripcion");
       $precio_venta = $request->input("PrecioVenta");
-    
-     
+      $stock = $request->input("stock");
       $barcode = $request->input("barcode");
       $marca = $request->input("Marca");
       $categoria = $request->input("Categoria");
@@ -80,8 +78,7 @@ class ProductoController extends Controller
           
           'Descripcion' => 'required',
           'PrecioVenta' => 'required',
-         
-         
+          'stock' => 'required',
           'Marca' => 'required',
           'Categoria' => 'required',
           'barcode' => 'required',
@@ -92,8 +89,7 @@ class ProductoController extends Controller
     
       $producto->descripcion =$descripcion;
       $producto->precio_venta =$precio_venta; 
-      
-      
+      $producto->stock =$stock; 
       $producto->barcode =$barcode; 
       $producto->marca_id = $marca;
       $producto->categoria_id = $categoria;
@@ -162,8 +158,7 @@ class ProductoController extends Controller
      
       $descripcion = $request->input ("Descripcion");
       $precio_venta = $request->input("PrecioVenta");
-    
-     
+      $stock = $request->input("stock");
       $barcode = $request->input("barcode");
       $marca = $request->input("Marca");
       $categoria = $request->input("Categoria");
@@ -175,8 +170,7 @@ class ProductoController extends Controller
       
       $productos->descripcion =$descripcion;
       $productos->precio_venta =$precio_venta;
-    
-    
+      $productos->stock =$stock;
       $producto->barcode =$barcode; 
       $productos->marca_id = $marca;
       $productos->categoria_id = $categoria;
@@ -196,15 +190,12 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        $producto = $this->productoRepository->findWithoutFail($id);
-
-        if (empty($producto)) {
-            Flash::error('Producto not found');
-
-            return redirect(route('productos.index'));
-        }
-
-        $this->productoRepository->delete($id);
+        $productos = Producto::find($id);
+        
+        $productos->delete();
+        
+        
+        
 
         Flash::success('Producto deleted successfully.');
 

@@ -22,7 +22,7 @@ class CreateTableContactos extends Migration
             $table->foreign('tipocontacto_id')->references('id')->on('tipo_contactos')
             ->onUpdate('cascade')->onDelete('cascade');
             
-            $table->string('contacto_descripcion', 50)->nullable();
+            $table->string('contac_descripcion', 50)->nullable();
             $table->timestamps();
         });
     }

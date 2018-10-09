@@ -15,6 +15,11 @@
     <label for="PrecioVenta">Precio de Venta</label>
     <input type="text" class="form-control" id="PrecioVenta" name="PrecioVenta" placeholder="precio">
 </div>
+<!-- Stock Field -->
+<div class="form-group col-sm-6">
+    <label for="stock">Stock</label>
+    <input type="text" class="form-control" id="stock" name="stock" placeholder="stock">
+</div>
 
 
 

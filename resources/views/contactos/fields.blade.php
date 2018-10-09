@@ -22,8 +22,8 @@
 
 <!-- Contacto Descripcion Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contacto_descripcion', 'Contacto Descripcion:') !!}
-    {!! Form::text('contacto_descripcion', null, ['class' => 'form-control']) !!}
+    {!! Form::label('contac_descripcion', 'Contacto Descripcion:') !!}
+    {!! Form::text('contac_descripcion', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

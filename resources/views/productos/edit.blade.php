@@ -33,7 +33,11 @@
                     <label for="PrecioVenta">Precio de Venta</label>
                     <input type="text" class="form-control" id="PrecioVenta" name="PrecioVenta" value="{{$productos->precio_venta}}" placeholder="precio">
                   </div>
-                  
+                   <!-- Stock Field -->
+                  <div class="form-group col-sm-6">
+                    <label for="stock">Stock</label>
+                    <input type="text" class="form-control" id="stock" name="stock" value="{{$productos->stock}}" placeholder="stock">
+                  </div>
                   <!-- Marca Id Field -->
                   <div class="form-group col-sm-6">
                     <label for="Marca">Marcas</label>

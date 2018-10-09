@@ -6,14 +6,15 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Contacto
+ * Class Proveedor
  * @package App\Models
- * @version October 7, 2018, 4:39 pm -03
+ * @version October 9, 2018, 5:58 pm -03
  *
- * @property \App\Models\Persona persona
- * @property \App\Models\TipoContacto tipoContacto
- * @property \Illuminate\Database\Eloquent\Collection contactoProveedores
+ * @property \Illuminate\Database\Eloquent\Collection ContactoProveedore
+ * @property \Illuminate\Database\Eloquent\Collection contactos
+ * @property \Illuminate\Database\Eloquent\Collection FacturaCompra
  * @property \Illuminate\Database\Eloquent\Collection facturaDetalles
+ * @property \Illuminate\Database\Eloquent\Collection facturacompraDetalles
  * @property \Illuminate\Database\Eloquent\Collection invoiceItems
  * @property \Illuminate\Database\Eloquent\Collection optionUser
  * @property \Illuminate\Database\Eloquent\Collection permissionRole
@@ -21,15 +22,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Database\Eloquent\Collection productos
  * @property \Illuminate\Database\Eloquent\Collection rolUser
  * @property \Illuminate\Database\Eloquent\Collection roleUser
- * @property integer persona_id
- * @property integer tipocontacto_id
- * @property string contacto_descripcion
+ * @property string razon_social
+ * @property string cuit
  */
-class Contacto extends Model
+class Proveedor extends Model
 {
     use SoftDeletes;
 
-    public $table = 'contactos';
+    public $table = 'proveedores';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -39,9 +39,8 @@ class Contacto extends Model
 
 
     public $fillable = [
-        'persona_id',
-        'tipocontacto_id',
-        'contac_descripcion'
+        'razon_social',
+        'cuit'
     ];
 
     /**
@@ -51,9 +50,8 @@ class Contacto extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'persona_id' => 'integer',
-        'tipocontacto_id' => 'integer',
-        'contac_descripcion' => 'string'
+        'razon_social' => 'string',
+        'cuit' => 'string'
     ];
 
     /**
@@ -66,18 +64,18 @@ class Contacto extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function persona()
+    public function contactoProveedores()
     {
-        return $this->belongsTo(\App\Models\Persona::class);
+        return $this->hasMany(\App\Models\ContactoProveedore::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function tipoContacto()
+    public function facturaCompras()
     {
-        return $this->belongsTo(\App\Models\TipoContacto::class);
+        return $this->hasMany(\App\Models\FacturaCompra::class);
     }
 }

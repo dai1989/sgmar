@@ -11,8 +11,8 @@
     @foreach($contactos as $contacto)
         <tr>
             <td>{!! $contacto->persona->nombre !!}, {{$contacto->persona->apellido}}</td>
-            <td>{!! $contacto->tipocontacto_id !!}</td>
-            <td>{!! $contacto->contacto_descripcion !!}</td>
+            <td>{!! $contacto->tipocontacto_id!!}</td>
+            <td>{!! $contacto->contac_descripcion !!}</td>
             <td>
                 {!! Form::open(['route' => ['contactos.destroy', $contacto->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
