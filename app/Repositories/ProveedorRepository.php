@@ -2,33 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\Proveedor;
-use InfyOm\Generator\Common\BaseRepository;
+use App\Models\Proveedor    ;
 
-/**
- * Class ProveedorRepository
- * @package App\Repositories
- * @version October 9, 2018, 5:58 pm -03
- *
- * @method Proveedor findWithoutFail($id, $columns = ['*'])
- * @method Proveedor find($id, $columns = ['*'])
- * @method Proveedor first($columns = ['*'])
-*/
-class ProveedorRepository extends BaseRepository
-{
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'razon_social',
-        'cuit'
-    ];
+class ProveedorRepository {
+    private $model;
+    
+    public function __construct(){
+        $this->model = new Proveedor();
+    }
 
-    /**
-     * Configure the Model
-     **/
-    public function model()
-    {
-        return Proveedor::class;
+    public function findByrazon_social($q) {
+        return $this->model->where('razon_social', 'like', "%$q%")
+                           ->get();
     }
 }

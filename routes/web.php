@@ -135,10 +135,11 @@ Route::post('/invoice/save', 'InvoiceController@save');
 
 Route::resource('contactos', 'ContactoController');
 
-	//FACTURA COMPRA
-	Route::resource("factura_compra", "FacturaCompraController");
-	Route::post('factura_compra/{factura_compra_id}/detalle/store', 'FacturaCompraController@detalleaddstore');
-	Route::get('factura_compra/{id}/detalle/add', 'FacturaCompraController@detalleadd');
-	Route::get('factura_compra/detalle/delete/{detalle_id}', 'FacturaCompraController@detalledelete');
+
 
 Route::resource('proveedores', 'ProveedorController');
+
+Route::resource('factura_compra', 'FacturaCompraController');
+
+
+

@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Categoria;
+use App\Models\FacturaCompra;
 
-class CreateCategoriaRequest extends FormRequest
+class UpdateFacturaCompraRequest extends FormRequest
 {
 
     /**
@@ -23,13 +23,11 @@ class CreateCategoriaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-          return [
-            
-            'categoria_descripcion'     => 'required|unique:categorias'
-           
-            
-        ];
+    public function rules(){
+        $id = $this->facturaCompra;
+        $rules = FacturaCompra::$rules;
+        //$rules['campo'] = $rules['campo'] . ',campo,' . $id;
+
+        return $rules;
     }
 }

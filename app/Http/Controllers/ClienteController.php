@@ -38,9 +38,9 @@ class ClienteController extends Controller
       $genero = $request->input("Genero");
       /*$tipo_documento = $request->input("cboTipoDocumento");*/
        request()->validate ([
-          'Nombre' => 'required',
-          'Apellido' => 'required',
-          'Documento' => 'required',
+          'Nombre' => 'required|unique:personas',
+          'Apellido' => 'required|unique:personas',
+          'Documento' => 'required|unique:personas',
           'FechaNacimiento' => 'required',
           'Genero' => 'required',
 

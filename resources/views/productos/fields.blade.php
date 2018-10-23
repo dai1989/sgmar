@@ -3,7 +3,6 @@
      <unique-barcode-input>
                         </unique-barcode-input>
 </div>
-  
 <!-- Descripcion Field -->
 <div class="form-group col-sm-6">
    <label for="Descripcion">Descripcion del producto</label>
