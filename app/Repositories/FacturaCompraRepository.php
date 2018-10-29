@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\FacturaCompra;
-use App\Models\DetalleFacturaCompra;
-use App\InvoiceItem;
+use App\Models\FacturaCompraDetalle;
+
 use DB;
 
 class FacturaCompraRepository {
@@ -30,9 +30,9 @@ class FacturaCompraRepository {
         try {
             DB::beginTransaction();
 
-            $this->model->fac_numero = $data->fac_numero; 
-            $this->model->fac_tipo = $data->fac_tipo;
-            $this->model->fac_fecha = $data->fac_fecha;
+            $this->model->iva = $data->iva;
+            $this->model->subTotal = $data->subTotal;
+            $this->model->total = $data->total;
             $this->model->proveedor_id = $data->proveedor_id;
             $this->model->user_id = $data->user_id;
             $this->model->tipopago_id = $data->tipopago_id;
@@ -41,12 +41,12 @@ class FacturaCompraRepository {
 
             $detail = [];
             foreach($data->detail as $d) {
-                $obj = new DetalleFacturaCompra;
+                $obj = new FacturaCompraDetalle;
 
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
                 $obj->precio_compra = $d->precio_compra;
-                
+                $obj->total = $d->total;
 
                 $detail[] = $obj;
             }

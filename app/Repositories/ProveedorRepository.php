@@ -11,7 +11,7 @@ class ProveedorRepository {
         $this->model = new Proveedor();
     }
 
-    public function findByrazon_social($q) {
+    public function findByrazonsocial($q) {
         return $this->model->where('razon_social', 'like', "%$q%")
                            ->get();
     }

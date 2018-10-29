@@ -131,6 +131,13 @@ Route::get('/invoice/findPersona', 'InvoiceController@findPersona');
 Route::get('/invoice/findProducto', 'InvoiceController@findProducto');
 Route::post('/invoice/save', 'InvoiceController@save');
 
+Route::get('/factura_compra', 'FacturaCompraController@index');
+Route::get('/factura_compra/add', 'FacturaCompraController@add');
+Route::get('/factura_compra/detail/{id}', 'FacturaCompraController@detail');
+Route::get('/factura_compra/pdf/{id}', 'FacturaCompraController@pdf');
+Route::get('/factura_compra/findPersona', 'FacturaCompraController@findPersona');
+Route::get('/factura_compra/findProducto', 'FacturaCompraController@findProducto');
+Route::post('/factura_compra/save', 'FacturaCompraController@save');
 
 
 Route::resource('contactos', 'ContactoController');
@@ -139,7 +146,7 @@ Route::resource('contactos', 'ContactoController');
 
 Route::resource('proveedores', 'ProveedorController');
 
-Route::resource('factura_compra', 'FacturaCompraController');
+
 
 
 
