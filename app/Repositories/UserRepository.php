@@ -5,33 +5,15 @@ namespace App\Repositories;
 use App\Models\User;
 use InfyOm\Generator\Common\BaseRepository;
 
-/**
- * Class UserRepository
- * @package App\Repositories
- * @version September 28, 2017, 5:47 pm CST
- *
- * @method User findWithoutFail($id, $columns = ['*'])
- * @method User find($id, $columns = ['*'])
- * @method User first($columns = ['*'])
-*/
-class UserRepository extends BaseRepository
-{
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'username',
-        'name',
-        'email',
-        'password',
-        'remember_token'
-    ];
+class UserRepository {
+    private $model;
+    
+    public function __construct(){
+        $this->model = new User();
+    }
 
-    /**
-     * Configure the Model
-     **/
-    public function model()
-    {
-        return User::class;
+    public function findByName($q) {
+        return $this->model->where('name', 'like', "%$q%")
+                           ->get();
     }
 }

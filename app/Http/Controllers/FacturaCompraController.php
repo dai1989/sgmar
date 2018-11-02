@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Repositories\ProductoRepository;
 use App\Repositories\UserRepository;
 use App\Models\TipoPago;
+use App\Models\Proveedor;
+use App\User;
 use Illuminate\Http\Request,
     App\Repositories\ProveedorRepository,
     App\Repositories\FacturaCompraRepository,
@@ -61,7 +63,10 @@ class FacturaCompraController extends Controller
 
     public function add()
     {
-        return view('factura_compra.add');
+      $proveedores_list = Proveedor::all();
+      $users_list = User::all();
+      $tipopagos_list = TipoPago::all();
+        return view('factura_compra.add',['proveedores_list'=>$proveedores_list,'users_list'=>$users_list,'tipopagos_list'=>$tipopagos_list]);
     }
 
     public function save(Request $req)

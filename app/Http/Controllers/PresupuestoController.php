@@ -2,72 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ProductoRepository;
 use Illuminate\Http\Request,
-    App\Repositories\PersonaRepository,
-    App\Repositories\InvoiceRepository,
-    App\Http\Requests;
-    use Barryvdh\DomPDF\Facade as PDF;
-    use App\User;
+ App\Http\Requests;
+use App\Repositories\ProductoRepository;
+use App\Repositories\PersonaRepository;
+use App\Repositories\PresupuestoRepository;
+use App\Repositories\UserRepository;
+use App\User;
+use App\Models\Persona;
 
-class InvoiceController extends Controller
+use App\Models\Producto;
+use App\Models\Presupuesto;
+use App\Models\PresupuestoDetalle;
+use App\Models\Stock;
+use Barryvdh\DomPDF\Facade as PDF;
+
+class PresupuestoController extends Controller
 {
     private $_personaRepo;
     private $_productoRepo;
-    private $_invoiceRepo;
+    private $_userRepo;
+    private $_presupuestoRepo;
 
     public function __CONSTRUCT(
         PersonaRepository $personaRepo,
         ProductoRepository $productoRepo,
-        InvoiceRepository $invoiceRepo
+        UserRepository $userRepo,
+        PresupuestoRepository $presupuestoRepo
     )
     {
         $this->_personaRepo = $personaRepo;
         $this->_productoRepo = $productoRepo;
-        $this->_invoiceRepo = $invoiceRepo;
+        $this->_userRepo = $userRepo;
+        $this->_presupuestoRepo = $presupuestoRepo;
     }
 
     public function index()
     {
         return view(
-            'invoice.index', [
-                'model' => $this->_invoiceRepo->getAll()
+            'presupuesto.index', [
+                'model' => $this->_presupuestoRepo->getAll()
             ]
         );
     }
 
     public function detail($id)
     {
-        return view('invoice.detail', [
-            'model' => $this->_invoiceRepo->get($id)
+        return view('presupuesto.detail', [
+            'model' => $this->_presupuestoRepo->get($id)
         ]);
     }
 
     public function pdf($id)
     {
-        $model = $this->_invoiceRepo->get($id);
-        $invoice_name = sprintf('comprobante-%s.pdf', str_pad ($model->id, 7, '0', STR_PAD_LEFT));
+        $model = $this->_presupuestoRepo->get($id);
+        $presupuesto_name = sprintf('comprobante-%s.pdf', str_pad ($model->id, 7, '0', STR_PAD_LEFT));
 
-        $pdf = PDF::loadView('invoice.pdf', [
+        $pdf = PDF::loadView('presupuesto.pdf', [
             'model' => $model
         ]);
 
-        return $pdf->download($invoice_name);
+        return $pdf->download($presupuesto_name);
     }
     
 
     public function add()
     {
-        return view('invoice.add');
+        return view('presupuesto.add');
     }
 
     public function save(Request $req)
     {
         $data = (object)[
+          
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
             'persona_id' => $req->input('persona_id'),
+            'user_id' => $req->input('user_id'),
             'detail' => []
         ];
 
@@ -80,7 +92,7 @@ class InvoiceController extends Controller
             ];
         }
 
-        return $this->_invoiceRepo->save($data); 
+        return $this->_presupuestoRepo->save($data); 
     }
 
     public function findPersona(Request $req)
@@ -93,5 +105,10 @@ class InvoiceController extends Controller
     {
         return $this->_productoRepo
                     ->findByDescripcion($req->input('q'));
+    }
+     public function findUser(Request $req)
+    {
+        return $this->_userRepo
+                    ->findByName($req->input('q'));
     }
 }
