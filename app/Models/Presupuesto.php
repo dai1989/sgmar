@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Presupuesto extends Model
 {
-
-     protected $table = 'presupuestos';
-
-    public function producto()
+	protected $table = 'presupuesto';
+    public function detail(){
+        return $this->hasMany('App\Models\PresupuestoDetalle');
+    }
+    public function persona(){
+        return $this->belongsTo('App\Models\Persona');
+    }
+     public function user()
     {
-        return $this->hasMany(PresupuestoDetalle::class);
+        return $this->belongsTo('App\User');
     }
 }

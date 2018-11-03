@@ -75,7 +75,7 @@ class ProveedorController extends AppBaseController
         if (empty($proveedor)) {
             Flash::error('Proveedor no encontrado');
 
-            return redirect(route('proveedors.index'));
+            return redirect(route('proveedores.index'));
         }
 
         return view('proveedores.show')->with('proveedor', $proveedor);

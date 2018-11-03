@@ -29,8 +29,7 @@ class PresupuestoRepository {
         try {
             DB::beginTransaction();
 
-            $this->model->presupuesto_no = $data->presupuesto_no;
-            $this->model->presupuesto_fecha = $data->presupuesto_fecha;
+          
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;

@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Proveedor
  * @package App\Models
- * @version October 9, 2018, 5:58 pm -03
+ * @version November 3, 2018, 7:26 pm -03
  *
  * @property \Illuminate\Database\Eloquent\Collection ContactoProveedore
  * @property \Illuminate\Database\Eloquent\Collection contactos
  * @property \Illuminate\Database\Eloquent\Collection FacturaCompra
- * @property \Illuminate\Database\Eloquent\Collection facturaDetalles
  * @property \Illuminate\Database\Eloquent\Collection facturacompraDetalles
  * @property \Illuminate\Database\Eloquent\Collection invoiceItems
  * @property \Illuminate\Database\Eloquent\Collection optionUser
  * @property \Illuminate\Database\Eloquent\Collection permissionRole
  * @property \Illuminate\Database\Eloquent\Collection permissionUser
+ * @property \Illuminate\Database\Eloquent\Collection presupuesto
+ * @property \Illuminate\Database\Eloquent\Collection presupuestoDetalles
  * @property \Illuminate\Database\Eloquent\Collection productos
- * @property \Illuminate\Database\Eloquent\Collection rolUser
  * @property \Illuminate\Database\Eloquent\Collection roleUser
  * @property string razon_social
  * @property string cuit

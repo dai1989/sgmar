@@ -10,7 +10,6 @@ use App\Repositories\PresupuestoRepository;
 use App\Repositories\UserRepository;
 use App\User;
 use App\Models\Persona;
-
 use App\Models\Producto;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetalle;
@@ -77,6 +76,7 @@ class PresupuestoController extends Controller
           
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
+            'presupuesto_fecha' => $req->input('presupuesto_fecha'),
             'total' => $req->input('total'),
             'persona_id' => $req->input('persona_id'),
             'user_id' => $req->input('user_id'),
@@ -106,9 +106,5 @@ class PresupuestoController extends Controller
         return $this->_productoRepo
                     ->findByDescripcion($req->input('q'));
     }
-     public function findUser(Request $req)
-    {
-        return $this->_userRepo
-                    ->findByName($req->input('q'));
-    }
+    
 }

@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>Categoria Descripcion</th>
-            <th colspan="3">Action</th>
+            <th colspan="3">Accion</th>
         </tr>
     </thead>
     <tbody>

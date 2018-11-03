@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Comprobante # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
+                Factura # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
             </h2>
 
             <div class="well well-sm">

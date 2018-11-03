@@ -2,9 +2,9 @@
     <thead>
         <tr>
             <th>Cliente</th>
-        <th>Tipo de contacto</th>
-        <th>Descripcion</th>
-            <th colspan="3">Action</th>
+            <th>Tipo de contacto</th>
+            <th>Descripcion</th>
+            <th colspan="3">Accion</th>
         </tr>
     </thead>
     <tbody>

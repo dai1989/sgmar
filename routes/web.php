@@ -158,3 +158,6 @@ Route::resource('proveedores', 'ProveedorController');
 
 
 
+
+
+Route::resource('proveedors', 'ProveedorController');

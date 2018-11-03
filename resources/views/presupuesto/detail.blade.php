@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Comprobante # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
+                Presupuesto # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
             </h2>
 
             <div class="well well-sm">
@@ -16,9 +16,7 @@
                     <div class="col-xs-2">
                         <input class="form-control" type="text" readonly value={{ $model->persona->documento }} />
                     </div>
-                      <div class="col-xs-2">
-                        <input class="form-control" type="text" readonly value={{ $model->user->name }} />
-                    </div>
+                   
                    
                 </div>
             </div>

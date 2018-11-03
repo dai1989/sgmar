@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Presupuesto</title>
+    <title>Reporte de presupuesto</title>
     <style>
         body {
         /*position: relative;*/
@@ -162,7 +162,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$model->user->name}}</td>
+                            <td>{{$user->name}}</td>
                             <td>{{$model->created_at}}</td>
                         </tr>
                     </tbody>

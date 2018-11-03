@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Comprobantes
+                Facturas
             </h2>
 
-            <a class="btn btn-default btn-lg btn-block" href="{{url('factura_compra/add')}}">Nuevo comprobante</a>
+            <a class="btn btn-default btn-lg btn-block" href="{{url('factura_compra/add')}}">Nuevo Factura</a>
 
             <table class="table table-striped">
                 <thead>

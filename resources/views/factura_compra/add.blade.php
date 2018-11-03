@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Nuevo comprobante
+                Nueva Factura de Compra
             </h2>
 
             <facturacompra></facturacompra>
