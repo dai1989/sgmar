@@ -50,7 +50,7 @@ class ContactoController extends AppBaseController
     {
 
       $personas = Persona::all();
-      $tipocontactos=TipoContacto::all();
+      $tipocontactos=TipoContacto::all(); 
 
       return view("contactos.create", ["personas"=>$personas,"tipocontactos"=>$tipocontactos]);
         
