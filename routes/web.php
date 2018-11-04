@@ -161,3 +161,5 @@ Route::resource('proveedores', 'ProveedorController');
 
 
 Route::resource('proveedors', 'ProveedorController');
+
+Route::resource('autorizacionCtaCtes', 'AutorizacionCtaCteController');
