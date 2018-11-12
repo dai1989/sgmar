@@ -15,11 +15,14 @@ class CreateTableCuentaCtes extends Migration
     {
         Schema::create('cuenta_ctes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
+           
             $table->timestamps();
         });
     }

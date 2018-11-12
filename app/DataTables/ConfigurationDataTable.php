@@ -49,10 +49,7 @@ class ConfigurationDataTable extends DataTable
                 'responsive'   => true,
                 'language' => ['url' => asset('plugins/DataTables/Spanish.json')],
                 'buttons' => [
-                    'export',
-                    'print',
-                    'reset',
-                    'reload',
+                   
                 ],
             ]);
     }

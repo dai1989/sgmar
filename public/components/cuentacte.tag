@@ -18,9 +18,6 @@
         <div class="col-xs-2">
             <input id="cantidad" class="form-control" type="text" placeholder="Cantidad" />
         </div>
-         <div class="col-xs-2">
-            <input id="entrega" class="form-control" type="text" placeholder="entrega" />
-        </div>
         <div class="col-xs-2">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">S/.</span>
@@ -42,7 +39,6 @@
             <th style="width:40px;"></th>
             <th>Producto</th>
             <th style="width:100px;">Cantidad</th>
-            <th style="width:100px;">entrega</th>
             <th style="width:100px;">P.U</th>
             <th style="width:100px;">Total</th>
         </tr>
@@ -54,7 +50,6 @@
             </td>
             <td>{descripcion}</td>
             <td class="text-right">{cantidad}</td>
-            <td class="text-right">{entrega}</td>
             <td class="text-right">$ {precio_venta}</td>
             <td class="text-right">$ {total}</td>
         </tr>
@@ -76,7 +71,7 @@
     </table>
 
     <button if={detail.length > 0 && persona_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
-        Generar
+        Guardar
     </button>
 
     <script>
@@ -107,9 +102,8 @@
                 id: self.producto_id,
                 descripcion: self.producto.value,
                 cantidad: parseFloat(self.cantidad.value),
-                entrega: parseFloat(self.entrega.value),
                 precio_venta: parseFloat(self.precio_venta),
-                total: parseFloat(self.precio_venta * self.cantidad.value - self.entrega.value)
+                total: parseFloat(self.precio_venta * self.cantidad.value)
             });
 
             self.producto_id = 0;
@@ -121,16 +115,15 @@
         }
 
         __save() {
-            $.post(baseUrl('cuenta_cte/save'), {
+            $.post(baseUrl('cuentacte/save'), {
                 persona_id: self.persona_id,
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,
-                
                 detail: self.detail
             }, function(r){
                 if(r.response) {
-                    window.location.href = baseUrl('cuenta_cte');
+                    window.location.href = baseUrl('cuentacte');
                 } else {
                     alert('Ocurrio un error');
                 }
@@ -147,15 +140,13 @@
             self.total = total * 0.21 + total;
             self.subTotal = parseFloat(total * 0.21 + total);
             self.iva = parseFloat(total * 21 / 100);
-            
-            
         }
 
         function __personaAutocomplete(){
             var persona = $("#persona"),
                 options = {
                 url: function(q) {
-                    return baseUrl('cuenta_cte/findPersona?q=' + q);
+                    return baseUrl('cuentacte/findPersona?q=' + q);
                 },
                 getValue: 'nombre',
                 list: {
@@ -177,7 +168,7 @@
             var producto = $("#producto"),
                 options = {
                 url: function(q) {
-                    return baseUrl('cuenta_cte/findProducto?q=' + q);
+                    return baseUrl('cuentacte/findProducto?q=' + q);
                 },
                 getValue: 'descripcion',
                 list: {

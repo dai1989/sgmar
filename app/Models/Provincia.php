@@ -6,13 +6,15 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class AutorizacionCtaCte
+ * Class Provincia
  * @package App\Models
- * @version November 4, 2018, 3:15 pm -03
+ * @version November 12, 2018, 3:38 pm -03
  *
- * @property \App\Models\Persona persona
+ * @property \App\Models\Localidad localidad
  * @property \Illuminate\Database\Eloquent\Collection contactoProveedores
  * @property \Illuminate\Database\Eloquent\Collection contactos
+ * @property \Illuminate\Database\Eloquent\Collection cuentaCtes
+ * @property \Illuminate\Database\Eloquent\Collection cuentacteDetalles
  * @property \Illuminate\Database\Eloquent\Collection facturacompraDetalles
  * @property \Illuminate\Database\Eloquent\Collection invoiceItems
  * @property \Illuminate\Database\Eloquent\Collection optionUser
@@ -22,16 +24,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Database\Eloquent\Collection presupuestoDetalles
  * @property \Illuminate\Database\Eloquent\Collection productos
  * @property \Illuminate\Database\Eloquent\Collection roleUser
- * @property integer persona_id
- * @property date fecha_alta
- * @property string monto_actual
- * @property boolean condicion
+ * @property integer localidad_id
+ * @property string descripcion
  */
-class AutorizacionCtaCte extends Model
+class Provincia extends Model
 {
     use SoftDeletes;
 
-    public $table = 'autorizacion_ctacte';
+    public $table = 'provincias';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -41,11 +41,8 @@ class AutorizacionCtaCte extends Model
 
 
     public $fillable = [
-        'persona_id',
-        'fecha_alta',
-        'monto_actual',
-        'codigo',
-        'condicion'
+        'localidad_id',
+        'descripcion'
     ];
 
     /**
@@ -55,11 +52,8 @@ class AutorizacionCtaCte extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'persona_id' => 'integer',
-        'fecha_alta' => 'date',
-        'monto_actual' => 'string',
-        'codigo' => 'string',
-        'condicion' => 'boolean'
+        'localidad_id' => 'integer',
+        'descripcion' => 'string'
     ];
 
     /**
@@ -74,8 +68,8 @@ class AutorizacionCtaCte extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function persona()
+    public function localidad()
     {
-        return $this->belongsTo(\App\Models\Persona::class);
+        return $this->belongsTo(\App\Models\Localidad::class);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Proveedor;
+use App\Models\Provincia;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class ProveedorDataTable extends DataTable
+class ProvinciaDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class ProveedorDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'proveedores.datatables_actions');
+        return $dataTable->addColumn('action', 'provincias.datatables_actions');
     }
 
     /**
@@ -27,9 +27,10 @@ class ProveedorDataTable extends DataTable
      * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Proveedor $model)
+    public function query(Provincia $model)
     {
-        return $model->newQuery();
+        return $model->with('localidad');
+        
     }
 
     /**
@@ -50,7 +51,7 @@ class ProveedorDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                   
+                    
                 ],
             ]);
     }
@@ -63,8 +64,8 @@ class ProveedorDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'razon_social',
-            'cuit'
+            'localidad.localidad_descripcion',
+            'descripcion'
         ];
     }
 
@@ -75,6 +76,6 @@ class ProveedorDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'proveedoresdatatable_' . time();
+        return 'provinciasdatatable_' . time();
     }
 }

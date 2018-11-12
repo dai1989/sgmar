@@ -1,6 +1,7 @@
 <table class="table table-responsive" id="autorizacionCtaCtes-table">
     <thead>
         <tr>
+            <th>Codigo</th>
             <th>Cliente</th>
         <th>Fecha Alta</th>
         <th>Monto Actual</th>
@@ -11,6 +12,7 @@
     <tbody>
     @foreach($autorizacionCtaCtes as $autorizacionCtaCte)
         <tr>
+            <td>{!! $autorizacionCtaCte->codigo !!}</td>
             <td>{!! $autorizacionCtaCte->persona->nombre !!},{!! $autorizacionCtaCte->persona->apellido !!}</td>
             <td>{!! $autorizacionCtaCte->fecha_alta !!}</td>
             <td>{!! $autorizacionCtaCte->monto_actual !!}</td>

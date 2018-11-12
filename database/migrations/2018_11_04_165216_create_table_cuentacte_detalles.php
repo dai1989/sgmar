@@ -15,16 +15,16 @@ class CreateTableCuentacteDetalles extends Migration
     {
         Schema::create('cuentacte_detalles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cuenta_cte')->unsigned();
+            $table->integer('cuentacte_id')->unsigned();
             $table->integer('producto_id')->unsigned();
 
-            $table->foreign('cuenta_cte')->references('id')->on('cuenta_ctes');
+            $table->foreign('cuentacte_id')->references('id')->on('cuenta_ctes');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->decimal('cantidad', 10,2);
-            $table->decimal('entrega', 10,2);
             $table->decimal('precio_venta', 10,2);
             $table->decimal('total', 10,2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

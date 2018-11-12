@@ -33,18 +33,21 @@ class CuentaCteRepository {
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
+            
+            
             $this->model->persona_id = $data->persona_id;
-            $this->model->user_id = $data->user_id;
+            
 
             $this->model->save();
 
             $detail = [];
             foreach($data->detail as $d) {
-                $obj = new InvoiceItem;
+                $obj = new CuentaCteDetalle;
 
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
-                $obj->entrega = $d->entrega;
+                
+            
                 $obj->precio_venta = $d->precio_venta;
                 $obj->total = $d->total;
 

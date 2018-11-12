@@ -5,13 +5,8 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Nueva ctacte
+                Nuevo comprobante
             </h2>
-            <div id="notificacion_resul_fanu"></div> 
-            <div class="col-xs-6">
-                <label for="user">Usuario</label>
-                <input class="form-control typeahead" type="text" readonly value="{{ $user->name}}" />
-            </div>
 
             <cuentacte></cuentacte>
         </div>

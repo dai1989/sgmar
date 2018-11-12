@@ -1,44 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Repositories\ProductoRepository;
 
 use Illuminate\Http\Request,
- App\Http\Requests;
-use App\Repositories\ProductoRepository;
-use App\Repositories\PersonaRepository;
-use App\Repositories\CuentaCteRepository;
-use App\Repositories\UserRepository;
-use App\User;
-use App\Models\Persona;
-use App\Models\Producto;
-use App\Models\CuentaCte;
-use App\Models\CuentaCteDetalle;
-use Barryvdh\DomPDF\Facade as PDF;
+    App\Repositories\PersonaRepository,
+    App\Repositories\CuentaCteRepository,
+    App\Http\Requests;
 
+use App\Models\Persona;
+use App\Models\CuentaCte; 
+use App\Models\Producto;
+use App\Models\CuentaCteDetalle; 
+use Barryvdh\DomPDF\Facade as PDF;
+use App\User; 
 class CuentaCteController extends Controller
 {
-    private $_personaRepo;
+    private $_autorizacionctacteRepo;
     private $_productoRepo;
-    private $_userRepo;
     private $_cuentacteRepo;
+    private $_userRepo;
 
     public function __CONSTRUCT(
-        PersonaRepository $personaRepo,
+        AutorizacionCtaCteRepository $autorizacionctacteRepo,
         ProductoRepository $productoRepo,
         UserRepository $userRepo,
         CuentaCteRepository $cuentacteRepo
     )
     {
-        $this->_personaRepo = $personaRepo;
+        $this->_autorizacionctacteRepo = $autorizacionctacteRepo;
         $this->_productoRepo = $productoRepo;
-        $this->_userRepo = $userRepo;
         $this->_cuentacteRepo = $cuentacteRepo;
+        $this->_userRepo = $userRepo;
     }
 
     public function index()
     {
         return view(
-            'cuenta_cte.index', [
+            'cuentacte.index', [
                 'model' => $this->_cuentacteRepo->getAll()
             ]
         );
@@ -46,7 +45,7 @@ class CuentaCteController extends Controller
 
     public function detail($id)
     {
-        return view('cuenta_cte.detail', [
+        return view('cuentacte.detail', [
             'model' => $this->_cuentacteRepo->get($id)
         ]);
     }
@@ -56,7 +55,7 @@ class CuentaCteController extends Controller
         $model = $this->_cuentacteRepo->get($id);
         $cuentacte_name = sprintf('comprobante-%s.pdf', str_pad ($model->id, 7, '0', STR_PAD_LEFT));
 
-        $pdf = PDF::loadView('cuenta_cte.pdf', [
+        $pdf = PDF::loadView('cuentacte.pdf', [
             'model' => $model
         ]);
 
@@ -66,17 +65,16 @@ class CuentaCteController extends Controller
 
     public function add()
     {
-        return view('cuenta_cte.add');
+        return view('cuentacte.add');
     }
 
     public function save(Request $req)
     {
         $data = (object)[
-          
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
-            'persona_id' => $req->input('persona_id'),
+            'autorizacionctacte_id' => $req->input('autorizacionctacte_id'),
             'user_id' => $req->input('user_id'),
             'detail' => []
         ];
@@ -85,7 +83,6 @@ class CuentaCteController extends Controller
             $data->detail[] = (object)[
                 'producto_id' => $d['id'],
                 'cantidad'   => $d['cantidad'],
-                'entrega'   => $d['entrega'],
                 'precio_venta'  => $d['precio_venta'],
                 'total'      => $d['total']
             ];
@@ -94,10 +91,10 @@ class CuentaCteController extends Controller
         return $this->_cuentacteRepo->save($data); 
     }
 
-    public function findPersona(Request $req)
+    public function findAutorizacionCtaCte(Request $req)
     {
-        return $this->_personaRepo
-                    ->findByNombre($req->input('q'));
+        return $this->_autorizacionctacteRepo
+                    ->findByCodigo($req->input('q'));
     }
 
     public function findProducto(Request $req)
@@ -105,6 +102,9 @@ class CuentaCteController extends Controller
         return $this->_productoRepo
                     ->findByDescripcion($req->input('q'));
     }
-    
+    public function findUser(Request $req)
+    {
+        return $this->_userRepo
+                    ->findByName($req->input('q'));
+    }
 }
-
