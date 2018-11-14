@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CuentaCte extends Model
 {
-	protected $table = 'cuenta_ctes';
+	protected $table = 'cuentactes';
     public function obtenerTotal()
     {
     	$detalle_list = CuentaCteDetalle::where('cuentacte_id', $this->id)->get();
@@ -21,9 +21,9 @@ class CuentaCte extends Model
     	return $total;
     }
 
-    public function persona()
+    public function autorizacionctacte()
     {
-    	return $this->belongsTo('App\Models\Persona'); 
+    	return $this->belongsTo('App\Models\AutorizacionCtaCte'); 
     }
     public function user()
     {

@@ -19,6 +19,14 @@
                    
                    
                 </div>
+                 <div class="row">
+                    <div class="col-xs-6">
+                        <input class="form-control typeahead" type="text" readonly value="{{ $model->user->name }}" />
+                    </div>
+                    
+                   
+                   
+                </div>
             </div>
 
             <hr />

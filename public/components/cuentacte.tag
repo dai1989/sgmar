@@ -2,10 +2,17 @@
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
-                <input id="persona" class="form-control typeahead" type="text" placeholder="Cliente" />
+                <input id="autorizacionctacte_id" class="form-control typeahead" type="text" placeholder="Codigo" />
+            </div>
+           
+            
+        </div>
+         <div class="row">
+            <div class="col-xs-6">
+                <input id="user" class="form-control typeahead" type="text" placeholder="Vendedor" />
             </div>
             <div class="col-xs-2">
-                <input class="form-control" type="text" placeholder="documento" readonly value="{documento}" />
+                <input class="form-control" type="text" placeholder="vendedor" readonly value="{username}" />
             </div>
             
         </div>
@@ -70,7 +77,7 @@
         </tfoot>
     </table>
 
-    <button if={detail.length > 0 && persona_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
+    <button if={detail.length > 0 && autorizacionctacte_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
         Guardar
     </button>
 
@@ -78,14 +85,16 @@
         var self = this;
 
         // Detalle del comprobante
-        self.persona_id = 0;
+        self.autorizacionctacte_id = 0;
+        self.user_id = 0;
         self.detail = [];
         self.iva = 0;
         self.subTotal = 0;
         self.total = 0;
 
         self.on('mount', function(){
-            __personaAutocomplete();
+            __autorizacionctacteAutocomplete();
+            __userAutocomplete();
             __productoAutocomplete();
         })
 
@@ -116,7 +125,8 @@
 
         __save() {
             $.post(baseUrl('cuentacte/save'), {
-                persona_id: self.persona_id,
+                autorizacionctacte_id: self.autorizacionctacte_id,
+                user_id: self.user_id,
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,
@@ -142,18 +152,18 @@
             self.iva = parseFloat(total * 21 / 100);
         }
 
-        function __personaAutocomplete(){
-            var persona = $("#persona"),
+        function __autorizacionctacteAutocomplete(){
+            var autorizacionctacte = $("#autorizacionctacte"),
                 options = {
                 url: function(q) {
-                    return baseUrl('cuentacte/findPersona?q=' + q);
+                    return baseUrl('cuentacte/findAutorizacionCtaCte?q=' + q);
                 },
-                getValue: 'nombre',
+                getValue: 'codigo',
                 list: {
                     onClickEvent: function() {
-                        var e = persona.getSelectedItemData();
-                        self.persona_id = e.id;
-                        self.documento = e.documento;
+                        var e = autorizacionctacte.getSelectedItemData();
+                        self.autorizacionctacte_id = e.id;
+                        
                         
 
                         self.update();
@@ -161,7 +171,29 @@
                 }
             };
 
-            persona.easyAutocomplete(options);
+            autorizacionctacte.easyAutocomplete(options);
+        }
+
+         function __userAutocomplete(){
+            var user = $("#user"),
+                options = {
+                url: function(q) {
+                    return baseUrl('cuentacte/findUser?q=' + q);
+                },
+                getValue: 'name',
+                list: {
+                    onClickEvent: function() {
+                        var e = user.getSelectedItemData();
+                        self.user_id = e.id;
+                        self.username = e.username;
+                        
+
+                        self.update();
+                    }
+                }
+            };
+
+            user.easyAutocomplete(options);
         }
 
         function __productoAutocomplete(){

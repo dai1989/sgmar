@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableAutorizacionCtacte extends Migration
+class CreateTableAutorizacionctacte extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTableAutorizacionCtacte extends Migration
      */
     public function up()
     {
-        Schema::create('autorizacion_ctacte', function (Blueprint $table) {
+        Schema::create('autorizacionctacte', function (Blueprint $table) {
             $table->increments('id');
-             $table->integer('persona_id')->unsigned();
+            $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
-             $table->string('codigo');
+            $table->string('codigo');
             $table->date('fecha_alta');
             $table->string('monto_actual');
             $table->boolean('condicion')->default(1);
@@ -32,6 +32,6 @@ class CreateTableAutorizacionCtacte extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('autorizacion_ctacte');
+        Schema::dropIfExists('autorizacionctacte');
     }
 }

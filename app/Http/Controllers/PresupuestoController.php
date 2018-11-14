@@ -7,7 +7,7 @@ use Illuminate\Http\Request,
 use App\Repositories\ProductoRepository;
 use App\Repositories\PersonaRepository;
 use App\Repositories\PresupuestoRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\UsersRepository;
 use App\User;
 use App\Models\Persona;
 use App\Models\Producto;
@@ -20,19 +20,19 @@ class PresupuestoController extends Controller
 {
     private $_personaRepo;
     private $_productoRepo;
-    private $_userRepo;
+    private $_usersRepo;
     private $_presupuestoRepo;
 
     public function __CONSTRUCT(
         PersonaRepository $personaRepo,
         ProductoRepository $productoRepo,
-        UserRepository $userRepo,
+        UsersRepository $usersRepo,
         PresupuestoRepository $presupuestoRepo
     )
     {
         $this->_personaRepo = $personaRepo;
         $this->_productoRepo = $productoRepo;
-        $this->_userRepo = $userRepo;
+        $this->_usersRepo = $usersRepo;
         $this->_presupuestoRepo = $presupuestoRepo;
     }
 
@@ -106,5 +106,9 @@ class PresupuestoController extends Controller
         return $this->_productoRepo
                     ->findByDescripcion($req->input('q'));
     }
-    
+     public function findUser(Request $req)
+    {
+        return $this->_usersRepo
+                    ->findByName($req->input('q'));
+    }
 }

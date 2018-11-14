@@ -13,12 +13,12 @@ class CreateTableCuentaCtes extends Migration
      */
     public function up()
     {
-        Schema::create('cuenta_ctes', function (Blueprint $table) {
+        Schema::create('cuentactes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('persona_id')->unsigned();
-            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->integer('autorizacionctacte_id')->unsigned();
+            $table->foreign('autorizacionctacte_id')->references('id')->on('autorizacionctacte');
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
@@ -34,6 +34,6 @@ class CreateTableCuentaCtes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cuenta_ctes');
+        Schema::dropIfExists('cuentactes');
     }
 }

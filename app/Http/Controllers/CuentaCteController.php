@@ -1,37 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Repositories\ProductoRepository;
 
 use Illuminate\Http\Request,
-    App\Repositories\PersonaRepository,
-    App\Repositories\CuentaCteRepository,
-    App\Http\Requests;
-
+ App\Http\Requests;
+use App\Repositories\ProductoRepository;
+use App\Repositories\AutorizacionCtaCteRepository;
+use App\Repositories\CuentaCteRepository;
+use App\Repositories\UsersRepository;
+use App\User;
 use App\Models\Persona;
-use App\Models\CuentaCte; 
 use App\Models\Producto;
-use App\Models\CuentaCteDetalle; 
+use App\Models\CuentaCte;
+use App\Models\CuentaCteDetalle;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\User; 
+
 class CuentaCteController extends Controller
 {
     private $_autorizacionctacteRepo;
     private $_productoRepo;
+    private $_usersRepo;
     private $_cuentacteRepo;
-    private $_userRepo;
 
     public function __CONSTRUCT(
         AutorizacionCtaCteRepository $autorizacionctacteRepo,
         ProductoRepository $productoRepo,
-        UserRepository $userRepo,
+        UsersRepository $usersRepo,
         CuentaCteRepository $cuentacteRepo
     )
     {
         $this->_autorizacionctacteRepo = $autorizacionctacteRepo;
         $this->_productoRepo = $productoRepo;
+        $this->_usersRepo = $usersRepo;
         $this->_cuentacteRepo = $cuentacteRepo;
-        $this->_userRepo = $userRepo;
     }
 
     public function index()
@@ -71,6 +72,7 @@ class CuentaCteController extends Controller
     public function save(Request $req)
     {
         $data = (object)[
+          
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
@@ -102,9 +104,10 @@ class CuentaCteController extends Controller
         return $this->_productoRepo
                     ->findByDescripcion($req->input('q'));
     }
-    public function findUser(Request $req)
+     public function findUser(Request $req)
     {
-        return $this->_userRepo
+        return $this->_usersRepo
                     ->findByName($req->input('q'));
     }
+    
 }

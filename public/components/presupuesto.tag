@@ -9,6 +9,15 @@
             </div>
             
         </div>
+         <div class="row">
+            <div class="col-xs-6">
+                <input id="user" class="form-control typeahead" type="text" placeholder="Vendedor" />
+            </div>
+            <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="username" readonly value="{username}" />
+            </div>
+            
+        </div>
     </div>
 
     <div class="row">
@@ -79,6 +88,7 @@
 
         // Detalle del comprobante
         self.persona_id = 0;
+        self.user_id = 0;
         self.detail = [];
         self.iva = 0;
         self.subTotal = 0;
@@ -86,6 +96,7 @@
 
         self.on('mount', function(){
             __personaAutocomplete();
+            __userAutocomplete();
             __productoAutocomplete();
         })
 
@@ -117,6 +128,7 @@
         __save() {
             $.post(baseUrl('presupuesto/save'), {
                 persona_id: self.persona_id,
+                user_id: self.user_id,
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,
@@ -162,6 +174,28 @@
             };
 
             persona.easyAutocomplete(options);
+        }
+
+          function __userAutocomplete(){
+            var user = $("#user"),
+                options = {
+                url: function(q) {
+                    return baseUrl('presupuesto/findUser?q=' + q);
+                },
+                getValue: 'name',
+                list: {
+                    onClickEvent: function() {
+                        var e = user.getSelectedItemData();
+                        self.user_id = e.id;
+                        self.username = e.username;
+                        
+
+                        self.update();
+                    }
+                }
+            };
+
+            user.easyAutocomplete(options);
         }
 
         function __productoAutocomplete(){

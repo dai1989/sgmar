@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\CuentaCte;
 use App\Models\CuentaCteDetalle;
-
 use DB;
 
 class CuentaCteRepository {
@@ -30,13 +29,12 @@ class CuentaCteRepository {
         try {
             DB::beginTransaction();
 
+          
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
-            
-            
-            $this->model->persona_id = $data->persona_id;
-            
+            $this->model->autorizacionctacte_id = $data->autorizacionctacte_id;
+            $this->model->user_id = $data->user_id;
 
             $this->model->save();
 
@@ -46,8 +44,6 @@ class CuentaCteRepository {
 
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
-                
-            
                 $obj->precio_venta = $d->precio_venta;
                 $obj->total = $d->total;
 

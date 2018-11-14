@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Models\AutorizacionCtaCte;
 
-
-
 class AutorizacionCtaCteRepository {
     private $model;
     

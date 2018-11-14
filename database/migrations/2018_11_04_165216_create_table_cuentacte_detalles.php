@@ -18,7 +18,7 @@ class CreateTableCuentacteDetalles extends Migration
             $table->integer('cuentacte_id')->unsigned();
             $table->integer('producto_id')->unsigned();
 
-            $table->foreign('cuentacte_id')->references('id')->on('cuenta_ctes');
+            $table->foreign('cuentacte_id')->references('id')->on('cuentactes');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->decimal('cantidad', 10,2);
             $table->decimal('precio_venta', 10,2);

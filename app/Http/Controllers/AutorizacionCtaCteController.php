@@ -34,7 +34,7 @@ class AutorizacionCtaCteController extends AppBaseController
         $this->autorizacionCtaCteRepository->pushCriteria(new RequestCriteria($request));
         $autorizacionCtaCtes = $this->autorizacionCtaCteRepository->all();
 
-        return view('autorizacion_cta_ctes.index')
+        return view('autorizacionctactes.index')
             ->with('autorizacionCtaCtes', $autorizacionCtaCtes);
     }
 
@@ -48,7 +48,7 @@ class AutorizacionCtaCteController extends AppBaseController
       $personas = Persona::all();
        
 
-      return view("autorizacion_cta_ctes.create", ["personas"=>$personas]);
+      return view("autorizacionctactes.create", ["personas"=>$personas]);
         
     }
 
@@ -67,7 +67,7 @@ class AutorizacionCtaCteController extends AppBaseController
 
         Flash::success('Autorizacion Cta Cte guardado exitosamente.');
 
-        return redirect(route('autorizacionCtaCtes.index'));
+        return redirect(route('autorizacionctactes.index'));
     }
 
     /**
@@ -84,10 +84,10 @@ class AutorizacionCtaCteController extends AppBaseController
         if (empty($autorizacionCtaCte)) {
             Flash::error('Autorizacion Cta Cte no encontrado');
 
-            return redirect(route('autorizacionCtaCtes.index'));
+            return redirect(route('autorizacionctactes.index'));
         }
 
-        return view('autorizacion_cta_ctes.show')->with('autorizacionCtaCte', $autorizacionCtaCte);
+        return view('autorizacionctactes.show')->with('autorizacionCtaCte', $autorizacionCtaCte);
     }
 
     /**
@@ -104,10 +104,10 @@ class AutorizacionCtaCteController extends AppBaseController
         if (empty($autorizacionCtaCte)) {
             Flash::error('Autorizacion Cta Cte no encontrado');
 
-            return redirect(route('autorizacionCtaCtes.index'));
+            return redirect(route('autorizacionctactes.index'));
         }
 
-        return view('autorizacion_cta_ctes.edit')->with('autorizacionCtaCte', $autorizacionCtaCte);
+        return view('autorizacionctactes.edit')->with('autorizacionCtaCte', $autorizacionCtaCte);
     }
 
     /**
@@ -125,14 +125,14 @@ class AutorizacionCtaCteController extends AppBaseController
         if (empty($autorizacionCtaCte)) {
             Flash::error('Autorizacion Cta Cte no encontrado');
 
-            return redirect(route('autorizacionCtaCtes.index'));
+            return redirect(route('autorizacionctactes.index'));
         }
 
         $autorizacionCtaCte = $this->autorizacionCtaCteRepository->update($request->all(), $id);
 
         Flash::success('Autorizacion Cta Cte actualizado exitosamente.');
 
-        return redirect(route('autorizacionCtaCtes.index'));
+        return redirect(route('autorizacionctactes.index'));
     }
 
     /**
@@ -149,14 +149,14 @@ class AutorizacionCtaCteController extends AppBaseController
         if (empty($autorizacionCtaCte)) {
             Flash::error('Autorizacion Cta Cte no encontrado');
 
-            return redirect(route('autorizacionCtaCtes.index'));
+            return redirect(route('autorizacionctactes.index'));
         }
 
         $this->autorizacionCtaCteRepository->delete($id);
 
         Flash::success('Autorizacion Cta Cte eliminado exitosamente.');
 
-        return redirect(route('autorizacionCtaCtes.index'));
+        return redirect(route('autorizacionctactes.index'));
     }
 
      public function desactivar(Request $request)
@@ -165,7 +165,7 @@ class AutorizacionCtaCteController extends AppBaseController
         $autorizacionCtaCte = AutorizacionCtaCte::findOrFail($request->id);
         $autorizacionCtaCte->condicion = '0';
         $autorizacionCtaCte->save();
-         return redirect(route('autorizacionCtaCtes.index'));
+         return redirect(route('autorizacionctactes.index'));
     }
 
     public function activar(Request $request)
@@ -174,6 +174,6 @@ class AutorizacionCtaCteController extends AppBaseController
         $autorizacionCtaCte = AutorizacionCtaCte::findOrFail($request->id);
         $autorizacionCtaCte->condicion = '1';
         $autorizacionCtaCte->save();
-         return redirect(route('autorizacionCtaCtes.index'));
+         return redirect(route('autorizacionctactes.index'));
     }
 }

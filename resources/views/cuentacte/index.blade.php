@@ -27,7 +27,7 @@
                     <tr>
                         <td>
                             <a href="{{url('cuentacte/detail/' . $m->id )}}">
-                                {{ $m->persona->nombre }}
+                                {{ $m->persona->nombre }}, {{ $m->persona->apellido }}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>

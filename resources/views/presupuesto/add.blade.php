@@ -7,11 +7,7 @@
             <h2 class="page-header">
                 Nuevo presupuesto
             </h2>
-            <div id="notificacion_resul_fanu"></div> 
-            <div class="col-xs-6">
-                <label for="user">Usuario</label>
-                <input class="form-control typeahead" type="text" readonly value="{{ $user->name}}" />
-            </div>
+           
 
             <presupuesto></presupuesto>
         </div>
