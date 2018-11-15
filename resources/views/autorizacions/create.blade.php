@@ -1,13 +1,13 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	Crear Autorizacion Cta Cte
+	Crear Autorizacion
 @endsection
 
 @section('content')
     <section class="content-header">
         <h1>
-            Crear Autorizacion Cta Cte
+            Crear Autorizacion
         </h1>
     </section>
     <div class="content">
@@ -16,9 +16,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'autorizacionCtaCtes.store']) !!}
+                    {!! Form::open(['route' => 'autorizacions.store']) !!}
 
-                        @include('autorizacion_cta_ctes.fields')
+                        @include('autorizacions.fields')
 
                     {!! Form::close() !!}
                 </div>

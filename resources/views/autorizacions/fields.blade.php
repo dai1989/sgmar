@@ -1,17 +1,13 @@
-<!-- Monto Actual Field -->
+<!-- Persona Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('persona_id', 'Persona Id:') !!}
+    {!! Form::number('persona_id', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Codigo Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('codigo', 'Codigo:') !!}
     {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
-</div>
-<!-- Persona Id Field -->
-<div class="form-group col-sm-6">
-   <label for="persona_id">Clientes</label>
-      <select class="form-control" name="persona_id" id="persona_id" class="form-control">
-    <option value="">--Seleccionar--</option><br>
-    @foreach ($personas as $persona)
-    <option value="{{ $persona->id }}">{{ $persona->nombre }}</option>
-    @endforeach
-  </select>
 </div>
 
 <!-- Fecha Alta Field -->
@@ -38,5 +34,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-    <a href="{!! route('autorizacionCtaCtes.index') !!}" class="btn btn-default">Cancelar</a>
+    <a href="{!! route('autorizacions.index') !!}" class="btn btn-default">Cancelar</a>
 </div>

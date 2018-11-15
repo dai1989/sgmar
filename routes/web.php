@@ -154,14 +154,14 @@ Route::resource('contactos', 'ContactoController');
 
 Route::resource('proveedores', 'ProveedorController');
 
-Route::get('/cuentacte', 'CuentaCteController@index');
-Route::get('/cuentacte/add', 'CuentaCteController@add');
-Route::get('/cuentacte/detail/{id}', 'CuentaCteController@detail');
-Route::get('/cuentacte/pdf/{id}', 'CuentaCteController@pdf');
-Route::get('/cuentacte/findPersona', 'CuentaCteController@findPersona');
-Route::get('/cuentacte/findProducto', 'CuentaCteController@findProducto');
-Route::get('/cuentacte/findUser', 'CuentaCteController@findUser');
-Route::post('/cuentacte/save', 'CuentaCteController@save');
+Route::get('/credito', 'CreditoController@index');
+Route::get('/credito/add', 'CreditoController@add');
+Route::get('/credito/detail/{id}', 'CreditoController@detail');
+Route::get('/credito/pdf/{id}', 'CreditoController@pdf');
+Route::get('/credito/findAutorizacion', 'CreditoController@findAutorizacion');
+Route::get('/credito/findProducto', 'CreditoController@findProducto');
+Route::get('/credito/findUser', 'CreditoController@findUser');
+Route::post('/credito/save', 'CreditoController@save');
 
 
 
@@ -170,6 +170,8 @@ Route::post('/cuentacte/save', 'CuentaCteController@save');
 
 
 
-Route::resource('autorizacionCtaCtes', 'AutorizacionCtaCteController');
+
 
 Route::resource('provincias', 'ProvinciaController');
+
+Route::resource('autorizacions', 'AutorizacionController');

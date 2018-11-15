@@ -1,35 +1,40 @@
 <!-- Id Field -->
 {!! Form::label('id', 'Id:') !!}
-{!! $autorizacionCtaCte->id !!}<br>
+{!! $autorizacion->id !!}<br>
 
 
 <!-- Persona Id Field -->
 {!! Form::label('persona_id', 'Persona Id:') !!}
-{!! $autorizacionCtaCte->persona_id !!}<br>
+{!! $autorizacion->persona_id !!}<br>
+
+
+<!-- Codigo Field -->
+{!! Form::label('codigo', 'Codigo:') !!}
+{!! $autorizacion->codigo !!}<br>
 
 
 <!-- Fecha Alta Field -->
 {!! Form::label('fecha_alta', 'Fecha Alta:') !!}
-{!! $autorizacionCtaCte->fecha_alta !!}<br>
+{!! $autorizacion->fecha_alta !!}<br>
 
 
 <!-- Monto Actual Field -->
 {!! Form::label('monto_actual', 'Monto Actual:') !!}
-{!! $autorizacionCtaCte->monto_actual !!}<br>
+{!! $autorizacion->monto_actual !!}<br>
 
 
 <!-- Condicion Field -->
 {!! Form::label('condicion', 'Condicion:') !!}
-{!! $autorizacionCtaCte->condicion !!}<br>
+{!! $autorizacion->condicion !!}<br>
 
 
 <!-- Created At Field -->
 {!! Form::label('created_at', 'Created At:') !!}
-{!! $autorizacionCtaCte->created_at !!}<br>
+{!! $autorizacion->created_at !!}<br>
 
 
 <!-- Updated At Field -->
 {!! Form::label('updated_at', 'Updated At:') !!}
-{!! $autorizacionCtaCte->updated_at !!}<br>
+{!! $autorizacion->updated_at !!}<br>
 
 

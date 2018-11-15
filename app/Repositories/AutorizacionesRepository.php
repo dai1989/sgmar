@@ -2,13 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\AutorizacionCtaCte;
+use App\Models\Autorizacion;
 
-class AutorizacionCtaCteRepository {
+
+
+class AutorizacionesRepository 
+{
     private $model;
     
     public function __construct(){
-        $this->model = new AutorizacionCtaCte();
+        $this->model = new Autorizacion();
     }
 
     public function findByCodigo($q) {

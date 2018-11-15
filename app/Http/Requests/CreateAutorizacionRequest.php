@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\AutorizacionCtaCte;
+use App\Models\Autorizacion;
 
-class UpdateAutorizacionCtaCteRequest extends FormRequest
+class CreateAutorizacionRequest extends FormRequest
 {
 
     /**
@@ -23,11 +23,8 @@ class UpdateAutorizacionCtaCteRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(){
-        $id = $this->autorizacionCtaCte;
-        $rules = AutorizacionCtaCte::$rules;
-        //$rules['campo'] = $rules['campo'] . ',campo,' . $id;
-
-        return $rules;
+    public function rules()
+    {
+        return Autorizacion::$rules;
     }
 }
