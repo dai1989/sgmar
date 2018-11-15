@@ -85,8 +85,8 @@ class Autorizacion extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function cuentactes()
+    public function credito()
     {
-        return $this->hasMany(\App\Models\Cuentacte::class);
+        return $this->hasMany(\App\Models\Credito::class);
     }
 }
