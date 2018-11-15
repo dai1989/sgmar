@@ -1,153 +1,164 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
+use App\Http\Requests\CreateIngresoRequest;
+use App\Http\Requests\UpdateIngresoRequest;
+use App\Repositories\IngresoRepository;
+use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use App\Ingreso;
-use App\DetalleIngreso;
+use App\Models\Ingreso;
 use App\User;
-use App\Notifications\NotifyAdmin;
- 
-class IngresoController extends Controller
+use App\Models\Autorizacion;
+use App\Models\Credito;
+use Flash;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Response;
+
+class IngresoController extends AppBaseController
 {
+    /** @var  IngresoRepository */
+    private $ingresoRepository;
+
+    public function __construct(IngresoRepository $ingresoRepo)
+    {
+        $this->ingresoRepository = $ingresoRepo;
+        $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the Ingreso.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function index(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
- 
-        $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
-        if ($buscar==''){
-            $ingresos = Ingreso::join('personas','ingresos.idproveedor','=','personas.id')
-            ->join('users','ingresos.idusuario','=','users.id')
-            ->select('ingresos.id','ingresos.tipo_comprobante','ingresos.serie_comprobante',
-            'ingresos.num_comprobante','ingresos.fecha_hora','ingresos.impuesto','ingresos.total',
-            'ingresos.estado','personas.nombre','users.usuario')
-            ->orderBy('ingresos.id', 'desc')->paginate(3);
-        }
-        else{
-            $ingresos = Ingreso::join('personas','ingresos.idproveedor','=','personas.id')
-            ->join('users','ingresos.idusuario','=','users.id')
-            ->select('ingresos.id','ingresos.tipo_comprobante','ingresos.serie_comprobante',
-            'ingresos.num_comprobante','ingresos.fecha_hora','ingresos.impuesto','ingresos.total',
-            'ingresos.estado','personas.nombre','users.usuario')
-            ->where('ingresos.'.$criterio, 'like', '%'. $buscar . '%')->orderBy('ingresos.id', 'desc')->paginate(3);
-        }
-         
-        return [
-            'pagination' => [
-                'total'        => $ingresos->total(),
-                'current_page' => $ingresos->currentPage(),
-                'per_page'     => $ingresos->perPage(),
-                'last_page'    => $ingresos->lastPage(),
-                'from'         => $ingresos->firstItem(),
-                'to'           => $ingresos->lastItem(),
-            ],
-            'ingresos' => $ingresos
-        ];
-    }
-    public function obtenerCabecera(Request $request){
-        if (!$request->ajax()) return redirect('/');
- 
-        $id = $request->id;
-         
+        $this->ingresoRepository->pushCriteria(new RequestCriteria($request));
+        $ingresos = $this->ingresoRepository->all();
 
-        $ingreso = Ingreso::join('personas','ingresos.idproveedor','=','personas.id')
-        ->join('users','ingresos.idusuario','=','users.id')
-        ->select('ingresos.id','ingresos.tipo_comprobante','ingresos.serie_comprobante',
-        'ingresos.num_comprobante','ingresos.fecha_hora','ingresos.impuesto','ingresos.total',
-        'ingresos.estado','personas.nombre','users.usuario')
-        ->where('ingresos.id','=',$id)
-        ->orderBy('ingresos.id', 'desc')->take(1)->get();
-
-         
-        return [
-           
-            'ingreso' => $ingreso
-        ];
+        return view('ingresos.index')
+            ->with('ingresos', $ingresos);
     }
-    public function obtenerDetalles(Request $request){
-        if (!$request->ajax()) return redirect('/');
- 
-        $id = $request->id;
-         
-        $detalles = DetalleIngreso::join('articulos','detalle_ingresos.idarticulo','=','articulos.id')
-        ->select('detalle_ingresos.cantidad','detalle_ingresos.precio','articulos.nombre as articulo')
-        ->where('detalle_ingresos.idingreso','=',$id)
-        ->orderBy('detalle_ingresos.id', 'desc')->get();
 
-         
-        return [
-           
-            'detalles' => $detalles
-        ];
-    }
-    public function store(Request $request)
+    /**
+     * Show the form for creating a new Ingreso.
+     *
+     * @return Response
+     */
+    public function create()
     {
-        if (!$request->ajax()) return redirect('/');
- 
-        try{
-            DB::beginTransaction();
- 
-            $mytime= Carbon::now('America/Lima');
- 
-            $ingreso = new Ingreso();
-            $ingreso->idproveedor = $request->idproveedor;
-            $ingreso->idusuario = \Auth::user()->id;
-            $ingreso->tipo_comprobante = $request->tipo_comprobante;
-            $ingreso->serie_comprobante = $request->serie_comprobante;
-            $ingreso->num_comprobante = $request->num_comprobante;
-            $ingreso->fecha_hora = $mytime->toDateString();
-            $ingreso->impuesto = $request->impuesto;
-            $ingreso->total = $request->total;
-            $ingreso->estado = 'Registrado';
-            $ingreso->save();
- 
-            $detalles = $request->data;//Array de detalles
-            //Recorro todos los elementos
- 
-            foreach($detalles as $ep=>$det)
-            {
-                $detalle = new DetalleIngreso();
-                $detalle->idingreso = $ingreso->id;
-                $detalle->idarticulo = $det['idarticulo'];
-                $detalle->cantidad = $det['cantidad'];
-                $detalle->precio = $det['precio'];          
-                $detalle->save();
-            }          
-            $fechaActual= date('Y-m-d');
-            $numVentas = DB::table('ventas')->whereDate('created_at', $fechaActual)->count();
-            $numIngresos = DB::table('ingresos')->whereDate('created_at', $fechaActual)->count();
-
-            $arregloDatos = [
-                'ventas' => [
-                            'numero' => $numVentas,
-                            'msj' => 'Ventas'
-                        ],
-                'ingresos' => [
-                            'numero' => $numIngresos,
-                            'msj' => 'Ingresos'
-                ]
-            ];
-            $allUsers = User::all();
-
-            foreach ($allUsers as $notificar){
-                User::findOrFail($notificar->id)->notify(new NotifyAdmin($arregloDatos));
-            }
-
-            DB::commit();
-        } catch (Exception $e){
-            DB::rollBack();
-        }
+      $user_list = User::all();
+      $autorizacion_list = Autorizacion::all();
+      $credito_list = Credito::all();
+      return view("ingresos.create", ["user_list"=>$user_list,"autorizacion_list"=>$autorizacion_list,"credito_list"=>$credito_list]);
+        
     }
- 
-    public function desactivar(Request $request)
+
+    /**
+     * Store a newly created Ingreso in storage.
+     *
+     * @param CreateIngresoRequest $request
+     *
+     * @return Response
+     */
+    public function store(CreateIngresoRequest $request)
     {
-        if (!$request->ajax()) return redirect('/');
-        $ingreso = Ingreso::findOrFail($request->id);
-        $ingreso->estado = 'Anulado';
-        $ingreso->save();
+        $input = $request->all();
+
+        $ingreso = $this->ingresoRepository->create($input);
+
+        Flash::success('Ingreso guardado exitosamente.');
+
+        return redirect(route('ingresos.index'));
+    }
+
+    /**
+     * Display the specified Ingreso.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $ingreso = $this->ingresoRepository->findWithoutFail($id);
+
+        if (empty($ingreso)) {
+            Flash::error('Ingreso no encontrado');
+
+            return redirect(route('ingresos.index'));
+        }
+
+        return view('ingresos.show')->with('ingreso', $ingreso);
+    }
+
+    /**
+     * Show the form for editing the specified Ingreso.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $ingreso = $this->ingresoRepository->findWithoutFail($id);
+
+        if (empty($ingreso)) {
+            Flash::error('Ingreso no encontrado');
+
+            return redirect(route('ingresos.index'));
+        }
+
+        return view('ingresos.edit')->with('ingreso', $ingreso);
+    }
+
+    /**
+     * Update the specified Ingreso in storage.
+     *
+     * @param  int              $id
+     * @param UpdateIngresoRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdateIngresoRequest $request)
+    {
+        $ingreso = $this->ingresoRepository->findWithoutFail($id);
+
+        if (empty($ingreso)) {
+            Flash::error('Ingreso no encontrado');
+
+            return redirect(route('ingresos.index'));
+        }
+
+        $ingreso = $this->ingresoRepository->update($request->all(), $id);
+
+        Flash::success('Ingreso actualizado exitosamente.');
+
+        return redirect(route('ingresos.index'));
+    }
+
+    /**
+     * Remove the specified Ingreso from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $ingreso = $this->ingresoRepository->findWithoutFail($id);
+
+        if (empty($ingreso)) {
+            Flash::error('Ingreso no encontrado');
+
+            return redirect(route('ingresos.index'));
+        }
+
+        $this->ingresoRepository->delete($id);
+
+        Flash::success('Ingreso eliminado exitosamente.');
+
+        return redirect(route('ingresos.index'));
     }
 }

@@ -1,18 +1,19 @@
 <table class="table table-responsive" id="autorizacions-table">
     <thead>
         <tr>
-            <th>Persona Id</th>
+            <th>Clientes</th>
         <th>Codigo</th>
         <th>Fecha Alta</th>
-        <th>Monto Actual</th>
+        <th>Monto Autorizado</th>
         <th>Condicion</th>
-            <th colspan="3">Action</th>
+            <th colspan="3">Accion</th>
         </tr>
     </thead>
     <tbody>
     @foreach($autorizacions as $autorizacion)
         <tr>
-            <td>{!! $autorizacion->persona_id !!}</td>
+            <td>{!! $autorizacion->persona->nombre !!},
+                {!! $autorizacion->persona->apellido !!}</td>
             <td>{!! $autorizacion->codigo !!}</td>
             <td>{!! $autorizacion->fecha_alta !!}</td>
             <td>{!! $autorizacion->monto_actual !!}</td>
