@@ -22,6 +22,7 @@ class CreateTableAutorizacion extends Migration
             $table->string('monto_actual');
             $table->boolean('condicion')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

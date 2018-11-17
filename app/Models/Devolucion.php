@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Credito extends Model
+class Devolucion extends Model
 {
-    protected $table = 'creditos';
+     protected $table = 'devoluciones';
     
     public function detail(){
-        return $this->hasMany('App\Models\CreditoDetalle');
+        return $this->hasMany('App\Models\DevolucionDetalle');
     }
     public function persona(){
         return $this->belongsTo('App\Models\Persona');
     }
-    public function autorizacion(){
-        return $this->belongsTo('App\Models\Autorizacion');
+    public function invoice(){
+        return $this->belongsTo('App\Invoice');
     }
      public function user()
     {

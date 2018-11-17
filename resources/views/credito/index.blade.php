@@ -1,17 +1,28 @@
 @extends('adminlte::layouts.app')
 
+@section('htmlheader_title')
+    Cuenta Cte
+@endsection
+
 @section('content')
+    <section class="content-header">
+        <h1 class="pull-left">Cuenta Cte</h1>
+        <h1 class="pull-right">
+           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{url('credito/add')}}">
+              <i class="fa fa-plus"></i>
+              <span class="hidden-xs hidden-sm">Agregar</span>
+           </a>
+        </h1>
+    </section>
+    <div class="content">
+        <div class="clearfix"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="page-header">
-                credito
-            </h2>
+        @include('flash::message')
 
-            <a class="btn btn-default btn-lg btn-block" href="{{url('credito/add')}}">Nuevo cta</a>
-
-            <table class="table table-striped">
+        <div class="clearfix"></div>
+        <div class="box box-primary">
+            <div class="box-body">
+                     <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Cliente</th>
@@ -27,7 +38,7 @@
                     <tr>
                         <td>
                             <a href="{{url('credito/detail/' . $m->id )}}">
-                                {{ $m->autorizacion->persona->nombre }},{{$m->autorizacion->persona->apellido}}
+                                {{ $m->autorizacion->persona->nombre }},{{ $m->autorizacion->persona->apellido }}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>
@@ -43,7 +54,10 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
+
+
+      

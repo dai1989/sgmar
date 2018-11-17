@@ -164,7 +164,14 @@ Route::get('/credito/findUser', 'CreditoController@findUser');
 Route::post('/credito/save', 'CreditoController@save');
 
 
-
+Route::get('/devolucion', 'DevolucionController@index');
+Route::get('/devolucion/add', 'DevolucionController@add');
+Route::get('/devolucion/detail/{id}', 'DevolucionController@detail');
+Route::get('/devolucion/pdf/{id}', 'DevolucionController@pdf');
+Route::get('/devolucion/findInvoice', 'DevolucionController@findInvoice');
+Route::get('/devolucion/findProducto', 'DevolucionController@findProducto');
+Route::get('/devolucion/findUser', 'DevolucionController@findUser');
+Route::post('/devolucion/save', 'DevolucionController@save');
 
 
 

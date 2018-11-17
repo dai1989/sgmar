@@ -28,6 +28,7 @@ class CreateTableDomicilios extends Migration
             $table->integer('provincia_id')->unsigned();
             $table->foreign('provincia_id')->references('id')->on('provincias');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,6 +17,7 @@ class CreateTableTipoDomicilios extends Migration
             $table->increments('id');
             $table->string('tipo_descripcion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

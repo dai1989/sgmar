@@ -19,12 +19,11 @@ class CreateTablePresupuesto extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-           
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
            
-            $table->date('presupuesto_fecha'); 
+             
             $table->timestamps();
         });
     }

@@ -1,28 +1,17 @@
 @extends('adminlte::layouts.app')
 
-@section('htmlheader_title')
-    Presupuestos
-@endsection
-
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Presupuestos</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{url('presupuesto/add')}}">
-              <i class="fa fa-plus"></i>
-              <span class="hidden-xs hidden-sm">Agregar</span>
-           </a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
 
-        @include('flash::message')
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-header">
+                Devolucion
+            </h2>
 
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                     <table class="table table-striped">
+            <a class="btn btn-default btn-lg btn-block" href="{{url('devolucion/add')}}">Nueva devolucion</a>
+
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Cliente</th>
@@ -37,8 +26,8 @@
                     @foreach ($model as $m)
                     <tr>
                         <td>
-                            <a href="{{url('presupuesto/detail/' . $m->id )}}">
-                                {{ $m->persona->nombre }}
+                            <a href="{{url('devolucion/detail/' . $m->id )}}">
+                                {{ $m->invoice->persona->nombre }},{{$m->invoice->persona->apellido}}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>
@@ -46,7 +35,7 @@
                         <td class="text-right">$ {{number_format($m->total, 2)}}</td>
                         <td class="text-right">{{ $m->created_at  }}</td>
                         <td class="text-right">
-                            <a class="btn btn-success btn-block btn-xs" href="{{ url('presupuesto/pdf/' . $m->id) }}">
+                            <a class="btn btn-success btn-block btn-xs" href="{{ url('devolucion/pdf/' . $m->id) }}">
                                 <i class="fa fa-file-pdf-o"></i> Descargar
                             </a>
                         </td>
@@ -54,10 +43,7 @@
                     @endforeach
                 </tbody>
             </table>
-            </div>
         </div>
     </div>
+</div>
 @endsection
-
-
-      
