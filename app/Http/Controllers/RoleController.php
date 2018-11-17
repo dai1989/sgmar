@@ -2,161 +2,108 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateRoleRequest;
-use App\Http\Requests\UpdateRoleRequest;
-use App\Repositories\RoleRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
-use Caffeinated\Shinobi\Models\Permission;
 use Caffeinated\Shinobi\Models\Role;
-
-class RoleController extends AppBaseController
+use Caffeinated\Shinobi\Models\Permission;
+use Flash;
+class RoleController extends Controller
 {
-    /** @var  RoleRepository */
-    private $roleRepository;
-
-    public function __construct(RoleRepository $roleRepo)
-    {
-        $this->roleRepository = $roleRepo;
-        $this->middleware('auth');
-    }
-
     /**
-     * Display a listing of the Role.
+     * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->roleRepository->pushCriteria(new RequestCriteria($request));
-        $roles = $this->roleRepository->all();
+        $roles = Role::paginate();
 
-        return view('roles.index')
-            ->with('roles', $roles);
+        return view('roles.index', compact('roles'));
     }
 
     /**
-     * Show the form for creating a new Role.
+     * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         $permissions = Permission::get();
 
         return view('roles.create', compact('permissions'));
-        
     }
 
     /**
-     * Store a newly created Role in storage.
+     * Store a newly created resource in storage.
      *
-     * @param CreateRoleRequest $request
-     *
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(CreateRoleRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $role = Role::create($request->all());
 
-        $role = $this->roleRepository->create($input);
-       
-
-        Flash::success('Role guardado exitosamente.');
+        $role->permissions()->sync($request->get('permissions'));
+         Flash::success('Role guardado exitosamente.');
 
         return redirect(route('roles.index'));
     }
 
     /**
-     * Display the specified Role.
+     * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = Role::find($id);
 
-        if (empty($role)) {
-            Flash::error('Role no encontrado');
-
-            return redirect(route('roles.index'));
-        }
-
-        return view('roles.show')->with('role', $role);
+        return view('roles.show', compact('role'));
     }
 
     /**
-     * Show the form for editing the specified Role.
+     * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = Role::find($id);
 
-        if (empty($role)) {
-            Flash::error('Role no encontrado');
-
-            return redirect(route('roles.index'));
-        }
         $permissions = Permission::get();
 
         return view('roles.edit', compact('role', 'permissions'));
-
-        
     }
 
     /**
-     * Update the specified Role in storage.
+     * Update the specified resource in storage.
      *
-     * @param  int              $id
-     * @param UpdateRoleRequest $request
-     *
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update($id, UpdateRoleRequest $request)
+    public function update(Request $request, $id)
     {
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = Role::find($id);
+        $role->update($request->all());
 
-        if (empty($role)) {
-            Flash::error('Role no encontrado');
+        $role->permissions()->sync($request->get('permissions'));
 
-            return redirect(route('roles.index'));
-        }
-
-        $role = $this->roleRepository->update($request->all(), $id);
-
-        Flash::success('Role actualizado exitosamente.');
+         Flash::success('Role actualizado exitosamente.');
         
         return redirect(route('roles.index'));
     }
 
     /**
-     * Remove the specified Role from storage.
+     * Remove the specified resource from storage.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $role = $this->roleRepository->findWithoutFail($id);
-
-        if (empty($role)) {
-            Flash::error('Role no encontrado');
-
-            return redirect(route('roles.index'));
-        }
-
-        $this->roleRepository->delete($id);
+        $role = Role::find($id)->delete();
 
         Flash::success('Role eliminado exitosamente.');
 

@@ -174,7 +174,7 @@ Route::post('/credito/save', 'CreditoController@save');
 
 Route::resource('provincias', 'ProvinciaController');
 
-Route::resource('autorizacions', 'AutorizacionController');
+Route::resource('autorizaciones', 'AutorizacionController');
 
 Route::resource('ingresos', 'IngresoController');
 

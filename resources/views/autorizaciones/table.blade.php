@@ -1,4 +1,4 @@
-<table class="table table-responsive" id="autorizacions-table">
+<table class="table table-responsive" id="autorizaciones-table">
     <thead>
         <tr>
             <th>Clientes</th>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($autorizacions as $autorizacion)
+    @foreach($autorizaciones as $autorizacion)
         <tr>
             <td>{!! $autorizacion->persona->nombre !!},
                 {!! $autorizacion->persona->apellido !!}</td>
@@ -19,10 +19,10 @@
             <td>{!! $autorizacion->monto_actual !!}</td>
             <td>{!! $autorizacion->condicion !!}</td>
             <td>
-                {!! Form::open(['route' => ['autorizacions.destroy', $autorizacion->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['autorizaciones.destroy', $autorizacion->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('autorizacions.show', [$autorizacion->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('autorizacions.edit', [$autorizacion->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('autorizaciones.show', [$autorizacion->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('autorizaciones.edit', [$autorizacion->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

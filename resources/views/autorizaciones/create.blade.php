@@ -1,28 +1,27 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	Autorizacion
+	Crear Autorizacion
 @endsection
 
 @section('content')
     <section class="content-header">
         <h1>
-            Autorizacion
+            Crear Autorizacion
         </h1>
     </section>
     <div class="content">
+        @include('adminlte-templates::common.errors')
         <div class="box box-primary">
+
             <div class="box-body">
                 <div class="row">
-                    <div class="form-group col-sm-12">
-                    @include('autorizacions.show_fields')
-                    </div>
+                    {!! Form::open(['route' => 'autorizaciones.store']) !!}
+
+                        @include('autorizaciones.fields')
+
+                    {!! Form::close() !!}
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-12">
-            <a href="{!! route('autorizacions.index') !!}" class="btn btn-default">Regresar</a>
             </div>
         </div>
     </div>

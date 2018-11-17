@@ -71,7 +71,7 @@
     </table>
 
     <button if={detail.length > 0 && persona_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
-        Guardar
+        Generar
     </button>
 
     <script>

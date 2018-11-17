@@ -1,20 +1,31 @@
 @extends('adminlte::layouts.app')
 
+@section('htmlheader_title')
+    Facturas
+@endsection
+
 @section('content')
+    <section class="content-header">
+        <h1 class="pull-left">Facturas</h1>
+        <h1 class="pull-right">
+           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{url('invoice/add')}}">
+              <i class="fa fa-plus"></i>
+              <span class="hidden-xs hidden-sm">Agregar</span>
+           </a>
+        </h1>
+    </section>
+    <div class="content">
+        <div class="clearfix"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="page-header">
-                Comprobantes
-            </h2>
+        @include('flash::message')
 
-            <a class="btn btn-default btn-lg btn-block" href="{{url('invoice/add')}}">Nuevo comprobante</a>
-
-            <table class="table table-striped">
+        <div class="clearfix"></div>
+        <div class="box box-primary">
+            <div class="box-body">
+                     <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Client</th>
+                        <th>Cliente</th>
                         <th style="width:100px;" class="text-right">IVA</th>
                         <th style="width:160px;" class="text-right">Sub Total</th>
                         <th style="width:160px;" class="text-right">Total</th>
@@ -43,7 +54,10 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
+
+
+      

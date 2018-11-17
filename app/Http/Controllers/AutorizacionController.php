@@ -31,10 +31,10 @@ class AutorizacionController extends AppBaseController
     public function index(Request $request)
     {
         $this->autorizacionRepository->pushCriteria(new RequestCriteria($request));
-        $autorizacions = $this->autorizacionRepository->all();
+        $autorizaciones = $this->autorizacionRepository->all();
 
-        return view('autorizacions.index')
-            ->with('autorizacions', $autorizacions);
+        return view('autorizaciones.index')
+            ->with('autorizaciones', $autorizaciones);
     }
 
     /**
@@ -44,7 +44,7 @@ class AutorizacionController extends AppBaseController
      */
     public function create()
     {
-        return view('autorizacions.create');
+        return view('autorizaciones.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class AutorizacionController extends AppBaseController
 
         Flash::success('Autorizacion guardado exitosamente.');
 
-        return redirect(route('autorizacions.index'));
+        return redirect(route('autorizaciones.index'));
     }
 
     /**
@@ -79,10 +79,10 @@ class AutorizacionController extends AppBaseController
         if (empty($autorizacion)) {
             Flash::error('Autorizacion no encontrado');
 
-            return redirect(route('autorizacions.index'));
+            return redirect(route('autorizaciones.index'));
         }
 
-        return view('autorizacions.show')->with('autorizacion', $autorizacion);
+        return view('autorizaciones.show')->with('autorizacion', $autorizacion);
     }
 
     /**
@@ -99,10 +99,10 @@ class AutorizacionController extends AppBaseController
         if (empty($autorizacion)) {
             Flash::error('Autorizacion no encontrado');
 
-            return redirect(route('autorizacions.index'));
+            return redirect(route('autorizaciones.index'));
         }
 
-        return view('autorizacions.edit')->with('autorizacion', $autorizacion);
+        return view('autorizaciones.edit')->with('autorizacion', $autorizacion);
     }
 
     /**
@@ -127,7 +127,7 @@ class AutorizacionController extends AppBaseController
 
         Flash::success('Autorizacion actualizado exitosamente.');
 
-        return redirect(route('autorizacions.index'));
+        return redirect(route('autorizaciones.index'));
     }
 
     /**
@@ -144,13 +144,13 @@ class AutorizacionController extends AppBaseController
         if (empty($autorizacion)) {
             Flash::error('Autorizacion no encontrado');
 
-            return redirect(route('autorizacions.index'));
+            return redirect(route('autorizaciones.index'));
         }
 
         $this->autorizacionRepository->delete($id);
 
         Flash::success('Autorizacion eliminado exitosamente.');
 
-        return redirect(route('autorizacions.index'));
+        return redirect(route('autorizaciones.index'));
     }
 }

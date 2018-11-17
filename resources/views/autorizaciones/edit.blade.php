@@ -15,9 +15,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($autorizacion, ['route' => ['autorizacions.update', $autorizacion->id], 'method' => 'patch']) !!}
+                   {!! Form::model($autorizacion, ['route' => ['autorizaciones.update', $autorizacion->id], 'method' => 'patch']) !!}
 
-                        @include('autorizacions.fields')
+                        @include('autorizaciones.fields')
 
                    {!! Form::close() !!}
                </div>
