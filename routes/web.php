@@ -177,3 +177,7 @@ Route::resource('provincias', 'ProvinciaController');
 Route::resource('autorizacions', 'AutorizacionController');
 
 Route::resource('ingresos', 'IngresoController');
+
+Route::resource('tipoDomicilios', 'TipoDomicilioController');
+
+Route::resource('domicilios', 'DomicilioController');

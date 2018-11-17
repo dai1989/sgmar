@@ -6,7 +6,8 @@ use App\Invoice;
 use App\InvoiceItem;
 use DB;
 
-class InvoiceRepository {
+class InvoiceRepository 
+{
     private $model;
     
     public function __construct(){
