@@ -174,6 +174,18 @@ Route::get('/devolucion/findUser', 'DevolucionController@findUser');
 Route::post('/devolucion/save', 'DevolucionController@save');
 
 
+Route::get('/factura', 'FacturaController@index');
+Route::get('/factura/add', 'FacturaController@add');
+Route::get('/factura/detail/{id}', 'FacturaController@detail');
+Route::get('/factura/pdf/{id}', 'FacturaController@pdf');
+Route::get('/factura/findPersona', 'FacturaController@findPersona');
+Route::get('/factura/findProducto', 'FacturaController@findProducto');
+Route::get('/factura/findUser', 'FacturaController@findUser');
+Route::get('/factura/findTipoPago', 'FacturaController@findTipoPago');
+Route::get('/factura/findTipoFactura', 'FacturaController@findTipoFactura');
+Route::post('/factura/save', 'FacturaController@save');
+
+
 
 
 

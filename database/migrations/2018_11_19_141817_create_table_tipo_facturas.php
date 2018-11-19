@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTipoPagos extends Migration
+class CreateTableTipoFacturas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTableTipoPagos extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_pagos', function (Blueprint $table) {
+        Schema::create('tipo_facturas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcionpago', 100);
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableTipoPagos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_pagos');
+        Schema::dropIfExists('tipo_facturas');
     }
 }
