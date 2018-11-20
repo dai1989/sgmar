@@ -17,7 +17,7 @@
             <td>{!! $domicilio->calle !!}</td>
             <td>{!! $domicilio->calle_numero !!}</td>
             <td>{!! $domicilio->descripcion !!}</td>
-            <td>{!! $domicilio->tipodomicilio_id !!}</td>
+            <td>{!! $domicilio->tipodomicilio->tipo_descripcion!!}</td>
             <td>{!! $domicilio->persona->nombre !!},{!!$domicilio->persona->apellido!!}</td>
             <td>{!! $domicilio->localidad->localidad_descripcion !!}</td>
             <td>{!! $domicilio->provincia->descripcion!!}</td>

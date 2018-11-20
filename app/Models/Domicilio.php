@@ -111,7 +111,7 @@ class Domicilio extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function tipoDomicilio()
+    public function tipodomicilio()
     {
         return $this->belongsTo(\App\Models\TipoDomicilio::class);
     }

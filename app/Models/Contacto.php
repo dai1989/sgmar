@@ -76,7 +76,7 @@ class Contacto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function tipoContacto()
+    public function tipocontacto()
     {
         return $this->belongsTo(\App\Models\TipoContacto::class);
     }
