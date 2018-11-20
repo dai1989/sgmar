@@ -31,10 +31,11 @@ class DevolucionRepository {
 
           
             
+            
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
-            $this->model->invoice_id = $data->invoice_id;
+            $this->model->factura_id = $data->factura_id;
             $this->model->user_id = $data->user_id;
 
             $this->model->save();
@@ -47,7 +48,7 @@ class DevolucionRepository {
                 $obj->cantidad = $d->cantidad;
                 $obj->observacion = $d->observacion;
                 $obj->precio_venta = $d->precio_venta;
-                $obj->total = $d->total;
+                $obj->total = $d->total; 
 
                 $detail[] = $obj;
             }

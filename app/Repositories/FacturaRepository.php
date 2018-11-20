@@ -30,6 +30,7 @@ class FacturaRepository {
             DB::beginTransaction();
 
           
+            
             $this->model->numero = $data->numero;
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;

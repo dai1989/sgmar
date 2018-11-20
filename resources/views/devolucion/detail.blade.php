@@ -11,10 +11,10 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-6">
-                        <input class="form-control typeahead" type="text" readonly value="{{ $model->invoice->persona->nombre }},{{$model->invoice->persona->apellido}}" />
+                        <input class="form-control typeahead" type="text" readonly value="{{ $model->factura->persona->nombre }},{{$model->factura->persona->apellido}}" />
                     </div>
                     <div class="col-xs-2">
-                        <input class="form-control" type="text" readonly value={{ $model->invoice->persona->documento }} />
+                        <input class="form-control" type="text" readonly value={{ $model->factura->persona->documento }} />
                     </div>
                      <div class="col-xs-2">
                         <input class="form-control" type="text" readonly value={{ $model->user->name}} />

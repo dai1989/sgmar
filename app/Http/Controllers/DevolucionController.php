@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request,
  App\Http\Requests;
 use App\Repositories\ProductoRepository;
-use App\Repositories\InvoicesRepository;
+use App\Repositories\FacturasRepository;
 use App\Repositories\DevolucionRepository;
 use App\Repositories\UsersRepository;
 use App\User;
 use App\Models\Persona;
-use App\Invoice;
+use App\Models\Factura;
+
 use App\Models\Producto;
 use App\Models\Devolucion;
 use App\Models\DevolucionDetalle;
@@ -22,19 +23,19 @@ class DevolucionController extends Controller
     private $_devolucionRepo;
     private $_productoRepo;
     private $_usersRepo;
-    private $_invoicesRepo;
+    private $_facturasRepo;
 
     public function __CONSTRUCT(
         DevolucionRepository $devolucionRepo,
         ProductoRepository $productoRepo,
         UsersRepository $usersRepo,
-        InvoicesRepository $invoicesRepo
+        FacturasRepository $facturasRepo
     )
     {
         $this->_devolucionRepo = $devolucionRepo;
         $this->_productoRepo = $productoRepo;
         $this->_usersRepo = $usersRepo;
-        $this->_invoicesRepo = $invoicesRepo;
+        $this->_facturasRepo = $facturasRepo;
     }
 
     public function index()
@@ -76,10 +77,11 @@ class DevolucionController extends Controller
         $data = (object)[
           
             
+            
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
-            'invoice_id' => $req->input('invoice_id'),
+            'factura_id' => $req->input('factura_id'),
             'user_id' => $req->input('user_id'),
             'detail' => []
         ];
@@ -97,9 +99,9 @@ class DevolucionController extends Controller
         return $this->_devolucionRepo->save($data); 
     }
 
-    public function findInvoice(Request $req)
+    public function findFactura(Request $req)
     {
-        return $this->_invoicesRepo
+        return $this->_facturasRepo
                     ->findByNumero($req->input('q'));
     }
 

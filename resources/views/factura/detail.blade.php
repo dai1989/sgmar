@@ -5,16 +5,16 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header">
-                Cuenta Corriente # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
+                Factura # {{ str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}
             </h2>
 
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-6">
-                        <input class="form-control typeahead" type="text" readonly value="{{ $model->autorizacion->persona->nombre }},{{$model->autorizacion->persona->apellido}}" />
+                        <input class="form-control typeahead" type="text" readonly value="{{ $model->persona->nombre }},{{$model->persona->apellido}}" />
                     </div>
                     <div class="col-xs-2">
-                        <input class="form-control" type="text" readonly value={{ $model->autorizacion->persona->documento }} />
+                        <input class="form-control" type="text" readonly value={{ $model->persona->documento }} />
                     </div>
                    
                    

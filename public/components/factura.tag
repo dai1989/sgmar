@@ -25,7 +25,7 @@
             <div class="col-xs-6">
                 <input id="tipofactura" class="form-control typeahead" type="text" placeholder="tipo de factura" />
             </div>
-           
+          
             
             
         </div>
@@ -103,7 +103,7 @@
         self.tipofactura_id = 0;
         self.user_id = 0;
         self.detail = [];
-        self.numero = 0;
+        
         self.iva = 0;
         self.subTotal = 0;
         self.total = 0;
@@ -147,7 +147,7 @@
                 tipofactura_id: self.tipofactura_id,
                 tipopago_id: self.tipopago_id,
                 user_id: self.user_id,
-                numero: self.numero,
+                
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,

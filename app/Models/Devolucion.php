@@ -14,8 +14,8 @@ class Devolucion extends Model
     public function persona(){
         return $this->belongsTo('App\Models\Persona');
     }
-    public function invoice(){
-        return $this->belongsTo('App\Invoice');
+    public function factura(){
+        return $this->belongsTo('App\Models\Factura');
     }
      public function user()
     {

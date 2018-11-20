@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Invoice ;
+use App\Models\Factura ;
 
 
 
-class InvoicesRepository 
+class FacturasRepository 
 {
     private $model;
     
     public function __construct(){
-        $this->model = new Invoice();
+        $this->model = new Factura();
     }
 
     public function findByNumero($q) {

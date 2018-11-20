@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de credito a cuenta corriente</title>
+    <title>Factura</title>
     <style>
         body {
         /*position: relative;*/
@@ -138,9 +138,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="cliente">Sr(a). {{$model->autorizacion->persona->nombre}},
-                            {{$model->autorizacion->persona->apellido}}<br>
-                            Documento:{{$model->autorizacion->persona->documento}}<br>
+                            <th><p id="cliente">Sr(a). {{$model->persona->nombre}},
+                            {{$model->persona->apellido}}<br>
+                            Documento:{{$model->persona->documento}}<br>
                             Dirección:<br>
                             Teléfono:<br>
                             Email:</</p></th>

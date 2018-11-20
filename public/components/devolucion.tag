@@ -2,7 +2,7 @@
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
-                <input id="invoice" class="form-control typeahead" type="text" placeholder="N° de factura" />
+                <input id="factura" class="form-control typeahead" type="text" placeholder="N° de factura" />
             </div>
             <div class="col-xs-2">
                 <input class="form-control" type="text" placeholder="total de venta" readonly value="{total}" />
@@ -85,7 +85,7 @@
         </tfoot>
     </table>
 
-    <button if={detail.length > 0 && invoice_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
+    <button if={detail.length > 0 && factura_id > 0} onclick={__save} class="btn btn-default btn-lg btn-block">
         Guardar
     </button>
 
@@ -93,7 +93,7 @@
         var self = this;
 
         // Detalle del comprobante
-        self.invoice_id = 0;
+        self.factura_id = 0;
         self.user_id = 0;
         self.detail = [];
         self.iva = 0;
@@ -101,7 +101,7 @@
         self.total = 0;
 
         self.on('mount', function(){
-            __invoiceAutocomplete();
+            __facturaAutocomplete();
             __userAutocomplete();
             __productoAutocomplete();
         })
@@ -135,7 +135,7 @@
 
         __save() {
             $.post(baseUrl('devolucion/save'), {
-                invoice_id: self.invoice_id,
+                factura_id: self.factura_id,
                 user_id: self.user_id,
                 iva: self.iva,
                 subTotal: self.subTotal,
@@ -162,17 +162,17 @@
             self.iva = parseFloat(total * 21 / 100);
         }
 
-        function __invoiceAutocomplete(){
-            var invoice = $("#invoice"),
+        function __facturaAutocomplete(){
+            var factura = $("#factura"),
                 options = {
                 url: function(q) {
-                    return baseUrl('devolucion/findInvoice?q=' + q);
+                    return baseUrl('devolucion/findFactura?q=' + q);
                 },
                 getValue: 'numero',
                 list: {
                     onClickEvent: function() {
-                        var e = invoice.getSelectedItemData();
-                        self.invoice_id = e.id;
+                        var e = factura.getSelectedItemData();
+                        self.factura_id = e.id;
                         self.total = e.total;
                         
 
@@ -181,7 +181,7 @@
                 }
             };
 
-            invoice.easyAutocomplete(options);
+            factura.easyAutocomplete(options);
         }
 
           function __userAutocomplete(){

@@ -27,7 +27,7 @@
                     <tr>
                         <td>
                             <a href="{{url('devolucion/detail/' . $m->id )}}">
-                                {{ $m->invoice->persona->nombre }},{{$m->invoice->persona->apellido}}
+                                {{ $m->factura->persona->nombre }},{{$m->factura->persona->apellido}}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>

@@ -20,6 +20,7 @@ class CreateTableDevolucionDetalles extends Migration
 
             $table->foreign('devolucion_id')->references('id')->on('devoluciones');
             $table->foreign('producto_id')->references('id')->on('productos');
+            $table->string('observaciones');
             $table->decimal('cantidad', 10,2);
             $table->decimal('precio_venta', 10,2);
             $table->decimal('total', 10,2);

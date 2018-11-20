@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request,
+use Illuminate\Http\Request, 
  App\Http\Requests;
 use App\Repositories\ProductoRepository;
 use App\Repositories\PersonaRepository;
@@ -83,6 +83,7 @@ class FacturaController extends Controller
     {
         $data = (object)[
           
+            
             'numero' => $req->input('numero'),
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),

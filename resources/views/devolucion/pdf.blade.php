@@ -139,9 +139,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="cliente">Sr(a). {{$model->invoice->persona->nombre}},
-                            {{$model->invoice->persona->apellido}}<br>
-                            Documento:{{$model->invoice->persona->documento}}<br>
+                            <th><p id="cliente">Sr(a). {{$model->factura->persona->nombre}},
+                            {{$model->factura->persona->apellido}}<br>
+                            Documento:{{$model->factura->persona->documento}}<br>
                             Dirección:<br>
                             Teléfono:<br>
                             Email:</</p></th>

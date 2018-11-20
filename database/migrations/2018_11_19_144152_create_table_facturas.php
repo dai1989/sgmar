@@ -23,7 +23,7 @@ class CreateTableFacturas extends Migration
             $table->foreign('tipofactura_id')->references('id')->on('tipo_facturas');
             $table->integer('tipopago_id')->unsigned();
             $table->foreign('tipopago_id')->references('id')->on('tipo_pagos');
-            $table->string('numero');
+        
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
