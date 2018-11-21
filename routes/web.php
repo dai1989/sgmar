@@ -178,6 +178,7 @@ Route::get('/factura', 'FacturaController@index');
 Route::get('/factura/add', 'FacturaController@add');
 Route::get('/factura/detail/{id}', 'FacturaController@detail');
 Route::get('/factura/pdf/{id}', 'FacturaController@pdf');
+
 Route::get('/factura/findPersona', 'FacturaController@findPersona');
 Route::get('/factura/findProducto', 'FacturaController@findProducto');
 Route::get('/factura/findUser', 'FacturaController@findUser');
@@ -200,3 +201,4 @@ Route::resource('ingresos', 'IngresoController');
 Route::resource('tipoDomicilios', 'TipoDomicilioController');
 
 Route::resource('domicilios', 'DomicilioController');
+ route::resource('chart','ChartController');
