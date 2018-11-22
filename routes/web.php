@@ -123,21 +123,18 @@ Route::resource('stock', 'StockController');
 
 Route::resource('roles', 'RoleController');
 
-Route::get('/invoice', 'InvoiceController@index');
-Route::get('/invoice/add', 'InvoiceController@add');
-Route::get('/invoice/detail/{id}', 'InvoiceController@detail');
-Route::get('/invoice/pdf/{id}', 'InvoiceController@pdf');
-Route::get('/invoice/findPersona', 'InvoiceController@findPersona');
-Route::get('/invoice/findProducto', 'InvoiceController@findProducto');
-Route::post('/invoice/save', 'InvoiceController@save');
+Route::get('/compra', 'CompraController@index');
+Route::get('/compra/add', 'CompraController@add');
+Route::get('/compra/detail/{id}', 'CompraController@detail');
+Route::get('/compra/pdf/{id}', 'CompraController@pdf');
+Route::get('/compra/findProveedor', 'CompraController@findProveedor');
+Route::get('/compra/findProducto', 'CompraController@findProducto');
+Route::get('/compra/findUser', 'CompraController@findUser');
+Route::get('/compra/findTipoPago', 'CompraController@findTipoPago');
+Route::get('/compra/findTipoFactura', 'CompraController@findTipoFactura');
+Route::post('/compra/save', 'CompraController@save');
 
-Route::get('/factura_compra', 'FacturaCompraController@index');
-Route::get('/factura_compra/add', 'FacturaCompraController@add');
-Route::get('/factura_compra/detail/{id}', 'FacturaCompraController@detail');
-Route::get('/factura_compra/pdf/{id}', 'FacturaCompraController@pdf');
-Route::get('/factura_compra/findPersona', 'FacturaCompraController@findPersona');
-Route::get('/factura_compra/findProducto', 'FacturaCompraController@findProducto');
-Route::post('/factura_compra/save', 'FacturaCompraController@save');
+
 
 Route::get('/presupuesto', 'PresupuestoController@index');
 Route::get('/presupuesto/add', 'PresupuestoController@add');

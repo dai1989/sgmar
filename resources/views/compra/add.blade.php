@@ -8,17 +8,17 @@
                 Nueva Factura de Compra
             </h2>
 
-            <facturacompra></facturacompra>
+            <compra></compra>
         </div>
     </div>
 </div>
 @endsection
 
 @section('bottom')
-    <script src="{{asset('components/facturacompra.tag')}}" type="riot/tag"></script>
+    <script src="{{asset('components/compra.tag')}}" type="riot/tag"></script>
     <script>
         $(document).ready(function(){
-            riot.mount('facturacompra');
+            riot.mount('compra');
         })
     </script>
 @endsection

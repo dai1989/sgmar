@@ -2,16 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\FacturaCompra;
-use App\Models\FacturaCompraDetalle;
-
+use App\Models\Compra;
+use App\Models\CompraDetalle;
 use DB;
 
-class FacturaCompraRepository {
+class CompraRepository {
     private $model;
     
     public function __construct(){
-        $this->model = new FacturaCompra();
+        $this->model = new Compra();
     }
 
     public function get($id) {
@@ -30,22 +29,26 @@ class FacturaCompraRepository {
         try {
             DB::beginTransaction();
 
+          
+            
+            
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
             $this->model->proveedor_id = $data->proveedor_id;
-            $this->model->user_id = $data->user_id;
             $this->model->tipopago_id = $data->tipopago_id;
+            $this->model->tipofactura_id = $data->tipofactura_id;
+            $this->model->user_id = $data->user_id;
 
             $this->model->save();
 
             $detail = [];
             foreach($data->detail as $d) {
-                $obj = new FacturaCompraDetalle;
+                $obj = new FacturaDetalle;
 
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
-                $obj->precio_compra = $d->precio_compra;
+                $obj->precio = $d->precio;
                 $obj->total = $d->total;
 
                 $detail[] = $obj;

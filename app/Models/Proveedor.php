@@ -39,7 +39,7 @@ class Proveedor extends Model
 
 
     public $fillable = [
-        'razon_social',
+        'razonsocial',
         'cuit'
     ];
 
@@ -50,7 +50,7 @@ class Proveedor extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'razon_social' => 'string',
+        'razonsocial' => 'string',
         'cuit' => 'string'
     ];
 
@@ -66,15 +66,15 @@ class Proveedor extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function contactoProveedores()
+    public function contactoproveedores()
     {
-        return $this->hasMany(\App\Models\ContactoProveedore::class);
+        return $this->hasMany(\App\Models\ContactoProveedores::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function facturaCompras()
+    public function facturacompras()
     {
         return $this->hasMany(\App\Models\FacturaCompra::class);
     }

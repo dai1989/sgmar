@@ -20,7 +20,7 @@ class ProveedorRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'razon_social',
+        'razonsocial',
         'cuit'
     ];
 

@@ -9,7 +9,7 @@
                 Facturas
             </h2>
 
-            <a class="btn btn-default btn-lg btn-block" href="{{url('factura_compra/add')}}">Nuevo Factura</a>
+            <a class="btn btn-default btn-lg btn-block" href="{{url('compra/add')}}">Nuevo Factura</a>
 
             <table class="table table-striped">
                 <thead>
@@ -26,8 +26,8 @@
                     @foreach ($model as $m)
                     <tr>
                         <td>
-                            <a href="{{url('factura_compra/detail/' . $m->id )}}">
-                                {{ $m->proveedor->razon_social }}
+                            <a href="{{url('compra/detail/' . $m->id )}}">
+                                {{ $m->proveedor->razonsocial }}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>
@@ -35,7 +35,7 @@
                         <td class="text-right">$ {{number_format($m->total, 2)}}</td>
                         <td class="text-right">{{ $m->created_at  }}</td>
                         <td class="text-right">
-                            <a class="btn btn-success btn-block btn-xs" href="{{ url('factura_compra/pdf/' . $m->id) }}">
+                            <a class="btn btn-success btn-block btn-xs" href="{{ url('compra/pdf/' . $m->id) }}">
                                 <i class="fa fa-file-pdf-o"></i> Descargar
                             </a>
                         </td>

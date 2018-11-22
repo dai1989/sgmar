@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableFacturacompraDetalles extends Migration
+class CreateTableCompraDetalles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTableFacturacompraDetalles extends Migration
      */
     public function up()
     {
-        Schema::create('facturacompra_detalles', function (Blueprint $table) {
+        Schema::create('compra_detalles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer ('facturacompra_id')->unsigned();
-            $table->foreign ('facturacompra_id')->references('id')->on('factura_compra');
+            $table->integer ('compra_id')->unsigned();
+            $table->foreign ('compra_id')->references('id')->on('compras');
             $table->integer ('producto_id')->unsigned();
             $table->foreign ('producto_id')->references('id')->on('productos');
             $table->string('cantidad');
-            $table->decimal('precio_compra');
+            $table->decimal('precio');
             $table->decimal('total');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateTableFacturacompraDetalles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facturacompra_detalles');
+        Schema::dropIfExists('compra_detalles');
     }
 }

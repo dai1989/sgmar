@@ -1,4 +1,4 @@
-<facturacompra>
+<compra>
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
@@ -7,8 +7,28 @@
             <div class="col-xs-2">
                 <input class="form-control" type="text" placeholder="cuit" readonly value="{cuit}" />
             </div>
+            
         </div>
-
+         <div class="row">
+            <div class="col-xs-6">
+                <input id="user" class="form-control typeahead" type="text" placeholder="Vendedor" />
+            </div>
+            <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="username" readonly value="{username}" />
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="tipopago" class="form-control typeahead" type="text" placeholder="tipo de pago" />
+            </div>
+            <div class="col-xs-6">
+                <input id="tipofactura" class="form-control typeahead" type="text" placeholder="tipo de factura" />
+            </div>
+          
+            
+            
+        </div>
     </div>
 
     <div class="row">
@@ -18,12 +38,10 @@
         <div class="col-xs-2">
             <input id="cantidad" class="form-control" type="text" placeholder="Cantidad" />
         </div>
-        <div class="col-xs-2">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">S/.</span>
-                <input class="form-control" type="text" placeholder="Precio" value="{precio_compra}"/>
-            </div>
+         <div class="col-xs-2">
+            <input id="precio" class="form-control" type="text" placeholder="precio de compra" />
         </div>
+       
         <div class="col-xs-1">
             <button onclick={__addProductoToDetail} class="btn btn-primary form-control" id="btn-agregar">
                 <i class="glyphicon glyphicon-plus"></i>
@@ -50,7 +68,7 @@
             </td>
             <td>{descripcion}</td>
             <td class="text-right">{cantidad}</td>
-            <td class="text-right">$ {precio_compra}</td>
+            <td class="text-right">$ {precio}</td>
             <td class="text-right">$ {total}</td>
         </tr>
         </tbody>
@@ -79,13 +97,20 @@
 
         // Detalle del comprobante
         self.proveedor_id = 0;
+        self.tipopago_id = 0;
+        self.tipofactura_id = 0;
+        self.user_id = 0;
         self.detail = [];
+        
         self.iva = 0;
         self.subTotal = 0;
         self.total = 0;
 
         self.on('mount', function(){
             __proveedorAutocomplete();
+            __tipopagoAutocomplete();
+            __tipofacturaAutocomplete();
+            __userAutocomplete();
             __productoAutocomplete();
         })
 
@@ -97,33 +122,37 @@
             __calculate();
         }
 
-        __addProductoToDetail() {
+        __addProductoToDetail() { 
             self.detail.push({
                 id: self.producto_id,
                 descripcion: self.producto.value,
                 cantidad: parseFloat(self.cantidad.value),
-                precio_compra: parseFloat(self.precio_compra),
-                total: parseFloat(self.precio_compra * self.cantidad.value)
+                precio: self.precio.value,
+                total: parseFloat(self.precio.value * self.cantidad.value)
             });
 
             self.producto_id = 0;
             self.producto.value = '';
             self.cantidad.value = '';
-            self.precio_compra = '';
+            self.precio.value= '';
 
             __calculate();
         }
 
         __save() {
-            $.post(baseUrl('factura_compra/save'), {
+            $.post(baseUrl('compra/save'), {
                 proveedor_id: self.proveedor_id,
+                tipofactura_id: self.tipofactura_id,
+                tipopago_id: self.tipopago_id,
+                user_id: self.user_id,
+                
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,
                 detail: self.detail
             }, function(r){
                 if(r.response) {
-                    window.location.href = baseUrl('factura_compra');
+                    window.location.href = baseUrl('compra');
                 } else {
                     alert('Ocurrio un error');
                 }
@@ -146,14 +175,14 @@
             var proveedor = $("#proveedor"),
                 options = {
                 url: function(q) {
-                    return baseUrl('factura_compra/findProveedor?q=' + q);
+                    return baseUrl('compra/findProveedor?q=' + q);
                 },
-                getValue: 'razon_social',
+                getValue: 'razonsocial',
                 list: {
                     onClickEvent: function() {
                         var e = proveedor.getSelectedItemData();
                         self.proveedor_id = e.id;
-                        self.razon_social = e.razon_social;
+                        self.cuit = e.cuit;
                         
 
                         self.update();
@@ -164,18 +193,40 @@
             proveedor.easyAutocomplete(options);
         }
 
+          function __userAutocomplete(){
+            var user = $("#user"),
+                options = {
+                url: function(q) {
+                    return baseUrl('compra/findUser?q=' + q);
+                },
+                getValue: 'name',
+                list: {
+                    onClickEvent: function() {
+                        var e = user.getSelectedItemData();
+                        self.user_id = e.id;
+                        self.username = e.username;
+                        
+
+                        self.update();
+                    }
+                }
+            };
+
+            user.easyAutocomplete(options);
+        }
+
         function __productoAutocomplete(){
             var producto = $("#producto"),
                 options = {
                 url: function(q) {
-                    return baseUrl('factura_compra/findProducto?q=' + q);
+                    return baseUrl('compra/findProducto?q=' + q);
                 },
                 getValue: 'descripcion',
                 list: {
                     onClickEvent: function() {
                         var e = producto.getSelectedItemData();
                         self.producto_id = e.id;
-                        self.precio_compra = e.precio_compra;
+                        
 
                         self.update();
                     }
@@ -184,5 +235,47 @@
 
             producto.easyAutocomplete(options);
         }
+
+
+        function __tipopagoAutocomplete(){
+            var tipopago = $("#tipopago"),
+                options = {
+                url: function(q) {
+                    return baseUrl('compra/findTipoPago?q=' + q);
+                },
+                getValue: 'descripcionpago',
+                list: {
+                    onClickEvent: function() {
+                        var e = tipopago.getSelectedItemData();
+                        self.tipopago_id = e.id;
+                        
+
+                        self.update();
+                    }
+                }
+            };
+
+            tipopago.easyAutocomplete(options);
+        }
+         function __tipofacturaAutocomplete(){
+            var tipofactura = $("#tipofactura"),
+                options = {
+                url: function(q) {
+                    return baseUrl('compra/findTipoFactura?q=' + q);
+                },
+                getValue: 'descripcion',
+                list: {
+                    onClickEvent: function() {
+                        var e = tipofactura.getSelectedItemData();
+                        self.tipofactura_id = e.id;
+                        
+
+                        self.update();
+                    }
+                }
+            };
+
+            tipofactura.easyAutocomplete(options);
+        }
     </script>
-</facturacompra>
+</compra>

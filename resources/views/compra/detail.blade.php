@@ -11,7 +11,7 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-6">
-                        <input class="form-control typeahead" type="text" readonly value="{{ $model->proveedor->razon_social }}" />
+                        <input class="form-control typeahead" type="text" readonly value="{{ $model->proveedor->razonsocial }}" />
                     </div>
                     <div class="col-xs-2">
                         <input class="form-control" type="text" readonly value={{ $model->proveedor->cuit }} />
@@ -36,7 +36,7 @@
                 <tr>
                     <td>{{$d->producto->descripcion}}</td>
                     <td class="text-right">{{$d->cantidad}}</td>
-                    <td class="text-right">$ {{number_format($d->precio_compra, 2)}}</td>
+                    <td class="text-right">$ {{number_format($d->precio, 2)}}</td>
                     <td class="text-right">$ {{number_format($d->total, 2)}}</td>
                 </tr>
                 @endforeach
