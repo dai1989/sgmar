@@ -39,7 +39,10 @@
             <input id="cantidad" class="form-control" type="text" placeholder="Cantidad" />
         </div>
          <div class="col-xs-2">
-            <input id="precio" class="form-control" type="text" placeholder="precio de compra" />
+            <div class="input-group">
+                <span class="input-group-addon" id="precio">S/.</span>
+                <input class="form-control" type="text" placeholder="Precio"/>
+            </div>
         </div>
        
         <div class="col-xs-1">
@@ -128,7 +131,9 @@
                 descripcion: self.producto.value,
                 cantidad: parseFloat(self.cantidad.value),
                 precio: self.precio.value,
-                total: parseFloat(self.precio.value * self.cantidad.value)
+                
+                
+                total: parseFloat(self.precio.value* self.cantidad.value)
             });
 
             self.producto_id = 0;
@@ -222,7 +227,7 @@
                     return baseUrl('compra/findProducto?q=' + q);
                 },
                 getValue: 'descripcion',
-                list: {
+                 list: {
                     onClickEvent: function() {
                         var e = producto.getSelectedItemData();
                         self.producto_id = e.id;
@@ -231,6 +236,7 @@
                         self.update();
                     }
                 }
+             
             };
 
             producto.easyAutocomplete(options);

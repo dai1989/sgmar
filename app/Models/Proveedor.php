@@ -74,8 +74,8 @@ class Proveedor extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function facturacompras()
+    public function compra()
     {
-        return $this->hasMany(\App\Models\FacturaCompra::class);
+        return $this->hasMany(\App\Models\Compra::class);
     }
 }

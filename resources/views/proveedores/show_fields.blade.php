@@ -4,8 +4,8 @@
 
 
 <!-- Razon Social Field -->
-{!! Form::label('razon_social', 'Razon Social:') !!}
-{!! $proveedor->razon_social !!}<br>
+{!! Form::label('razonsocial', 'Razon Social:') !!}
+{!! $proveedor->razonsocial !!}<br>
 
 
 <!-- Cuit Field -->

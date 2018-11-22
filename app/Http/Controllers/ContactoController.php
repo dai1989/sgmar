@@ -13,7 +13,7 @@ use Response;
 use App\Models\Contacto;
 use App\Models\Persona;
 use App\Models\Cliente;
-use App\Models\TipoContacto;
+use App\Models\TipoContacto; 
 
 class ContactoController extends AppBaseController
 {

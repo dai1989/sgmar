@@ -63,7 +63,7 @@ class ProveedorDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'razon_social',
+            'razonsocial',
             'cuit'
         ];
     }

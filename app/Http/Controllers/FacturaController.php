@@ -84,7 +84,7 @@ class FacturaController extends Controller
         $data = (object)[
           
             
-            'numero' => $req->input('numero'),
+            
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),

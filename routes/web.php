@@ -199,3 +199,5 @@ Route::resource('tipoDomicilios', 'TipoDomicilioController');
 
 Route::resource('domicilios', 'DomicilioController');
  route::resource('chart','ChartController');
+
+Route::resource('contacto_proveedores', 'ContactoProveedorController');
