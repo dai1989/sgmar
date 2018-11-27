@@ -1,9 +1,13 @@
 <!-- Persona Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('persona_id', 'Persona Id:') !!}
-    {!! Form::number('persona_id', null, ['class' => 'form-control']) !!}
+   <label for="persona_id">Cliente</label>
+  <select  type="text" name="persona_id" class="form-control" id="persona_id" placeholder="clientes" >
+    <option value="">--Seleccionar--</option>
+    @foreach ($persona_list as $persona)
+    <option value="{{ $persona->id }}">{{ $persona->nombre }},{{$persona->apellido}}</option>
+    @endforeach
+  </select>
 </div>
-
 <!-- Codigo Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('codigo', 'Codigo:') !!}

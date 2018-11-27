@@ -1,10 +1,10 @@
 <table class="table table-responsive" id="contactoProveedors-table">
     <thead>
         <tr>
-            <th>Contac Descripcion</th>
-        <th>Proveedor Id</th>
-        <th>Tipocontacto Id</th>
-            <th colspan="3">Action</th>
+            <th>Descripcion</th>
+        <th>Proveedor</th>
+        <th>Tipo de contacto</th>
+            <th colspan="3">Accion</th>
         </tr>
     </thead>
     <tbody>

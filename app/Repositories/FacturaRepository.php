@@ -32,6 +32,8 @@ class FacturaRepository {
           
             
             
+            
+            $this->model->numero = $data->numero;
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
@@ -49,6 +51,9 @@ class FacturaRepository {
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
                 $obj->precio_venta = $d->precio_venta;
+                $obj->entrega = $d->entrega;
+                $obj->vuelto = $d->vuelto;
+                
                 $obj->total = $d->total;
 
                 $detail[] = $obj;

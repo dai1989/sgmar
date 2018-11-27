@@ -22,9 +22,8 @@ class CreateTablePresupuesto extends Migration
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
-           
-             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,15 +15,9 @@ class CreateTableContactos extends Migration
     {
         Schema::create('contactos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('persona_id')->unsigned();
-            $table->foreign('persona_id')->references('id')->on('personas')
-            ->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('tipocontacto_id')->unsigned();
-            $table->foreign('tipocontacto_id')->references('id')->on('tipo_contactos')
-            ->onUpdate('cascade')->onDelete('cascade');
-            
             $table->string('contac_descripcion', 50)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

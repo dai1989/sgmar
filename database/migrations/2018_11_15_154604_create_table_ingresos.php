@@ -22,6 +22,7 @@ class CreateTableIngresos extends Migration
             $table->string('concepto');
             $table->decimal('entrega', 10,2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

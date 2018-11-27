@@ -23,6 +23,7 @@ class CreateTableCreditos extends Migration
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

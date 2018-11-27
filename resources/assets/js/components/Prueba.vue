@@ -5,7 +5,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Ingresos
+                        <i class="fa fa-align-justify"></i> Pruebas
                         <button type="button" @click="mostrarDetalle()" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -21,8 +21,8 @@
                                       <option value="num_comprobante">Número Comprobante</option>
                                       <option value="fecha_hora">Fecha-Hora</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarIngreso(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarIngreso(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarPrueba(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarPrueba(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -43,26 +43,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="ingreso in arrayIngreso" :key="ingreso.id">
+                                    <tr v-for="prueba in arrayPrueba" :key="prueba.id">
                                         <td>
-                                            <button type="button" @click="verIngreso(ingreso.id)" class="btn btn-success btn-sm">
+                                            <button type="button" @click="verPrueba(prueba.id)" class="btn btn-success btn-sm">
                                             <i class="icon-eye"></i>
                                             </button> &nbsp;
-                                            <template v-if="ingreso.estado=='Registrado'">
-                                                <button type="button" class="btn btn-danger btn-sm" @click="desactivarIngreso(ingreso.id)">
+                                            <template v-if="prueba.estado=='Registrado'">
+                                                <button type="button" class="btn btn-danger btn-sm" @click="desactivarPrueba(prueba.id)">
                                                     <i class="icon-trash"></i>
                                                 </button>
                                             </template>
                                         </td>
-                                        <td v-text="ingreso.usuario"></td>
-                                        <td v-text="ingreso.nombre"></td>
-                                        <td v-text="ingreso.tipo_comprobante"></td>
-                                        <td v-text="ingreso.serie_comprobante"></td>
-                                        <td v-text="ingreso.num_comprobante"></td>
-                                        <td v-text="ingreso.fecha_hora"></td>
-                                        <td v-text="ingreso.total"></td>
-                                        <td v-text="ingreso.impuesto"></td>
-                                        <td v-text="ingreso.estado"></td>
+                                        <td v-text="prueba.usuario"></td>
+                                        <td v-text="prueba.nombre"></td>
+                                        <td v-text="prueba.tipo_comprobante"></td>
+                                        <td v-text="prueba.serie_comprobante"></td>
+                                        <td v-text="prueba.num_comprobante"></td>
+                                        <td v-text="prueba.fecha_hora"></td>
+                                        <td v-text="prueba.total"></td>
+                                        <td v-text="prueba.impuesto"></td>
+                                        <td v-text="prueba.estado"></td>
                                     </tr>                                
                                 </tbody>
                             </table>
@@ -92,7 +92,7 @@
                                     <label for="">Proveedor(*)</label>
                                     <v-select
                                         :on-search="selectProveedor"
-                                        label="nombre"
+                                        label="razonsocial"
                                         :options="arrayProveedor"
                                         placeholder="Buscar Proveedores..."
                                         :onChange="getDatosProveedor"
@@ -129,9 +129,9 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div v-show="errorIngreso" class="form-group row div-error">
+                                <div v-show="errorPrueba" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjIngreso" :key="error" v-text="error">
+                                        <div v-for="error in errorMostrarMsjPrueba" :key="error" v-text="error">
 
                                         </div>
                                     </div>
@@ -141,11 +141,11 @@
                         <div class="form-group row border">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Artículo <span style="color: red;" v-show="idarticulo==0">(*Seleccione Articulo)</span></label>
+                                    <label>Producto <span style="color: red;" v-show="idproducto==0">(*Seleccione Producto)</span></label>
                                     <div class="form-inline">
-                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarArticulo()" placeholder="Ingrese artículo">
+                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarProducto()" placeholder="Ingrese producto">
                                         <button @click="abrirModal()" class="btn btn-primary">...</button>
-                                        <input type="text" readonly class="form-control" v-model="articulo">
+                                        <input type="text" readonly class="form-control" v-model="producto">
                                     </div>                                    
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                                     <i class="icon-close"></i>
                                                 </button>
                                             </td>
-                                            <td v-text="detalle.articulo">
+                                            <td v-text="detalle.producto">
                                             </td>
                                             <td>
                                                 <input v-model="detalle.precio" type="number" value="3" class="form-control">
@@ -223,7 +223,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" @click="ocultarDetalle()" class="btn btn-secondary">Cerrar</button>
-                                <button type="button" class="btn btn-primary" @click="registrarIngreso()">Registrar Compra</button>
+                                <button type="button" class="btn btn-primary" @click="registrarPrueba()">Registrar Compra</button>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
                                     </thead>
                                     <tbody v-if="arrayDetalle.length">
                                         <tr v-for="detalle in arrayDetalle" :key="detalle.id">
-                                            <td v-text="detalle.articulo">
+                                            <td v-text="detalle.producto">
                                             </td>
                                             <td v-text="detalle.precio">
                                             </td>
@@ -337,8 +337,8 @@
                                       <option value="descripcion">Descripción</option>
                                       <option value="codigo">Código</option>
                                     </select>
-                                    <input type="text" v-model="buscarA" @keyup.enter="listarArticulo(buscarA,criterioA)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarArticulo(buscarA,criterioA)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscarA" @keyup.enter="listarProducto(buscarA,criterioA)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarProducto(buscarA,criterioA)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -356,19 +356,19 @@
                                     </tr>
                                    </thead>
                                    <tbody>
-                                     <tr v-for="articulo in arrayArticulo" :key="articulo.id">
+                                     <tr v-for="producto in arrayProducto" :key="producto.id">
                                     <td>
-                                        <button type="button" @click="agregarDetalleModal(articulo)" class="btn btn-success btn-sm">
+                                        <button type="button" @click="agregarDetalleModal(producto)" class="btn btn-success btn-sm">
                                           <i class="icon-check"></i>
                                         </button>
                                     </td>
-                                    <td v-text="articulo.codigo"></td>
-                                    <td v-text="articulo.nombre"></td>
-                                    <td v-text="articulo.nombre_categoria"></td>
-                                    <td v-text="articulo.precio_venta"></td>
-                                    <td v-text="articulo.stock"></td>
+                                    <td v-text="producto.codigo"></td>
+                                    <td v-text="producto.nombre"></td>
+                                    <td v-text="producto.nombre_categoria"></td>
+                                    <td v-text="producto.precio_venta"></td>
+                                    <td v-text="producto.stock"></td>
                                     <td>
-                                        <div v-if="articulo.condicion">
+                                        <div v-if="producto.condicion">
                                             <span class="badge badge-success">Activo</span>
                                         </div>
                                         <div v-else>
@@ -400,26 +400,26 @@
     export default {
         data (){
             return {
-                ingreso_id: 0,
+                prueba_id: 0,
                 idproveedor:0,
                 proveedor:'',
-                nombre : '',
+                razonsocial : '',
                 tipo_comprobante : 'BOLETA',
                 serie_comprobante : '',
                 num_comprobante : '',
-                impuesto: 0.18,
+                impuesto: 0.21,
                 total:0.0,
                 totalImpuesto: 0.0,
                 totalParcial: 0.0,
-                arrayIngreso : [],
+                arrayPrueba : [],
                 arrayProveedor : [],
                 arrayDetalle : [],
                 listado:1,
                 modal : 0,
                 tituloModal : '',
                 tipoAccion : 0,
-                errorIngreso : 0,
-                errorMostrarMsjIngreso : [],
+                errorPrueba : 0,
+                errorMostrarMsjPrueba : [],
                 pagination : {
                     'total' : 0,
                     'current_page' : 0,
@@ -433,10 +433,10 @@
                 buscar : '',
                 criterioA: 'nombre',
                 buscarA:'',
-                arrayArticulo: [],
-                idarticulo: 0,
+                arrayProducto: [],
+                idproducto: 0,
                 codigo: '',
-                articulo: '',
+                producto: '',
                 precio: 0,
                 cantidad: 0,
             }
@@ -483,12 +483,12 @@
             }
         },
         methods : {
-            listarIngreso (page,buscar,criterio){
+            listarPrueba (page,buscar,criterio){
                 let me=this;
-                var url= '/ingreso?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
+                var url= '/prueba?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayIngreso = respuesta.ingresos.data;
+                    me.arrayPrueba = respuesta.pruebas.data;
                     me.pagination= respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -516,21 +516,21 @@
                 me.idproveedor = val1.id;
             },
 
-            buscarArticulo(){
+            buscarProducto(){
                 let me=this;
-                var url= '/articulo/buscarArticulo?filtro=' + me.codigo;
+                var url= '/producto/buscarProducto?filtro=' + me.codigo;
 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayArticulo = respuesta.articulos;
+                    me.arrayProducto = respuesta.productos;
 
-                    if(me.arrayArticulo.length>0){
-                        me.articulo=me.arrayArticulo[0]['nombre'];
-                        me.idarticulo=me.arrayArticulo[0]['id'];
+                    if(me.arrayProducto.length>0){
+                        me.producto=me.arrayProducto[0]['razonsocial'];
+                        me.idproducto=me.arrayProducto[0]['id'];
                     }
                     else{
-                        me.articulo='No existe este articulo';
-                        me.idarticulo=0;
+                        me.producto='No existe este producto';
+                        me.idproducto=0;
                     }
                 })
                 .catch(function (error){
@@ -543,12 +543,12 @@
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarIngreso(page,buscar,criterio);
+                me.listarPrueba(page,buscar,criterio);
             },
             encuentra(id){
                 var sw=0;
                 for(var i=0;i<this.arrayDetalle.length;i++){
-                    if(this.arrayDetalle[i].idarticulo==id){
+                    if(this.arrayDetalle[i].idproducto==id){
                         sw=true;
                     }
                 }
@@ -560,24 +560,24 @@
             },
             agregarDetalle(){
                 let me=this;
-                if(me.idarticulo==0 || me.cantidad==0 || me.precio==0){
+                if(me.idproducto==0 || me.cantidad==0 || me.precio==0){
                 }else{
-                    if(me.encuentra(me.idarticulo)){
+                    if(me.encuentra(me.idproducto)){
                         swal({
                             type: 'error',
                             title: 'Error...',
-                            text: 'Este Artículo ya se encuentra agregado!',
+                            text: 'Este Producto ya se encuentra agregado!',
                         })
                     }else{
                          me.arrayDetalle.push({
-                    idarticulo: me.idarticulo,
-                    articulo: me.articulo,
+                    idproducto: me.idproducto,
+                    producto: me.producto,
                     cantidad: me.cantidad,
                     precio: me.precio
                     });
                     me.codigo='';
-                    me.idarticulo=0;
-                    me.articulo='';
+                    me.idproducto=0;
+                    me.producto='';
                     me.cantidad=0;
                     me.precio=0;
                     }
@@ -595,32 +595,32 @@
                         })
                     }else{
                     me.arrayDetalle.push({
-                    idarticulo: data['id'],
-                    articulo: data['nombre'],
+                    idproducto: data['id'],
+                    producto: data['razonsocial'],
                     cantidad: 1,
                     precio: 1
                     });
                     }
             },
-            listarArticulo (buscar,criterio){
+            listarProducto (buscar,criterio){
                 let me=this;
-                var url= '/articulo/listarArticulo?buscar='+ buscar + '&criterio='+ criterio;
+                var url= '/producto/listarProducto?buscar='+ buscar + '&criterio='+ criterio;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayArticulo = respuesta.articulos.data;
+                    me.arrayProducto = respuesta.productos.data;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
-            registrarIngreso(){
-                if (this.validarIngreso()){
+            registrarPrueba(){
+                if (this.validarPrueba()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.post('/ingreso/registrar',{
+                axios.post('/prueba/registrar',{
                     'idproveedor': this.idproveedor,
                     'tipo_comprobante': this.tipo_comprobante,
                     'serie_comprobante' : this.serie_comprobante,
@@ -631,15 +631,15 @@
 
                 }).then(function (response) {
                     me.listado=1;
-                    me.listarIngreso(1,'','num_comprobante');
+                    me.listarPrueba(1,'','num_comprobante');
                     me.idproveedor=0;
                     me.tipo_comprobante='BOLETA';
                     me.serie_comprobante='';
                     me.num_comprobante='';
                     me.impuesto=0.18;
                     me.total=0.0;
-                    me.idarticulo=0;
-                    me.articulo='';
+                    me.idproducto=0;
+                    me.producto='';
                     me.cantidad=0;
                     me.precio=0;
                     me.arrayDetalle=[];
@@ -648,19 +648,19 @@
                     console.log(error);
                 });
             },
-            validarIngreso(){
-                this.errorIngreso=0;
-                this.errorMostrarMsjIngreso =[];
+            validarPrueba(){
+                this.errorPrueba=0;
+                this.errorMostrarMsjPrueba =[];
 
-                if (this.idproveedor==0) this.errorMostrarMsjIngreso.push("Seleccione un Proveedor");
-                if (this.tipo_comprobante==0) this.errorMostrarMsjIngreso.push("Sleccione el Comprobante");
-                if (!this.num_comprobante) this.errorMostrarMsjIngreso.push("Ingrese el numero de comprobante");
-                if (!this.impuesto) this.errorMostrarMsjIngreso.push("Ingrese el impuesto de compra");
-                if (this.arrayDetalle.length<=0) this.errorMostrarMsjIngreso.push("Ingrese detalles");
+                if (this.idproveedor==0) this.errorMostrarMsjPrueba.push("Seleccione un Proveedor");
+                if (this.tipo_comprobante==0) this.errorMostrarMsjPrueba.push("Sleccione el Comprobante");
+                if (!this.num_comprobante) this.errorMostrarMsjPrueba.push("Ingrese el numero de comprobante");
+                if (!this.impuesto) this.errorMostrarMsjPrueba.push("Ingrese el impuesto de compra");
+                if (this.arrayDetalle.length<=0) this.errorMostrarMsjPrueba.push("Ingrese detalles");
 
-                if (this.errorMostrarMsjIngreso.length) this.errorIngreso = 1;
+                if (this.errorMostrarMsjPrueba.length) this.errorPrueba = 1;
 
-                return this.errorIngreso;
+                return this.errorPrueba;
             },
             mostrarDetalle(){
                 let me=this;
@@ -672,8 +672,8 @@
                     me.num_comprobante='';
                     me.impuesto=0.18;
                     me.total=0.0;
-                    me.idarticulo=0;
-                    me.articulo='';
+                    me.idproducto=0;
+                    me.producto='';
                     me.cantidad=0;
                     me.precio=0;
                     me.arrayDetalle=[];
@@ -681,31 +681,31 @@
             ocultarDetalle(){
                 this.listado=1;
             },
-            verIngreso(id){
+            verPrueba(id){
                 let me=this;
                 me.listado=2;
 
                 //Obtener datos del ingreso
-                var arrayIngresoT=[];
-                var url= '/ingreso/obtenerCabecera?id=' + id;
+                var arrayPruebaT=[];
+                var url= '/prueba/obtenerCabecera?id=' + id;
 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    arrayIngresoT = respuesta.ingreso;
+                    arrayPruebaT = respuesta.prueba;
                     
-                    me.proveedor = arrayIngresoT[0]['nombre'];
-                    me.tipo_comprobante=arrayIngresoT[0]['tipo_comprobante'];
-                    me.serie_comprobante=arrayIngresoT[0]['serie_comprobante'];
-                    me.num_comprobante=arrayIngresoT[0]['num_comprobante'];
-                    me.impuesto=arrayIngresoT[0]['impuesto'];
-                    me.total=arrayIngresoT[0]['total'];
+                    me.proveedor = arrayPruebaT[0]['razonsocial'];
+                    me.tipo_comprobante=arrayPruebaT[0]['tipo_comprobante'];
+                    me.serie_comprobante=arrayPruebaT[0]['serie_comprobante'];
+                    me.num_comprobante=arrayPruebaT[0]['num_comprobante'];
+                    me.impuesto=arrayPruebaT[0]['impuesto'];
+                    me.total=arrayPruebaT[0]['total'];
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
                 //obtener datos de los detalles
-                 var url= '/ingreso/obtenerDetalles?id=' + id;
+                 var url= '/prueba/obtenerDetalles?id=' + id;
 
                 axios.get(url).then(function (response) {
                     console.log(response);
@@ -722,13 +722,13 @@
                 this.tituloModal='';
             },
             abrirModal(){
-                this.arrayArticulo=[];
+                this.arrayProducto=[];
                 this.modal = 1;
                 this.tituloModal = 'Seleccione los articulos que desee';
  
             },
         
-            desactivarIngreso(id){
+            desactivarPrueba(id){
                swal({
                 title: 'Esta seguro de desactivar este ingreso?',
                 type: 'warning',
@@ -745,13 +745,13 @@
                 if (result.value) {
                     let me = this;
 
-                    axios.put('/ingreso/desactivar',{
+                    axios.put('/prueba/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarIngreso(1,'','num_comprobante');
                         swal(
                         'Anulado!',
-                        'El ingreso ha sido anulado con éxito.',
+                        'El prueba ha sido anulado con éxito.',
                         'success'
                         )
                     }).catch(function (error) {
@@ -770,7 +770,7 @@
 
         },
         mounted() {
-            this.listarIngreso(1,this.buscar,this.criterio);
+            this.listarPrueba(1,this.buscar,this.criterio);
         }
     }
 </script>

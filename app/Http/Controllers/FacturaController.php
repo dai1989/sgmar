@@ -85,6 +85,8 @@ class FacturaController extends Controller
           
             
             
+            
+            'numero' => $req->input('numero'),
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
@@ -100,6 +102,9 @@ class FacturaController extends Controller
                 'producto_id' => $d['id'],
                 'cantidad'   => $d['cantidad'],
                 'precio_venta'  => $d['precio_venta'],
+                'entrega'  => $d['entrega'],
+                'vuelto'  => $d['vuelto'],
+            
                 'total'      => $d['total']
             ];
         }

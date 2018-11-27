@@ -23,6 +23,7 @@ class CreateTableCompraDetalles extends Migration
             $table->decimal('precio');
             $table->decimal('total');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -8,6 +8,7 @@
                 <input class="form-control" type="text" placeholder="total de venta" readonly value="{total}" />
             </div>
             
+            
         </div>
          <div class="row">
             <div class="col-xs-6">

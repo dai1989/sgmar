@@ -15,11 +15,6 @@ class CreateTableDevoluciones extends Migration
     {
         Schema::create('devoluciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer ('factura_id')->unsigned();
-            $table->foreign ('factura_id')->references('id')->on('facturas');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);

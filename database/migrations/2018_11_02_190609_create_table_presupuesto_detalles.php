@@ -23,6 +23,7 @@ class CreateTablePresupuestoDetalles extends Migration
             $table->float('precio_venta',8,2);
              $table->decimal('total', 10,2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

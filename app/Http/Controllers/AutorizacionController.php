@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateAutorizacionRequest;
 use App\Repositories\AutorizacionRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Autorizacion;
+use App\Models\Persona;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -44,7 +46,9 @@ class AutorizacionController extends AppBaseController
      */
     public function create()
     {
-        return view('autorizaciones.create');
+        $persona_list = Persona::all();
+         return view("autorizaciones.create", ["persona_list"=>$persona_list]);
+        
     }
 
     /**

@@ -40235,8 +40235,8 @@ window.Vue = __webpack_require__(13);
 
 Vue.component('example', __webpack_require__(109));
 Vue.component('unique-barcode-input', __webpack_require__(112));
+Vue.component('prueba', __webpack_require__(150));
 
-Vue.component('ingreso', __webpack_require__(150));
 var app = new Vue({
   el: '#app'
 });
@@ -64891,7 +64891,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Ingreso.vue"
+Component.options.__file = "resources/assets/js/components/Prueba.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -64900,9 +64900,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4470e36c", Component.options)
+    hotAPI.createRecord("data-v-d9718f70", Component.options)
   } else {
-    hotAPI.reload("data-v-4470e36c", Component.options)
+    hotAPI.reload("data-v-d9718f70", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -64923,13 +64923,13 @@ var content = __webpack_require__(152);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(7)("1138bcea", content, false, {});
+var update = __webpack_require__(7)("7a14b905", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4470e36c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Ingreso.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4470e36c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Ingreso.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d9718f70\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Prueba.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d9718f70\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Prueba.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -65357,34 +65357,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ingreso_id: 0,
+            prueba_id: 0,
             idproveedor: 0,
             proveedor: '',
-            nombre: '',
+            razonsocial: '',
             tipo_comprobante: 'BOLETA',
             serie_comprobante: '',
             num_comprobante: '',
-            impuesto: 0.18,
+            impuesto: 0.21,
             total: 0.0,
             totalImpuesto: 0.0,
             totalParcial: 0.0,
-            arrayIngreso: [],
+            arrayPrueba: [],
             arrayProveedor: [],
             arrayDetalle: [],
             listado: 1,
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
-            errorIngreso: 0,
-            errorMostrarMsjIngreso: [],
+            errorPrueba: 0,
+            errorMostrarMsjPrueba: [],
             pagination: {
                 'total': 0,
                 'current_page': 0,
@@ -65398,10 +65395,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             buscar: '',
             criterioA: 'nombre',
             buscarA: '',
-            arrayArticulo: [],
-            idarticulo: 0,
+            arrayProducto: [],
+            idproducto: 0,
             codigo: '',
-            articulo: '',
+            producto: '',
             precio: 0,
             cantidad: 0
         };
@@ -65448,12 +65445,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        listarIngreso: function listarIngreso(page, buscar, criterio) {
+        listarPrueba: function listarPrueba(page, buscar, criterio) {
             var me = this;
-            var url = '/ingreso?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+            var url = '/prueba?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayIngreso = respuesta.ingresos.data;
+                me.arrayPrueba = respuesta.pruebas.data;
                 me.pagination = respuesta.pagination;
             }).catch(function (error) {
                 console.log(error);
@@ -65478,20 +65475,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             me.loading = true;
             me.idproveedor = val1.id;
         },
-        buscarArticulo: function buscarArticulo() {
+        buscarProducto: function buscarProducto() {
             var me = this;
-            var url = '/articulo/buscarArticulo?filtro=' + me.codigo;
+            var url = '/producto/buscarProducto?filtro=' + me.codigo;
 
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayArticulo = respuesta.articulos;
+                me.arrayProducto = respuesta.productos;
 
-                if (me.arrayArticulo.length > 0) {
-                    me.articulo = me.arrayArticulo[0]['nombre'];
-                    me.idarticulo = me.arrayArticulo[0]['id'];
+                if (me.arrayProducto.length > 0) {
+                    me.producto = me.arrayProducto[0]['razonsocial'];
+                    me.idproducto = me.arrayProducto[0]['id'];
                 } else {
-                    me.articulo = 'No existe este articulo';
-                    me.idarticulo = 0;
+                    me.producto = 'No existe este producto';
+                    me.idproducto = 0;
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -65502,12 +65499,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //Actualiza la página actual
             me.pagination.current_page = page;
             //Envia la petición para visualizar la data de esa página
-            me.listarIngreso(page, buscar, criterio);
+            me.listarPrueba(page, buscar, criterio);
         },
         encuentra: function encuentra(id) {
             var sw = 0;
             for (var i = 0; i < this.arrayDetalle.length; i++) {
-                if (this.arrayDetalle[i].idarticulo == id) {
+                if (this.arrayDetalle[i].idproducto == id) {
                     sw = true;
                 }
             }
@@ -65519,23 +65516,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         agregarDetalle: function agregarDetalle() {
             var me = this;
-            if (me.idarticulo == 0 || me.cantidad == 0 || me.precio == 0) {} else {
-                if (me.encuentra(me.idarticulo)) {
+            if (me.idproducto == 0 || me.cantidad == 0 || me.precio == 0) {} else {
+                if (me.encuentra(me.idproducto)) {
                     swal({
                         type: 'error',
                         title: 'Error...',
-                        text: 'Este Artículo ya se encuentra agregado!'
+                        text: 'Este Producto ya se encuentra agregado!'
                     });
                 } else {
                     me.arrayDetalle.push({
-                        idarticulo: me.idarticulo,
-                        articulo: me.articulo,
+                        idproducto: me.idproducto,
+                        producto: me.producto,
                         cantidad: me.cantidad,
                         precio: me.precio
                     });
                     me.codigo = '';
-                    me.idarticulo = 0;
-                    me.articulo = '';
+                    me.idproducto = 0;
+                    me.producto = '';
                     me.cantidad = 0;
                     me.precio = 0;
                 }
@@ -65553,31 +65550,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             } else {
                 me.arrayDetalle.push({
-                    idarticulo: data['id'],
-                    articulo: data['nombre'],
+                    idproducto: data['id'],
+                    producto: data['razonsocial'],
                     cantidad: 1,
                     precio: 1
                 });
             }
         },
-        listarArticulo: function listarArticulo(buscar, criterio) {
+        listarProducto: function listarProducto(buscar, criterio) {
             var me = this;
-            var url = '/articulo/listarArticulo?buscar=' + buscar + '&criterio=' + criterio;
+            var url = '/producto/listarProducto?buscar=' + buscar + '&criterio=' + criterio;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayArticulo = respuesta.articulos.data;
+                me.arrayProducto = respuesta.productos.data;
             }).catch(function (error) {
                 console.log(error);
             });
         },
-        registrarIngreso: function registrarIngreso() {
-            if (this.validarIngreso()) {
+        registrarPrueba: function registrarPrueba() {
+            if (this.validarPrueba()) {
                 return;
             }
 
             var me = this;
 
-            axios.post('/ingreso/registrar', {
+            axios.post('/prueba/registrar', {
                 'idproveedor': this.idproveedor,
                 'tipo_comprobante': this.tipo_comprobante,
                 'serie_comprobante': this.serie_comprobante,
@@ -65588,15 +65585,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             }).then(function (response) {
                 me.listado = 1;
-                me.listarIngreso(1, '', 'num_comprobante');
+                me.listarPrueba(1, '', 'num_comprobante');
                 me.idproveedor = 0;
                 me.tipo_comprobante = 'BOLETA';
                 me.serie_comprobante = '';
                 me.num_comprobante = '';
                 me.impuesto = 0.18;
                 me.total = 0.0;
-                me.idarticulo = 0;
-                me.articulo = '';
+                me.idproducto = 0;
+                me.producto = '';
                 me.cantidad = 0;
                 me.precio = 0;
                 me.arrayDetalle = [];
@@ -65604,19 +65601,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
-        validarIngreso: function validarIngreso() {
-            this.errorIngreso = 0;
-            this.errorMostrarMsjIngreso = [];
+        validarPrueba: function validarPrueba() {
+            this.errorPrueba = 0;
+            this.errorMostrarMsjPrueba = [];
 
-            if (this.idproveedor == 0) this.errorMostrarMsjIngreso.push("Seleccione un Proveedor");
-            if (this.tipo_comprobante == 0) this.errorMostrarMsjIngreso.push("Sleccione el Comprobante");
-            if (!this.num_comprobante) this.errorMostrarMsjIngreso.push("Ingrese el numero de comprobante");
-            if (!this.impuesto) this.errorMostrarMsjIngreso.push("Ingrese el impuesto de compra");
-            if (this.arrayDetalle.length <= 0) this.errorMostrarMsjIngreso.push("Ingrese detalles");
+            if (this.idproveedor == 0) this.errorMostrarMsjPrueba.push("Seleccione un Proveedor");
+            if (this.tipo_comprobante == 0) this.errorMostrarMsjPrueba.push("Sleccione el Comprobante");
+            if (!this.num_comprobante) this.errorMostrarMsjPrueba.push("Ingrese el numero de comprobante");
+            if (!this.impuesto) this.errorMostrarMsjPrueba.push("Ingrese el impuesto de compra");
+            if (this.arrayDetalle.length <= 0) this.errorMostrarMsjPrueba.push("Ingrese detalles");
 
-            if (this.errorMostrarMsjIngreso.length) this.errorIngreso = 1;
+            if (this.errorMostrarMsjPrueba.length) this.errorPrueba = 1;
 
-            return this.errorIngreso;
+            return this.errorPrueba;
         },
         mostrarDetalle: function mostrarDetalle() {
             var me = this;
@@ -65628,8 +65625,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             me.num_comprobante = '';
             me.impuesto = 0.18;
             me.total = 0.0;
-            me.idarticulo = 0;
-            me.articulo = '';
+            me.idproducto = 0;
+            me.producto = '';
             me.cantidad = 0;
             me.precio = 0;
             me.arrayDetalle = [];
@@ -65637,30 +65634,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         ocultarDetalle: function ocultarDetalle() {
             this.listado = 1;
         },
-        verIngreso: function verIngreso(id) {
+        verPrueba: function verPrueba(id) {
             var me = this;
             me.listado = 2;
 
             //Obtener datos del ingreso
-            var arrayIngresoT = [];
-            var url = '/ingreso/obtenerCabecera?id=' + id;
+            var arrayPruebaT = [];
+            var url = '/prueba/obtenerCabecera?id=' + id;
 
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                arrayIngresoT = respuesta.ingreso;
+                arrayPruebaT = respuesta.prueba;
 
-                me.proveedor = arrayIngresoT[0]['nombre'];
-                me.tipo_comprobante = arrayIngresoT[0]['tipo_comprobante'];
-                me.serie_comprobante = arrayIngresoT[0]['serie_comprobante'];
-                me.num_comprobante = arrayIngresoT[0]['num_comprobante'];
-                me.impuesto = arrayIngresoT[0]['impuesto'];
-                me.total = arrayIngresoT[0]['total'];
+                me.proveedor = arrayPruebaT[0]['razonsocial'];
+                me.tipo_comprobante = arrayPruebaT[0]['tipo_comprobante'];
+                me.serie_comprobante = arrayPruebaT[0]['serie_comprobante'];
+                me.num_comprobante = arrayPruebaT[0]['num_comprobante'];
+                me.impuesto = arrayPruebaT[0]['impuesto'];
+                me.total = arrayPruebaT[0]['total'];
             }).catch(function (error) {
                 console.log(error);
             });
 
             //obtener datos de los detalles
-            var url = '/ingreso/obtenerDetalles?id=' + id;
+            var url = '/prueba/obtenerDetalles?id=' + id;
 
             axios.get(url).then(function (response) {
                 console.log(response);
@@ -65675,11 +65672,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.tituloModal = '';
         },
         abrirModal: function abrirModal() {
-            this.arrayArticulo = [];
+            this.arrayProducto = [];
             this.modal = 1;
             this.tituloModal = 'Seleccione los articulos que desee';
         },
-        desactivarIngreso: function desactivarIngreso(id) {
+        desactivarPrueba: function desactivarPrueba(id) {
             var _this = this;
 
             swal({
@@ -65698,11 +65695,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (result.value) {
                     var me = _this;
 
-                    axios.put('/ingreso/desactivar', {
+                    axios.put('/prueba/desactivar', {
                         'id': id
                     }).then(function (response) {
                         me.listarIngreso(1, '', 'num_comprobante');
-                        swal('Anulado!', 'El ingreso ha sido anulado con éxito.', 'success');
+                        swal('Anulado!', 'El prueba ha sido anulado con éxito.', 'success');
                     }).catch(function (error) {
                         console.log(error);
                     });
@@ -65713,7 +65710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        this.listarIngreso(1, this.buscar, this.criterio);
+        this.listarPrueba(1, this.buscar, this.criterio);
     }
 });
 
@@ -65734,8 +65731,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("main", { staticClass: "main" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
       _c(
         "div",
@@ -65743,7 +65738,7 @@ var render = function() {
         [
           _c("div", { staticClass: "card-header" }, [
             _c("i", { staticClass: "fa fa-align-justify" }),
-            _vm._v(" Ingresos\n                "),
+            _vm._v(" Pruebas\n                "),
             _c(
               "button",
               {
@@ -65844,7 +65839,7 @@ var render = function() {
                               ) {
                                 return null
                               }
-                              _vm.listarIngreso(1, _vm.buscar, _vm.criterio)
+                              _vm.listarPrueba(1, _vm.buscar, _vm.criterio)
                             },
                             input: function($event) {
                               if ($event.target.composing) {
@@ -65862,7 +65857,7 @@ var render = function() {
                             attrs: { type: "submit" },
                             on: {
                               click: function($event) {
-                                _vm.listarIngreso(1, _vm.buscar, _vm.criterio)
+                                _vm.listarPrueba(1, _vm.buscar, _vm.criterio)
                               }
                             }
                           },
@@ -65883,12 +65878,12 @@ var render = function() {
                           "table table-bordered table-striped table-sm"
                       },
                       [
-                        _vm._m(1),
+                        _vm._m(0),
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.arrayIngreso, function(ingreso) {
-                            return _c("tr", { key: ingreso.id }, [
+                          _vm._l(_vm.arrayPrueba, function(prueba) {
+                            return _c("tr", { key: prueba.id }, [
                               _c(
                                 "td",
                                 [
@@ -65899,7 +65894,7 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          _vm.verIngreso(ingreso.id)
+                                          _vm.verPrueba(prueba.id)
                                         }
                                       }
                                     },
@@ -65908,7 +65903,7 @@ var render = function() {
                                   _vm._v(
                                     "  \n                                    "
                                   ),
-                                  ingreso.estado == "Registrado"
+                                  prueba.estado == "Registrado"
                                     ? [
                                         _c(
                                           "button",
@@ -65918,9 +65913,7 @@ var render = function() {
                                             attrs: { type: "button" },
                                             on: {
                                               click: function($event) {
-                                                _vm.desactivarIngreso(
-                                                  ingreso.id
-                                                )
+                                                _vm.desactivarPrueba(prueba.id)
                                               }
                                             }
                                           },
@@ -65938,54 +65931,50 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(ingreso.usuario)
+                                  textContent: _vm._s(prueba.usuario)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: { textContent: _vm._s(prueba.nombre) }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(prueba.tipo_comprobante)
                                 }
                               }),
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(ingreso.nombre)
+                                  textContent: _vm._s(prueba.serie_comprobante)
                                 }
                               }),
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(ingreso.tipo_comprobante)
+                                  textContent: _vm._s(prueba.num_comprobante)
                                 }
                               }),
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(ingreso.serie_comprobante)
+                                  textContent: _vm._s(prueba.fecha_hora)
                                 }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: { textContent: _vm._s(prueba.total) }
                               }),
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(ingreso.num_comprobante)
+                                  textContent: _vm._s(prueba.impuesto)
                                 }
                               }),
                               _vm._v(" "),
                               _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(ingreso.fecha_hora)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: { textContent: _vm._s(ingreso.total) }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(ingreso.impuesto)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(ingreso.estado)
-                                }
+                                domProps: { textContent: _vm._s(prueba.estado) }
                               })
                             ])
                           })
@@ -66094,7 +66083,7 @@ var render = function() {
                             _c("v-select", {
                               attrs: {
                                 "on-search": _vm.selectProveedor,
-                                label: "nombre",
+                                label: "razonsocial",
                                 options: _vm.arrayProveedor,
                                 placeholder: "Buscar Proveedores...",
                                 onChange: _vm.getDatosProveedor
@@ -66251,8 +66240,8 @@ var render = function() {
                               {
                                 name: "show",
                                 rawName: "v-show",
-                                value: _vm.errorIngreso,
-                                expression: "errorIngreso"
+                                value: _vm.errorPrueba,
+                                expression: "errorPrueba"
                               }
                             ],
                             staticClass: "form-group row div-error"
@@ -66261,7 +66250,7 @@ var render = function() {
                             _c(
                               "div",
                               { staticClass: "text-center text-error" },
-                              _vm._l(_vm.errorMostrarMsjIngreso, function(
+                              _vm._l(_vm.errorMostrarMsjPrueba, function(
                                 error
                               ) {
                                 return _c("div", {
@@ -66279,7 +66268,7 @@ var render = function() {
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c("label", [
-                            _vm._v("Artículo "),
+                            _vm._v("Producto "),
                             _c(
                               "span",
                               {
@@ -66287,13 +66276,13 @@ var render = function() {
                                   {
                                     name: "show",
                                     rawName: "v-show",
-                                    value: _vm.idarticulo == 0,
-                                    expression: "idarticulo==0"
+                                    value: _vm.idproducto == 0,
+                                    expression: "idproducto==0"
                                   }
                                 ],
                                 staticStyle: { color: "red" }
                               },
-                              [_vm._v("(*Seleccione Articulo)")]
+                              [_vm._v("(*Seleccione Producto)")]
                             )
                           ]),
                           _vm._v(" "),
@@ -66310,7 +66299,7 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: {
                                 type: "text",
-                                placeholder: "Ingrese artículo"
+                                placeholder: "Ingrese producto"
                               },
                               domProps: { value: _vm.codigo },
                               on: {
@@ -66327,7 +66316,7 @@ var render = function() {
                                   ) {
                                     return null
                                   }
-                                  _vm.buscarArticulo()
+                                  _vm.buscarProducto()
                                 },
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -66356,19 +66345,19 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.articulo,
-                                  expression: "articulo"
+                                  value: _vm.producto,
+                                  expression: "producto"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { type: "text", readonly: "" },
-                              domProps: { value: _vm.articulo },
+                              domProps: { value: _vm.producto },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.articulo = $event.target.value
+                                  _vm.producto = $event.target.value
                                 }
                               }
                             })
@@ -66494,7 +66483,7 @@ var render = function() {
                               "table table-bordered table-striped table-sm"
                           },
                           [
-                            _vm._m(2),
+                            _vm._m(1),
                             _vm._v(" "),
                             _vm.arrayDetalle.length
                               ? _c(
@@ -66529,7 +66518,7 @@ var render = function() {
                                         _c("td", {
                                           domProps: {
                                             textContent: _vm._s(
-                                              detalle.articulo
+                                              detalle.producto
                                             )
                                           }
                                         }),
@@ -66618,7 +66607,7 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _vm._m(3),
+                                        _vm._m(2),
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(
@@ -66641,7 +66630,7 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _vm._m(4),
+                                        _vm._m(3),
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(
@@ -66665,7 +66654,7 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _vm._m(5),
+                                        _vm._m(4),
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(
@@ -66680,7 +66669,7 @@ var render = function() {
                                   ],
                                   2
                                 )
-                              : _c("tbody", [_vm._m(6)])
+                              : _c("tbody", [_vm._m(5)])
                           ]
                         )
                       ])
@@ -66709,7 +66698,7 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                _vm.registrarIngreso()
+                                _vm.registrarPrueba()
                               }
                             }
                           },
@@ -66794,7 +66783,7 @@ var render = function() {
                                   "table table-bordered table-striped table-sm"
                               },
                               [
-                                _vm._m(7),
+                                _vm._m(6),
                                 _vm._v(" "),
                                 _vm.arrayDetalle.length
                                   ? _c(
@@ -66807,7 +66796,7 @@ var render = function() {
                                             _c("td", {
                                               domProps: {
                                                 textContent: _vm._s(
-                                                  detalle.articulo
+                                                  detalle.producto
                                                 )
                                               }
                                             }),
@@ -66848,7 +66837,7 @@ var render = function() {
                                             }
                                           },
                                           [
-                                            _vm._m(8),
+                                            _vm._m(7),
                                             _vm._v(" "),
                                             _c("td", [
                                               _vm._v(
@@ -66872,7 +66861,7 @@ var render = function() {
                                             }
                                           },
                                           [
-                                            _vm._m(9),
+                                            _vm._m(8),
                                             _vm._v(" "),
                                             _c("td", [
                                               _vm._v(
@@ -66895,7 +66884,7 @@ var render = function() {
                                             }
                                           },
                                           [
-                                            _vm._m(10),
+                                            _vm._m(9),
                                             _vm._v(" "),
                                             _c("td", [
                                               _vm._v("$ " + _vm._s(_vm.total))
@@ -66905,7 +66894,7 @@ var render = function() {
                                       ],
                                       2
                                     )
-                                  : _c("tbody", [_vm._m(11)])
+                                  : _c("tbody", [_vm._m(10)])
                               ]
                             )
                           ]
@@ -67057,7 +67046,7 @@ var render = function() {
                             ) {
                               return null
                             }
-                            _vm.listarArticulo(_vm.buscarA, _vm.criterioA)
+                            _vm.listarProducto(_vm.buscarA, _vm.criterioA)
                           },
                           input: function($event) {
                             if ($event.target.composing) {
@@ -67075,7 +67064,7 @@ var render = function() {
                           attrs: { type: "submit" },
                           on: {
                             click: function($event) {
-                              _vm.listarArticulo(_vm.buscarA, _vm.criterioA)
+                              _vm.listarProducto(_vm.buscarA, _vm.criterioA)
                             }
                           }
                         },
@@ -67095,12 +67084,12 @@ var render = function() {
                       staticClass: "table table-bordered table-striped table-sm"
                     },
                     [
-                      _vm._m(12),
+                      _vm._m(11),
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.arrayArticulo, function(articulo) {
-                          return _c("tr", { key: articulo.id }, [
+                        _vm._l(_vm.arrayProducto, function(producto) {
+                          return _c("tr", { key: producto.id }, [
                             _c("td", [
                               _c(
                                 "button",
@@ -67109,7 +67098,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      _vm.agregarDetalleModal(articulo)
+                                      _vm.agregarDetalleModal(producto)
                                     }
                                   }
                                 },
@@ -67118,31 +67107,31 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", {
-                              domProps: { textContent: _vm._s(articulo.codigo) }
+                              domProps: { textContent: _vm._s(producto.codigo) }
                             }),
                             _vm._v(" "),
                             _c("td", {
-                              domProps: { textContent: _vm._s(articulo.nombre) }
+                              domProps: { textContent: _vm._s(producto.nombre) }
                             }),
                             _vm._v(" "),
                             _c("td", {
                               domProps: {
-                                textContent: _vm._s(articulo.nombre_categoria)
+                                textContent: _vm._s(producto.nombre_categoria)
                               }
                             }),
                             _vm._v(" "),
                             _c("td", {
                               domProps: {
-                                textContent: _vm._s(articulo.precio_venta)
+                                textContent: _vm._s(producto.precio_venta)
                               }
                             }),
                             _vm._v(" "),
                             _c("td", {
-                              domProps: { textContent: _vm._s(articulo.stock) }
+                              domProps: { textContent: _vm._s(producto.stock) }
                             }),
                             _vm._v(" "),
                             _c("td", [
-                              articulo.condicion
+                              producto.condicion
                                 ? _c("div", [
                                     _c(
                                       "span",
@@ -67221,16 +67210,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ol", { staticClass: "breadcrumb" }, [
-      _c("li", { staticClass: "breadcrumb-item" }, [
-        _c("a", { attrs: { href: "/" } }, [_vm._v("Escritorio")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -67393,7 +67372,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4470e36c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-d9718f70", module.exports)
   }
 }
 
