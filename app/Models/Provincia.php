@@ -41,7 +41,7 @@ class Provincia extends Model
 
 
     public $fillable = [
-        'localidad_id',
+        
         'descripcion'
     ];
 
@@ -52,7 +52,7 @@ class Provincia extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'localidad_id' => 'integer',
+        
         'descripcion' => 'string'
     ];
 

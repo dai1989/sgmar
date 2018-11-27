@@ -8,6 +8,7 @@ use App\Models\Persona;
 use App\DataTables\ClienteDataTable;
 use App\Repositories\ClienteRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Flash;
 class ClienteController extends Controller
 {
    private $ClienteRepository;
@@ -38,8 +39,8 @@ class ClienteController extends Controller
       $genero = $request->input("Genero");
       /*$tipo_documento = $request->input("cboTipoDocumento");*/
        request()->validate ([
-          'Nombre' => 'required|unique:personas',
-          'Apellido' => 'required|unique:personas',
+          'Nombre' => 'required',
+          'Apellido' => 'required',
           'Documento' => 'required|unique:personas',
           'FechaNacimiento' => 'required',
           'Genero' => 'required',
@@ -59,7 +60,9 @@ class ClienteController extends Controller
       $cliente->persona_id= $persona->id;
       $cliente->save();
 
-     return redirect()->route('clientes.index')->with('success','Creado exitosamente');
+       Flash::success('Cliente guardado exitosamente.');
+
+     return redirect(route('clientes.index'));
 
 
     }
@@ -76,7 +79,9 @@ class ClienteController extends Controller
       $cliente->delete();
       $persona->delete();
 
-      return redirect()->route('clientes.index')->with('success','Eliminado exitosamente');
+      Flash::success('Cliente eliminado exitosamente.');
+
+        return redirect(route('clientes.index'));
         
     }
     public function edit($id) 
@@ -119,7 +124,9 @@ class ClienteController extends Controller
       //$cliente->save();
 
       
-      return redirect()->route('clientes.index')->with('success','Cliente actualizado exitosamente');
+       Flash::success('Cliente actualizado exitosamente.');
+
+        return redirect(route('clientes.index'));
 
     }
 }

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(tipo_pagosTableSeeder::class);
         $this->call(tipo_facturasTableSeeder::class);
         $this->call(tipo_domiciliosTableSeeder::class);
+        $this->call(provinciasTableSeeder::class);
         $this->call(LocalidadesTableSeeder::class);
 //        $this->call(NotasTableSeeder::class);
     }
