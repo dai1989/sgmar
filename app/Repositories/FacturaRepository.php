@@ -51,8 +51,7 @@ class FacturaRepository {
                 $obj->producto_id = $d->producto_id;
                 $obj->cantidad = $d->cantidad;
                 $obj->precio_venta = $d->precio_venta;
-                $obj->entrega = $d->entrega;
-                $obj->vuelto = $d->vuelto;
+              
                 
                 $obj->total = $d->total;
 

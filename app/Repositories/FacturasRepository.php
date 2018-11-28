@@ -14,8 +14,8 @@ class FacturasRepository
         $this->model = new Factura();
     }
 
-    public function findByNumero($q) {
-        return $this->model->where('numero', 'like', "%$q%")
+    public function findById($q) {
+        return $this->model->where('id', 'like', "%$q%")
                            ->get();
     }
 }

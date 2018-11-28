@@ -102,8 +102,7 @@ class FacturaController extends Controller
                 'producto_id' => $d['id'],
                 'cantidad'   => $d['cantidad'],
                 'precio_venta'  => $d['precio_venta'],
-                'entrega'  => $d['entrega'],
-                'vuelto'  => $d['vuelto'],
+                
             
                 'total'      => $d['total']
             ];

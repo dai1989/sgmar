@@ -102,7 +102,7 @@ class DevolucionController extends Controller
     public function findFactura(Request $req)
     {
         return $this->_facturasRepo
-                    ->findByNumero($req->input('q'));
+                    ->findById($req->input('q'));
     }
 
     public function findProducto(Request $req)

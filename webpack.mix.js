@@ -40,6 +40,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .copy('node_modules/icheck/skins/square/blue.png','public/css')
    .copy('node_modules/icheck/skins/square/blue@2x.png','public/css');
 
+  
+
 if (mix.config.inProduction) {
   mix.version();
 }

@@ -18,7 +18,7 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('unique-barcode-input', require('./components/UniqueBarcodeInput.vue'));
-Vue.component('prueba', require('./components/Prueba.vue'));
+
 
 const app = new Vue({
     el: '#app'

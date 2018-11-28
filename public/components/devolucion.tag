@@ -7,6 +7,9 @@
             <div class="col-xs-2">
                 <input class="form-control" type="text" placeholder="total de venta" readonly value="{total}" />
             </div>
+            <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="descripcion de venta" readonly value="{producto_id}" />
+            </div>
             
             
         </div>
@@ -169,12 +172,13 @@
                 url: function(q) {
                     return baseUrl('devolucion/findFactura?q=' + q);
                 },
-                getValue: 'numero',
+                getValue: 'id',
                 list: {
                     onClickEvent: function() {
                         var e = factura.getSelectedItemData();
                         self.factura_id = e.id;
                         self.total = e.total;
+                        self.producto_id = e.id;
                         
 
                         self.update();

@@ -1,9 +1,11 @@
 <factura>
     <div class="well well-sm">
         <div class="row">
-          <div class="col-xs-2">
-            <input id="numero" class="form-control" type="text" placeholder="numero" />
-        </div>
+            <div class="form-group">
+                <input type="hidden" id="id" value="{id}"/>
+                    <input type="text" name="numero" id="numero" value="{model.numero}" placeholder="numero" class="form-control" />
+                </div>
+          
         <hr>
             <div class="col-xs-6">
                 <input id="persona" class="form-control typeahead" type="text" placeholder="Cliente" />
@@ -34,9 +36,7 @@
         <div class="col-xs-2">
             <input id="cantidad" class="form-control" type="text" placeholder="Cantidad" />
         </div>
-         <div class="col-xs-2">
-            <input id="entrega" class="form-control" type="text" placeholder="Entrega" />
-        </div>
+        
         <div class="col-xs-2">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">S/.</span>
@@ -58,7 +58,7 @@
             <th style="width:40px;"></th>
             <th>Producto</th>
             <th style="width:100px;">Cantidad</th>
-            <th style="width:100px;">entrega</th>
+            
             <th style="width:100px;">P.U</th>
             <th style="width:100px;">Total</th>
         </tr>
@@ -70,7 +70,7 @@
             </td>
             <td>{descripcion}</td>
             <td class="text-right">{cantidad}</td>
-            <td class="text-right">{entrega}</td>
+        
             <td class="text-right">$ {precio_venta}</td>
             <td class="text-right">$ {total}</td>
         </tr>
@@ -88,10 +88,7 @@
             <td colspan="4" class="text-right"><b>Total</b></td>
             <td class="text-right">$ {total.toFixed(2)}</td>
         </tr>
-         <tr>
-            <td colspan="4" class="text-right"><b>Vuelto</b></td>
-            <td class="text-right">$ {vuelto.toFixed(2)}</td>
-        </tr>
+        
         </tfoot>
     </table>
 
@@ -112,7 +109,7 @@
         self.iva = 0;
         self.subTotal = 0;
         self.total = 0;
-        self.vuelto = 0;
+        
         self.numero = '';
 
         self.on('mount', function(){
@@ -136,7 +133,7 @@
                 id: self.producto_id,
                 descripcion: self.producto.value,
                 cantidad: parseFloat(self.cantidad.value),
-                entrega: parseFloat(self.entrega.value),
+               
                 precio_venta: parseFloat(self.precio_venta),
                 total: parseFloat(self.precio_venta * self.cantidad.value),
                 
@@ -145,7 +142,7 @@
             self.producto_id = 0;
             self.producto.value = '';
             self.cantidad.value = '';
-            self.entrega.value= '';
+           
             self.precio_venta = '';
 
             __calculate();
@@ -161,8 +158,8 @@
                 iva: self.iva,
                 subTotal: self.subTotal,
                 total: self.total,
-                numero: self.numero,
-                vuelto: self.vuelto,
+                
+               
                 detail: self.detail
             }, function(r){
                 if(r.response) {
@@ -179,14 +176,14 @@
             self.detail.forEach(function(e){
                 total += e.total;
                 
-                numero += e.numero;
+                
             });
 
             self.total = total * 0.21 + total;
             self.subTotal = parseFloat(total * 0.21 + total);
             self.iva = parseFloat(total * 21 / 100);
-            self.numero = parseFloat(self.numero);
-            self.vuelto = parseFloat(self.total - self.entrega.value);
+            
+           
             
         }
 

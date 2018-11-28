@@ -16,7 +16,7 @@ use Response;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Marca;
-use App\Models\Stock;
+
 use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductoController extends Controller
@@ -94,12 +94,7 @@ class ProductoController extends Controller
       $producto->marca_id = $marca;
       $producto->categoria_id = $categoria;
       $producto-> save();
-        //crear stock del producto
-      $stock = new Stock();
-      $stock->producto_id = $producto->id;
-      //$stock->cantidad_actual = 0;
-      //$stock->cantidad_minima = 0;
-      $stock->save();
+      
 
     
 
