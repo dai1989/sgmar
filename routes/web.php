@@ -201,3 +201,4 @@ Route::resource('domicilios', 'DomicilioController');
  route::resource('chart','ChartController');
 
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
+Route::resource('ventas/venta', 'VentaController');
