@@ -20,6 +20,8 @@ class CreateTableProductos extends Migration
             $table->string ('precio_venta', 100);
             $table->string('barcode')->unique();
             $table->integer('stock');
+            $table->string('imagen')->nullable();
+            $table->string('estado');
             $table->integer ('marca_id')->unsigned();
             $table->foreign ('marca_id')->references('id')->on('marcas');
              $table->integer ('categoria_id')->unsigned();

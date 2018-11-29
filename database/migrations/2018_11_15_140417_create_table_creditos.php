@@ -15,10 +15,7 @@ class CreateTableCreditos extends Migration
     {
         Schema::create('creditos', function (Blueprint $table) {
             $table->increments('id');
-             $table->integer('autorizacion_id')->unsigned();
-            $table->foreign('autorizacion_id')->references('id')->on('autorizacion');
-             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+           
             $table->decimal('iva', 10,2);
             $table->decimal('subTotal', 10,2);
             $table->decimal('total', 10,2);

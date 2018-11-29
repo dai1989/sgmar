@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableDevoluciones extends Migration
+class CreateTableVentas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateTableDevoluciones extends Migration
      */
     public function up()
     {
-        Schema::create('devoluciones', function (Blueprint $table) {
+        Schema::create('ventas', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('iva', 10,2);
-            $table->decimal('subTotal', 10,2);
-            $table->decimal('total', 10,2);
+         
+            $table->string('tipo_comprobante');
+            $table->string('serie_comprobante');
+            $table->string('num_comprobante');
+            $table->datetime('fecha_hora');
+            $table->decimal('impuesto');
+            $table->decimal('total_venta');
+            $table->string('estado');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +35,6 @@ class CreateTableDevoluciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devoluciones');
+        Schema::dropIfExists('ventas');
     }
 }

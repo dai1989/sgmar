@@ -15,10 +15,7 @@ class CreateTableCompraDetalles extends Migration
     {
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer ('compra_id')->unsigned();
-            $table->foreign ('compra_id')->references('id')->on('compras');
-            $table->integer ('producto_id')->unsigned();
-            $table->foreign ('producto_id')->references('id')->on('productos');
+           
             $table->string('cantidad');
             $table->decimal('precio');
             $table->decimal('total');

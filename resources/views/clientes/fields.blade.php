@@ -23,6 +23,26 @@
     <option value="Femenino">F</option>
 </select><br>
 </div>
+<div class="form-group col-sm-6">
+    <label for="tipodocumento">Tipo de documento</label>
+    <select class="form-control" name="tipodocumento" id="tipodocumento" class="form-control">
+    <option value="">--Seleccionar--</option><br>
+    <option value="DNI">DNI</option>
+    <option value="PASAPORTE">PASAPORTE</option>
+    <option value="C.I PY">CI PY</option>
+</select><br>
+</div>
+<div class="form-group col-sm-6">
+    <label for="tipopersona">Tipo de persona</label>
+    <select class="form-control" name="tipopersona" id="tipopersona" class="form-control">
+    <option value="">--Seleccionar--</option><br>
+    <option value="CLIENTE">CLIENTE</option>
+    <option value="PROVEEDOR">PROVEEDOR</option>
+    
+</select><br>
+</div>
+
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

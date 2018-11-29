@@ -15,18 +15,14 @@ class CreateTableCompras extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('proveedor_id')->unsigned();
-            $table->foreign('proveedor_id')->references('id')->on('proveedores');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('tipofactura_id')->unsigned();
-            $table->foreign('tipofactura_id')->references('id')->on('tipo_facturas');
-            $table->integer('tipopago_id')->unsigned();
-            $table->foreign('tipopago_id')->references('id')->on('tipo_pagos');
-        
-            $table->decimal('iva', 10,2);
-            $table->decimal('subTotal', 10,2);
-            $table->decimal('total', 10,2);
+           
+            $table->string('tipo_comprobante');
+            $table->string('serie_comprobante');
+            $table->string('num_comprobante');
+            $table->datetime('fecha_hora');
+            $table->decimal('impuesto');
+            $table->decimal('total_venta');
+            $table->string('estado');
             $table->timestamps();
             $table->softDeletes();
         });

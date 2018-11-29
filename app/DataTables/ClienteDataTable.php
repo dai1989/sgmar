@@ -65,11 +65,13 @@ class ClienteDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'nombre',
+             'nombre',
             'apellido',
             'documento',
             'fecha_nacimiento',
             'genero',
+            'tipo_persona',
+            'tipo_documento'
             
         ];
     }

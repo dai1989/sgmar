@@ -8,7 +8,8 @@ use App\Repositories\ProductoRepository;
 use App\Repositories\ClienteRepository;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -71,6 +72,8 @@ class ProductoController extends Controller
       $precio_venta = $request->input("PrecioVenta");
       $stock = $request->input("stock");
       $barcode = $request->input("barcode");
+      $imagen = $request->input("imagen");
+      $estado = $request->input("estado");
       $marca = $request->input("Marca");
       $categoria = $request->input("Categoria");
 
@@ -79,18 +82,31 @@ class ProductoController extends Controller
           'Descripcion' => 'required',
           'PrecioVenta' => 'required',
           'stock' => 'required',
+          
+          'estado' => 'required',
           'Marca' => 'required',
           'Categoria' => 'required',
           'barcode' => 'required',
 
         ]);
 
+       //revisar si hay imagen y subirla al server
+      if(Input::hasFile('imagen'))
+      {
+        $file = Input::file('imagen');
+        $file -> move(public_path().'/imagenes/productos', $file -> getClientOriginalName());
+        $producto -> imagen = $file -> getClientOriginalName();
+      }
+
+      
       $producto = new Producto ();
     
       $producto->descripcion =$descripcion;
       $producto->precio_venta =$precio_venta; 
       $producto->stock =$stock; 
       $producto->barcode =$barcode; 
+      $producto->imagen =$imagen; 
+      $producto->estado =$estado; 
       $producto->marca_id = $marca;
       $producto->categoria_id = $categoria;
       $producto-> save();
@@ -155,6 +171,8 @@ class ProductoController extends Controller
       $precio_venta = $request->input("PrecioVenta");
       $stock = $request->input("stock");
       $barcode = $request->input("barcode");
+      $imagen = $request->input("imagen");
+      $estado = $request->input("estado");
       $marca = $request->input("Marca");
       $categoria = $request->input("Categoria");
      
@@ -167,6 +185,8 @@ class ProductoController extends Controller
       $productos->precio_venta =$precio_venta;
       $productos->stock =$stock;
       $producto->barcode =$barcode; 
+      $producto->imagen =$imagen; 
+      $producto->estado =$estado; 
       $productos->marca_id = $marca;
       $productos->categoria_id = $categoria;
       $productos-> save();

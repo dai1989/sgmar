@@ -43,6 +43,17 @@
     @endforeach
   </select>
 </div>
+<!-- Estado Field -->
+<div class="form-group col-sm-6">
+    <label for="estado">Estado</label>
+    <input type="text" class="form-control" id="estado" name="estado" placeholder="estado">
+</div>
+<!-- Imagen Field -->
+<div class="form-group col-sm-6">
+    <label for="imagen">Imagen</label>
+    <input type="file" class="form-control" id="imagen" name="imagen" placeholder="imagen">
+</div>
+
 
 
 <!-- Submit Field -->

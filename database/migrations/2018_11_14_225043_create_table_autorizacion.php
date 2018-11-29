@@ -15,8 +15,6 @@ class CreateTableAutorizacion extends Migration
     {
         Schema::create('autorizacion', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('persona_id')->unsigned();
-            $table->foreign('persona_id')->references('id')->on('personas');
             $table->string('codigo');
             $table->date('fecha_alta');
             $table->string('monto_actual');

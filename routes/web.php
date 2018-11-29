@@ -202,3 +202,7 @@ Route::resource('domicilios', 'DomicilioController');
 
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 Route::resource('ventas/venta', 'VentaController');
+
+Route::resource('personas', 'PersonaController');
+
+Route::resource('personas', 'PersonaController');

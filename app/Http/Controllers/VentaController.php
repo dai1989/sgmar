@@ -12,6 +12,10 @@ use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\Persona;
 use App\Models\DetalleVenta;
+use App\User;
+use App\Models\TipoPago;
+use App\Models\TipoFactura;
+use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Carbon\Carbon;
 use Response;
@@ -49,6 +53,9 @@ class VentaController extends Controller
     //create (mostra la vista de crear)
     public function create()
     {
+       $user_list = User::all();
+       $tipofactura_list = TipoFactura::all();
+       $tipopago_list = TipoPago::all();
       $personas = DB::table('personas') -> where('tipo_persona', '=', 'Cliente') -> get();
       $productos = DB::table('productos as prod')      
       -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto', 'prod.stock', 'prod.precio_venta')
@@ -56,7 +63,7 @@ class VentaController extends Controller
       -> where ('prod.stock' , '>', '0')
       -> get();
 
-      return view('ventas.venta.create', ['personas' => $personas, 'productos' => $productos]);
+      return view('ventas.venta.create', ['personas' => $personas, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
     }
 
     
@@ -71,13 +78,17 @@ class VentaController extends Controller
 
 		$venta = new Venta;	    
 	    $venta -> id_cliente = $request -> get('id_cliente');//este valor es el que se encuentra en el formulario
+      $venta -> id_user = $request -> get('id_user');
+      $venta -> tipofactura_id = $request -> get('tipofactura_id');
+      $venta -> tipopago_id = $request -> get('tipopago_id');
 	    $venta -> tipo_comprobante = $request -> get('tipo_comprobante');
 	    $venta -> serie_comprobante = $request -> get('serie_comprobante');
 	    $venta -> num_comprobante = $request -> get('num_comprobante');
       $venta -> total_venta = $request -> get('total_venta');
 	    $mytime = Carbon::now('America/Argentina/Salta');
 	    $venta -> fecha_hora = $mytime -> toDateTimeString();
-	    $venta -> impuesto = '0.21';
+      $venta -> impuesto = $request -> get('impuesto');
+	    
 	    $venta -> estado = 'Efectuada';	    
 	    $venta -> save();
 

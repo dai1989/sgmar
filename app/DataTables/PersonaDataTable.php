@@ -71,7 +71,9 @@ class PersonaDataTable extends DataTable
             'apellido',
             'documento',
             'fecha_nacimiento',
-            'genero'
+            'genero',
+            'tipo_persona',
+            'tipo_documento'
         ];
     }
 

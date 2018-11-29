@@ -18,15 +18,7 @@ class CreateTableDomicilios extends Migration
             $table->string('calle', 100);
             $table->string('calle_numero', 100);
             $table->string('descripcion', 100)->nullable();
-            $table->integer('tipodomicilio_id')->unsigned();
-            $table->foreign('tipodomicilio_id')->references('id')
-            ->on('tipo_domicilios')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer ('persona_id')->unsigned();
-            $table->foreign ('persona_id')->references('id')->on('personas');
-            $table->integer('localidad_id')->unsigned();
-            $table->foreign('localidad_id')->references('id')->on('localidad');
-            $table->integer('provincia_id')->unsigned();
-            $table->foreign('provincia_id')->references('id')->on('provincias');
+           
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeignKeyDevolucionesTable extends Migration
+class AddForeignKeyIngresosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddForeignKeyDevolucionesTable extends Migration
      */
     public function up()
     {
-        Schema::table('devoluciones', function (Blueprint $table) {
-            $table->integer ('factura_id')->unsigned();
-            $table->foreign ('factura_id')->references('id')->on('facturas');
+        Schema::table('ingresos', function (Blueprint $table) {
+            $table->integer('autorizacion_id')->unsigned();
+            $table->foreign('autorizacion_id')->references('id')->on('autorizacion');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeyDevolucionesTable extends Migration
      */
     public function down()
     {
-        Schema::table('devoluciones', function (Blueprint $table) {
+        Schema::table('ingresos', function (Blueprint $table) {
             //
         });
     }

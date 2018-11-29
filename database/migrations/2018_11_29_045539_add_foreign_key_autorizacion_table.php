@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableClientes extends Migration
+class AddForeignKeyAutorizacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTableClientes extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->boolean('activo')->default(true);
-            $table->timestamps(); 
-            $table->softDeletes();
+        Schema::table('autorizacion', function (Blueprint $table) {
+            $table->integer('id_persona')->unsigned();
+            $table->foreign('id_persona')->references('id')->on('personas');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateTableClientes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes');
+        Schema::table('autorizacion', function (Blueprint $table) {
+            //
+        });
     }
 }

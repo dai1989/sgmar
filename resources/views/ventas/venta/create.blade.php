@@ -32,6 +32,16 @@
                </select>
             </div>
         </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <div class="form-group">            
+               <label for="id_user">Vendedor:</label>
+               <select name="id_user" id="id_user" class="form-control selectpicker" data-Live-search="true">
+                   @foreach($user_list as $user)
+                       <option value="{{$user -> id}}">{{$user -> name}}</option>
+                   @endforeach
+               </select>
+            </div>
+        </div>
           
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
              <div class="form-group">            
@@ -55,6 +65,26 @@
                 <input type="text" class="form-control" name="num_comprobante" placeholder="Numero del comprobante..."  required value="{{old('num_comprobante')}}">            
             </div>
         </div>
+
+<div class="form-group col-sm-6">
+    <label for="tipofactura_id">Tipo factura</label>
+  <select  type="text" name="tipofactura_id" class="form-control" id="tipofactura_id" placeholder="tipo de factura" >
+    <option value="">--Seleccionar--</option>
+    @foreach ($tipofactura_list as $tipofactura)
+    <option value="{{ $tipofactura->id }}">{{ $tipofactura->descripcion }}</option>
+    @endforeach
+  </select>
+</div> 
+<div class="form-group col-sm-6">
+    <label for="tipopago_id">Tipo de Pago</label>
+  <select  type="text" name="tipopago_id" class="form-control" id="tipopago_id" placeholder="tipo de factura" >
+    <option value="">--Seleccionar--</option>
+    @foreach ($tipopago_list as $tipopago)
+    <option value="{{ $tipopago->id }}">{{ $tipopago->descripcionpago }}</option>
+    @endforeach
+  </select>
+</div> 
+
 </div>
     <div class="row">
        
@@ -87,7 +117,8 @@
                        <label for="cantidad">Descuento:</label>
                         <input type="number" class="form-control" name="pdescuento" id="pdescuento" placeholder="Descuento...">            
                     </div>
-                </div>                
+                </div>  
+                             
                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <div class="form-group">            
                        <label for="cantidad">Cantidad:</label>
@@ -107,6 +138,7 @@
                             <th>Cantidad</th>
                             <th>Precio venta</th>
                             <th>Descuento</th>
+                            
                             <th>Subtotal</th>
                         </thead>
                         <tfoot>
@@ -173,15 +205,16 @@
         stock = $('#pstock').val();
         
         
-        if(id_producto != "" && cantidad != "" && cantidad > 0 && precio_venta != "" && descuento != "" )
+        if(id_producto != "" && cantidad != "" && cantidad > 0 && precio_venta != "" && descuento != "")
         {
             
             if(stock >= cantidad)
             {
-            subtotal[cont] = (cantidad * precio_venta - descuento);
-            total = total  + subtotal[cont];
+            subtotal[cont] = (cantidad * precio_venta  - descuento);
+            total = total  + subtotal[cont] ;
             
-            var fila = '<tr class="selected" id="fila'+cont+'"><td><button class"btn btn-danger" type"button" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precio_venta[]" value="'+precio_venta+'" readonly></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
+            
+            var fila = '<tr class="selected" id="fila'+cont+'"><td><button class"btn btn-danger" type"button" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precio_venta[]" value="'+precio_venta+'" readonly></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td> <td>'+subtotal[cont]+'</td></tr>';
             
             //aumentar el contador
             cont++;
@@ -220,6 +253,7 @@
         $('#pcantidad').val('');
         $('#pprecio_venta').val('');
         $('#pdescuento').val('');
+        
         
     }
     

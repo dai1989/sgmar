@@ -5,9 +5,9 @@
         <th>Descripcion</th>
         <th>Stock</th>
         <th>Precio Venta</th>
-        
-        <th>Marca Id</th>
-        <th>Categoria Id</th>
+         <th>Categoria</th>
+        <th>Marca</th>
+        <th>Imagen</th>
             <th colspan="3">Action</th>
         </tr>
     </thead>
@@ -18,8 +18,11 @@
             <td>{!! $producto->descripcion !!}</td>
             <td>{!! $producto->stock !!}</td>
             <td>{!! $producto->precio_venta !!}</td>
-            <td>{!! $producto->marca->descripcion !!}</td>
             <td>{!! $producto->categoria->categoria_descripcion !!}</td>
+            <td>{!! $producto->marca->descripcion !!}</td>
+             <td>
+                        <img src="{{asset('imagenes/productos/'.$producto -> imagen)}}" alt="{{$producto -> nombre}}" height="100px" width="100px" class="img-thumbnail">                    
+                    </td>
             <td>
                 {!! Form::open(['route' => ['productos.destroy', $producto->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
