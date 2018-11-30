@@ -22,7 +22,7 @@
         {{Form::open(array('url' => 'ventas/venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-6">
              <div class="form-group">            
                <label for="nombre">Cliente:</label>
                <select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-Live-search="true">
@@ -32,7 +32,7 @@
                </select>
             </div>
         </div>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-6">
              <div class="form-group">            
                <label for="id_user">Vendedor:</label>
                <select name="id_user" id="id_user" class="form-control selectpicker" data-Live-search="true">
@@ -43,7 +43,7 @@
             </div>
         </div>
           
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-xs-2">
              <div class="form-group">            
                <label for="nombre">Tipo de comprobante:</label>
                <select name="tipo_comprobante" id="" class="form-control selectpicker">                  
@@ -53,7 +53,7 @@
                </select>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-xs-2">
             <div class="form-group">            
                <label for="codigo">Serie del comprobante:</label>
                 <input type="text" class="form-control" name="serie_comprobante" placeholder="Serie del comprobante..."  value="{{old('serie_comprobante')}}">            
