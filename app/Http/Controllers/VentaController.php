@@ -87,7 +87,8 @@ class VentaController extends Controller
       $venta -> total_venta = $request -> get('total_venta');
 	    $mytime = Carbon::now('America/Argentina/Salta');
 	    $venta -> fecha_hora = $mytime -> toDateTimeString();
-      $venta -> impuesto = $request -> get('impuesto');
+      $venta -> impuesto = '0.21';
+      
 	    
 	    $venta -> estado = 'Efectuada';	    
 	    $venta -> save();

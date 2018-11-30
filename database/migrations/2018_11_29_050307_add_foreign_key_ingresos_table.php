@@ -14,8 +14,9 @@ class AddForeignKeyIngresosTable extends Migration
     public function up()
     {
         Schema::table('ingresos', function (Blueprint $table) {
-            $table->integer('autorizacion_id')->unsigned();
-            $table->foreign('autorizacion_id')->references('id')->on('autorizacion');
+            $table->integer('idproveedor')->unsigned();
+            $table->foreign('idproveedor')->references('id')->on('proveedores');
+            
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
         });
