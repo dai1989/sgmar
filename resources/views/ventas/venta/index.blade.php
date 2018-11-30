@@ -24,6 +24,8 @@
                     <th>Numero del comprobante</th>
                     <th>Impuesto</th>
                     <th>Total</th> 
+                    <th>Entrega</th> 
+                    <th>vuelto</th> 
                     <th>Estado</th>                      
                     <th>Opciones</th>
                 </thead>
@@ -36,7 +38,9 @@
                     <td>{{$ven -> serie_comprobante}}</td>
                     <td>{{$ven -> num_comprobante}}</td>
                     <td>{{$ven -> impuesto}}</td>
-                    <td>{{$ven -> total_venta}}</td>                    
+                    <td>{{$ven -> total_venta}}</td> 
+                    <td>{{$ven -> entrega}}</td> 
+                    <td>{{$ven->entrega-$ven->total_venta}}</td>                 
                     <td>{{$ven -> estado}}</td>                    
                     <td>
                         <a href="{{URL::action('VentaController@show', $ven -> id_venta)}}">

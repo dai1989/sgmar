@@ -2,7 +2,7 @@
 
   <!--<script src="{{ asset('js/manifest.js') }}"></script>
     <script src="{{ asset('js/vendor.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>-->
+    <script src="{{ asset('js/app.js') }}"></script>--> 
 <!-- jQuery v3.2.1 -->
 <script src="{{ asset('bower/jquery/dist/jquery.min.js') }}" type="text/javascript"></script>
 <!-- jQuery 2.2.3 -->
@@ -50,6 +50,7 @@
     <script src="{{asset('bower_components/riot/riot.min.js')}}"></script>
     <script src="{{asset('bower_components/riot/riot+compiler.min.js')}}"></script>
     <script src="{{asset('bower_components/EasyAutocomplete//dist/jquery.easy-autocomplete.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     @yield('bottom')
 

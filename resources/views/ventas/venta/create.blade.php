@@ -142,6 +142,14 @@
                             <th>Subtotal</th>
                         </thead>
                         <tfoot>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="form-group">            
+               <label for="codigo">entrega:</label>
+                <input type="text" class="form-control" name="entrega" placeholder="entrega..."  required value="{{old('entrega')}}">            
+            </div>
+        </div>
+                        </tfoot>
+                        <tfoot>
                             <th>TOTAL</th>
                             <th></th>
                             <th></th>

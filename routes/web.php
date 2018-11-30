@@ -203,4 +203,5 @@ Route::resource('domicilios', 'DomicilioController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('ventas/venta', 'VentaController');
+Route::get('/venta/pdf/{id}', 'VentaController@pdf')->name('venta_pdf');
 

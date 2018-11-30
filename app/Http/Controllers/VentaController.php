@@ -40,7 +40,7 @@ class VentaController extends Controller
         $ventas = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id_persona')
         -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
-        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta')
+        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where('v.num_comprobante','LIKE','%'.$querry.'%')         
         -> orderBy('v.id_venta', 'asc')
         -> groupBy('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
@@ -50,7 +50,7 @@ class VentaController extends Controller
       }
     }
 
-    //create (mostra la vista de crear)
+    //create (muestra la vista de crear)
     public function create()
     {
        $user_list = User::all();
@@ -85,6 +85,7 @@ class VentaController extends Controller
 	    $venta -> serie_comprobante = $request -> get('serie_comprobante');
 	    $venta -> num_comprobante = $request -> get('num_comprobante');
       $venta -> total_venta = $request -> get('total_venta');
+      $venta -> entrega = $request -> get('entrega');
 	    $mytime = Carbon::now('America/Argentina/Salta');
 	    $venta -> fecha_hora = $mytime -> toDateTimeString();
       $venta -> impuesto = '0.21';
@@ -128,7 +129,7 @@ class VentaController extends Controller
     	$venta = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id_persona')
         -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
-        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta')
+        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where ('v.id_venta','=', $id)
         -> first();
 
@@ -139,6 +140,29 @@ class VentaController extends Controller
          -> where ('d.id_venta', '=', $id) -> get();
 
          return view('ventas.venta.show', ['venta' => $venta, 'detalles' => $detalles]);
+    }
+
+
+        public function pdf(Request $request,$id){
+        $venta = Venta::join('personas','ventas.id_cliente','=','id_persona')
+        ->join('users','ventas.id_user','=','users.id')
+        ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
+        'ventas.num_comprobante','ventas.created_at','ventas.impuesto','ventas.total',
+        'ventas.estado','personas.nombre','personas.tipo_documento','personas.num_documento','users.user')
+        ->where('ventas.id','=',$id)
+        ->orderBy('ventas.id','desc')->take(1)->get();
+
+        $detalles = DetalleVenta::join('productos','detalle_ventas.id_producto','=','productos.id')
+        ->select('detalle_ventas.cantidad','detalle_ventas.precio_venta','detalle_ventas.descuento',
+        'productos.descripcion as producto')
+        ->where('detalle_ventas.id_venta','=',$id)
+        ->orderBy('detalle_ventas.id','desc')->get();
+
+        $numventa=Venta::select('num_comprobante')->where('id',$id)->get();
+
+        $pdf = \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles]);
+        return $pdf->download('venta-'.$numventa[0]->num_comprobante.'.pdf');
+
     }
 
     //update (actualizar un registro)

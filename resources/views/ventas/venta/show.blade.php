@@ -44,7 +44,10 @@
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio venta</th> 
-                            <th>Descuento</th>                            
+                            <th>Descuento</th> 
+                            <th>Entrega</th> 
+                            <th>Vuelto</th> 
+
                             <th>Subtotal</th>
                         </thead>
                         <tfoot>                            
@@ -59,8 +62,10 @@
                                 <tr>
                                     <td>{{$det -> producto}}</td>
                                     <td>{{$det -> cantidad}}</td>
-                                    <td>{{$det -> precio_venta}}</td>                               
+                                    <td>{{$det -> precio_venta}}</td>
                                     <td>{{$det -> descuento}}</td>                               
+                                    <td>{{$venta -> entrega}}</td>                               
+                                    <td>{{$venta -> entrega-$venta->total_venta}}</td>                               
                                     <td>{{$det -> cantidad * $det -> precio_venta}}</td>
                                 </tr>
                             @endforeach

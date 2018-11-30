@@ -34,6 +34,7 @@ class FacturaRepository {
             
             
             
+            $this->model->entrega = $data->entrega;
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;

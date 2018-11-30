@@ -86,7 +86,7 @@ class FacturaController extends Controller
             
             
             
-            'numero' => $req->input('numero'),
+            'entrega' => $req->input('entrega'),
             'iva' => $req->input('iva'),
             'subTotal' => $req->input('subTotal'),
             'total' => $req->input('total'),
