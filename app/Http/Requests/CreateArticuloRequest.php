@@ -3,12 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Categoria;
+use App\Models\Articulo;
 
-class CreateCategoriaRequest extends FormRequest
+class CreateArticuloRequest extends FormRequest
 {
 
-    /**
+      /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -25,6 +25,14 @@ class CreateCategoriaRequest extends FormRequest
      */
     public function rules()
     {
-        return Categoria::$rules;
+        return [
+            //
+            'id_categoria' => 'required',
+            'id_marca' => 'required',
+            'barcode' => 'required|max:50',
+            'descripcion' => 'required|max:100',
+            'stock' => 'required|numeric',
+            'precio_venta' => 'required'
+        ];
     }
 }

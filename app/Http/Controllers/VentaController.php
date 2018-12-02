@@ -38,7 +38,7 @@ class VentaController extends Controller
         $querry =  trim ($request -> get('searchText'));
         //obtener las categorias
         $ventas = DB::table('ventas as v') 
-        -> join('personas as p','v.id_cliente','=','p.id_persona')
+        -> join('personas as p','v.id_cliente','=','p.id')
         -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
         -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where('v.num_comprobante','LIKE','%'.$querry.'%')         
@@ -56,7 +56,7 @@ class VentaController extends Controller
        $user_list = User::all();
        $tipofactura_list = TipoFactura::all();
        $tipopago_list = TipoPago::all();
-      $personas = DB::table('personas') -> where('tipo_persona', '=', 'Cliente') -> get();
+      $personas = Persona::all();
       $productos = DB::table('productos as prod')      
       -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto', 'prod.stock', 'prod.precio_venta')
       -> where ('prod.estado', '=', 'Activo')
@@ -127,7 +127,7 @@ class VentaController extends Controller
     public function show ($id){
 
     	$venta = DB::table('ventas as v') 
-        -> join('personas as p','v.id_cliente','=','p.id_persona')
+        -> join('personas as p','v.id_cliente','=','p.id')
         -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
         -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where ('v.id_venta','=', $id)
@@ -144,7 +144,7 @@ class VentaController extends Controller
 
 
         public function pdf(Request $request,$id){
-        $venta = Venta::join('personas','ventas.id_cliente','=','id_persona')
+        $venta = Venta::join('personas','ventas.id_cliente','=','id')
         ->join('users','ventas.id_user','=','users.id')
         ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
         'ventas.num_comprobante','ventas.created_at','ventas.impuesto','ventas.total',

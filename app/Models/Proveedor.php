@@ -8,21 +8,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Proveedor
  * @package App\Models
- * @version November 3, 2018, 7:26 pm -03
+ * @version December 1, 2018, 2:58 pm -03
  *
+ * @property \Illuminate\Database\Eloquent\Collection compraDetalles
+ * @property \Illuminate\Database\Eloquent\Collection Compra
  * @property \Illuminate\Database\Eloquent\Collection ContactoProveedore
  * @property \Illuminate\Database\Eloquent\Collection contactos
- * @property \Illuminate\Database\Eloquent\Collection FacturaCompra
- * @property \Illuminate\Database\Eloquent\Collection facturacompraDetalles
- * @property \Illuminate\Database\Eloquent\Collection invoiceItems
+ * @property \Illuminate\Database\Eloquent\Collection creditoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection creditos
+ * @property \Illuminate\Database\Eloquent\Collection detallesVentas
+ * @property \Illuminate\Database\Eloquent\Collection Ingreso
  * @property \Illuminate\Database\Eloquent\Collection optionUser
+ * @property \Illuminate\Database\Eloquent\Collection pedidoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection pedidos
  * @property \Illuminate\Database\Eloquent\Collection permissionRole
  * @property \Illuminate\Database\Eloquent\Collection permissionUser
  * @property \Illuminate\Database\Eloquent\Collection presupuesto
  * @property \Illuminate\Database\Eloquent\Collection presupuestoDetalles
  * @property \Illuminate\Database\Eloquent\Collection productos
  * @property \Illuminate\Database\Eloquent\Collection roleUser
- * @property string razon_social
+ * @property string razonsocial
  * @property string cuit
  */
 class Proveedor extends Model
@@ -66,16 +71,24 @@ class Proveedor extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function contactoproveedores()
+    public function compras()
     {
-        return $this->hasMany(\App\Models\ContactoProveedores::class);
+        return $this->hasMany(\App\Models\Compra::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function compra()
+    public function contactoProveedores()
     {
-        return $this->hasMany(\App\Models\Compra::class);
+        return $this->hasMany(\App\Models\ContactoProveedore::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function ingresos()
+    {
+        return $this->hasMany(\App\Models\Ingreso::class);
     }
 }

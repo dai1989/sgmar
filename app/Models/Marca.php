@@ -8,12 +8,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Marca
  * @package App\Models
- * @version October 3, 2018, 7:48 pm -03
+ * @version December 2, 2018, 2:24 am -03
  *
+ * @property \Illuminate\Database\Eloquent\Collection articulos
+ * @property \Illuminate\Database\Eloquent\Collection contactoProveedores
+ * @property \Illuminate\Database\Eloquent\Collection contactos
+ * @property \Illuminate\Database\Eloquent\Collection creditoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection creditos
+ * @property \Illuminate\Database\Eloquent\Collection detallesVentas
+ * @property \Illuminate\Database\Eloquent\Collection ingresos
  * @property \Illuminate\Database\Eloquent\Collection optionUser
- * @property \Illuminate\Database\Eloquent\Collection Producto
- * @property \Illuminate\Database\Eloquent\Collection rolUser
+ * @property \Illuminate\Database\Eloquent\Collection pedidoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection pedidos
+ * @property \Illuminate\Database\Eloquent\Collection permissionRole
+ * @property \Illuminate\Database\Eloquent\Collection permissionUser
+ * @property \Illuminate\Database\Eloquent\Collection presupuesto
+ * @property \Illuminate\Database\Eloquent\Collection presupuestoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection productos
+ * @property \Illuminate\Database\Eloquent\Collection roleUser
  * @property string descripcion
+ * @property boolean status
  */
 class Marca extends Model
 {
@@ -29,7 +43,8 @@ class Marca extends Model
 
 
     public $fillable = [
-        'descripcion'
+        'descripcion',
+        'status'
     ];
 
     /**
@@ -38,8 +53,9 @@ class Marca extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'descripcion' => 'string'
+        'id_marca' => 'integer',
+        'descripcion' => 'string',
+        'status' => 'boolean'
     ];
 
     /**
@@ -52,10 +68,12 @@ class Marca extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
-    public function productos()
+    public function categorias()
     {
-        return $this->hasMany(\App\Models\Producto::class);
+        return $this->belongsToMany(\App\Models\Categoria::class, 'articulos');
     }
+
+    
 }

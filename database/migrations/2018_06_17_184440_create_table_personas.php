@@ -20,7 +20,7 @@ class CreateTablePersonas extends Migration
             $table->integer('documento');
             $table->date('fecha_nacimiento')->nullable(); 
             $table->string('genero',50);
-            $table->string('tipo_persona',50);
+            
             $table->string('tipo_documento',50);
            
             $table->timestamps();

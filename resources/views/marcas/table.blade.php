@@ -1,21 +1,26 @@
-@section('css')
-    @include('layouts.datatables_css')
-@endsection
-
-{!! $dataTable->table(['width' => '100%']) !!}
-
-@section('scripts')
-    @include('layouts.datatables_js')
-    {!! $dataTable->scripts() !!}
-    <script>
-        $(function () {
-            var dt = window.LaravelDataTables["dataTableBuilder"];
-
-            //Cuando dibuja la tabla
-            dt.on( 'draw.dt', function () {
-                $(this).addClass('table-condensed table-striped table-bordered table-hover');
-            });
-
-        })
-    </script>
-@endsection
+<table class="table table-responsive" id="marcas-table">
+    <thead>
+        <tr>
+            <th>Descripcion</th>
+        <th>Status</th>
+            <th colspan="3">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach($marcas as $marca)
+        <tr>
+            <td>{!! $marca->descripcion !!}</td>
+            <td>{!! $marca->status !!}</td>
+            <td>
+                {!! Form::open(['route' => ['marcas.destroy', $marca->id], 'method' => 'delete']) !!}
+                <div class='btn-group'>
+                    <a href="{!! route('marcas.show', [$marca->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('marcas.edit', [$marca->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                </div>
+                {!! Form::close() !!}
+            </td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>

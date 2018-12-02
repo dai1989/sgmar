@@ -205,3 +205,16 @@ Route::resource('contacto_proveedores', 'ContactoProveedorController');
 Route::resource('ventas/venta', 'VentaController');
 Route::get('/venta/pdf/{id}', 'VentaController@pdf')->name('venta_pdf');
 
+
+
+
+
+Route::resource('producto', 'ProductoController');
+
+
+Route::resource('productos', 'ProductoController');
+Route::resource('almacen/articulo', 'ArticuloController');
+
+Route::resource('categorias', 'CategoriaController');
+
+Route::resource('marcas', 'MarcaController');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCompraDetalles extends Migration
+class CreateTablePresupuestoDetalles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateTableCompraDetalles extends Migration
      */
     public function up()
     {
-        Schema::create('compra_detalles', function (Blueprint $table) {
+        Schema::create('presupuesto_detalles', function (Blueprint $table) {
             $table->increments('id');
-           
-            $table->string('cantidad');
-            $table->decimal('precio');
-            $table->decimal('total');
+          
+            $table->decimal('cantidad', 10,2);
+            $table->decimal('precio_venta', 10,2);
+            $table->decimal('total', 10,2);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ class CreateTableCompraDetalles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compra_detalles');
+        Schema::dropIfExists('presupuesto_detalles');
     }
 }

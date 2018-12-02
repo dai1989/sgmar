@@ -1,11 +1,6 @@
-<!-- Id Field -->
-{!! Form::label('id', 'Id:') !!}
-{!! $producto->id !!}<br>
-
-
-<!-- Codigo Field -->
-{!! Form::label('codigo', 'Codigo:') !!}
-{!! $producto->codigo !!}<br>
+<!-- Id Producto Field -->
+{!! Form::label('id_producto', 'Id Producto:') !!}
+{!! $producto->id_producto !!}<br>
 
 
 <!-- Descripcion Field -->
@@ -18,24 +13,34 @@
 {!! $producto->precio_venta !!}<br>
 
 
+<!-- Barcode Field -->
+{!! Form::label('barcode', 'Barcode:') !!}
+{!! $producto->barcode !!}<br>
+
+
 <!-- Stock Field -->
 {!! Form::label('stock', 'Stock:') !!}
 {!! $producto->stock !!}<br>
 
 
-<!-- Condicion Field -->
-{!! Form::label('condicion', 'Condicion:') !!}
-{!! $producto->condicion !!}<br>
+<!-- Imagen Field -->
+{!! Form::label('imagen', 'Imagen:') !!}
+{!! $producto->imagen !!}<br>
 
 
-<!-- Marca Id Field -->
-{!! Form::label('marca_id', 'Marca Id:') !!}
-{!! $producto->marca_id !!}<br>
+<!-- Estado Field -->
+{!! Form::label('estado', 'Estado:') !!}
+{!! $producto->estado !!}<br>
 
 
-<!-- Categoria Id Field -->
-{!! Form::label('categoria_id', 'Categoria Id:') !!}
-{!! $producto->categoria_id !!}<br>
+<!-- Id Marca Field -->
+{!! Form::label('id_marca', 'Id Marca:') !!}
+{!! $producto->id_marca !!}<br>
+
+
+<!-- Id Categoria Field -->
+{!! Form::label('id_categoria', 'Id Categoria:') !!}
+{!! $producto->id_categoria !!}<br>
 
 
 <!-- Created At Field -->
@@ -46,10 +51,5 @@
 <!-- Updated At Field -->
 {!! Form::label('updated_at', 'Updated At:') !!}
 {!! $producto->updated_at !!}<br>
-
-
-<!-- Deleted At Field -->
-{!! Form::label('deleted_at', 'Deleted At:') !!}
-{!! $producto->deleted_at !!}<br>
 
 

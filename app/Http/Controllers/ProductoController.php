@@ -17,7 +17,6 @@ use Response;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Marca;
-
 use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductoController extends Controller
@@ -86,7 +85,8 @@ class ProductoController extends Controller
           'estado' => 'required',
           'Marca' => 'required',
           'Categoria' => 'required',
-          'barcode' => 'required',
+          
+          'barcode' => 'required|unique:productos|max:13|min:12',
 
         ]);
 

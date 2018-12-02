@@ -30,7 +30,7 @@ class ProveedorController extends AppBaseController
      */
     public function index(ProveedorDataTable $proveedorDataTable)
     {
-        return $proveedorDataTable->render('proveedores.index');
+        return $proveedorDataTable->render('proveedors.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProveedorController extends AppBaseController
      */
     public function create()
     {
-        return view('proveedores.create');
+        return view('proveedors.create');
     }
 
     /**
@@ -58,7 +58,7 @@ class ProveedorController extends AppBaseController
 
         Flash::success('Proveedor guardado exitosamente.');
 
-        return redirect(route('proveedores.index'));
+        return redirect(route('proveedors.index'));
     }
 
     /**
@@ -75,10 +75,10 @@ class ProveedorController extends AppBaseController
         if (empty($proveedor)) {
             Flash::error('Proveedor no encontrado');
 
-            return redirect(route('proveedores.index'));
+            return redirect(route('proveedors.index'));
         }
 
-        return view('proveedores.show')->with('proveedor', $proveedor);
+        return view('proveedors.show')->with('proveedor', $proveedor);
     }
 
     /**
@@ -95,10 +95,10 @@ class ProveedorController extends AppBaseController
         if (empty($proveedor)) {
             Flash::error('Proveedor no encontrado');
 
-            return redirect(route('proveedores.index'));
+            return redirect(route('proveedors.index'));
         }
 
-        return view('proveedores.edit')->with('proveedor', $proveedor);
+        return view('proveedors.edit')->with('proveedor', $proveedor);
     }
 
     /**
@@ -116,14 +116,14 @@ class ProveedorController extends AppBaseController
         if (empty($proveedor)) {
             Flash::error('Proveedor no encontrado');
 
-            return redirect(route('proveedores.index'));
+            return redirect(route('proveedors.index'));
         }
 
         $proveedor = $this->proveedorRepository->update($request->all(), $id);
 
         Flash::success('Proveedor actualizado exitosamente.');
 
-        return redirect(route('proveedores.index'));
+        return redirect(route('proveedors.index'));
     }
 
     /**
@@ -140,13 +140,13 @@ class ProveedorController extends AppBaseController
         if (empty($proveedor)) {
             Flash::error('Proveedor no encontrado');
 
-            return redirect(route('proveedores.index'));
+            return redirect(route('proveedors.index'));
         }
 
         $this->proveedorRepository->delete($id);
 
         Flash::success('Proveedor eliminado exitosamente.');
 
-        return redirect(route('proveedores.index'));
+        return redirect(route('proveedors.index'));
     }
 }

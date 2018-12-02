@@ -10,7 +10,7 @@
         <h1 class="pull-right">
            <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('productos.create') !!}">
               <i class="fa fa-plus"></i>
-              <span class="hidden-xs hidden-sm">Agregar</span>
+              <span class="hidden-xs hidden-sm">Agregar Nuev@</span>
            </a>
         </h1>
     </section>
@@ -26,17 +26,5 @@
             </div>
         </div>
     </div>
-    <div class="hidden">
-    <canvas id="canvas"></canvas>
-</div>
-
-<script>
-    window.onload = function() {
-        window.downloadBarcode.default.init();
-    };
-</script>
-  <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 @endsection
 

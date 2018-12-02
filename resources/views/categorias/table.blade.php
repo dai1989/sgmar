@@ -2,13 +2,15 @@
     <thead>
         <tr>
             <th>Categoria Descripcion</th>
-            <th colspan="3">Accion</th>
+        <th>Status</th>
+            <th colspan="3">Action</th>
         </tr>
     </thead>
     <tbody>
     @foreach($categorias as $categoria)
         <tr>
             <td>{!! $categoria->categoria_descripcion !!}</td>
+            <td>{!! $categoria->status !!}</td>
             <td>
                 {!! Form::open(['route' => ['categorias.destroy', $categoria->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
