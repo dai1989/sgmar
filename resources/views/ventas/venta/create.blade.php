@@ -21,6 +21,7 @@
 </div>
         {{Form::open(array('url' => 'ventas/venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
+        <div class="well well-sm">
     <div class="row">
         <div class="col-xs-6">
              <div class="form-group">            
@@ -86,6 +87,7 @@
 </div> 
 
 </div>
+</div>
     <div class="row">
        
        <div class="panel panel-primary">
@@ -132,7 +134,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                        <thead style="background-color: #A9D0F5">
+                        <thead style="background-color: #FE642E">
                             <th>Opciones</th>
                             <th>Producto</th>
                             <th>Cantidad</th>

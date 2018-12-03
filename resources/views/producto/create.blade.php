@@ -1,26 +1,25 @@
 @extends('adminlte::layouts.app')
-{{ session("mensaje") }} 
+
+@section('htmlheader_title')
+  Crear Producto
+@endsection
+
 @section('content')
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <h3>Nuevo Articulo</h3>
-        @if (count($errors) > 0)
-        <div class="alert alert-danger">
-	        <ul>
-	            @foreach($errors -> all() as $error)
-	                <li>{{$error}}</li>
-	            @endforeach
-	        </ul>
-        </div>
-        @endif
-    </div>
-</div>
-        {{Form::open(array('url' => 'producto', 'method' => 'POST', 'autocomplete' => 'off', 'files' => 'true'))}}
+    <section class="content-header">
+        <h1>
+            Crear Producto
+        </h1>
+    </section>
+    <div class="content">
+        @include('adminlte-templates::common.errors')
+        <div class="box box-primary">
+
+            <div class="box-body">
+                <div class="row">
+                    {{Form::open(array('url' => 'producto', 'method' => 'POST', 'autocomplete' => 'off', 'files' => 'true'))}}
         {{Form::token()}}
-    <div class="row">
-        
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+
+                        <div class="form-group col-sm-6">           
                <label for="categoria_descripcion">Categoria:</label>
                <select name="id_categoria" id="" class="form-control">
                   @foreach($categorias as $cat)
@@ -28,9 +27,9 @@
                    @endforeach
                </select>
         </div>
-        </div>
-         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+        
+         
+             <div class="form-group col-sm-6">           
                <label for="descripcion">marca:</label>
                <select name="id_marca" id="" class="form-control">
                   @foreach($marcas as $m)
@@ -38,43 +37,46 @@
                    @endforeach
                </select>
         </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="form-group">            
-               <label for="barcode">Codigo:</label>
-                <input type="text" class="form-control" name="barcode" placeholder="Codigo..." required value="{{old('barcode')}}">            
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+        
+        <div class="form-group">
+          <unique-barcode-input>
+                        </unique-barcode-input>
+                      </div>
+        
+            <div class="form-group col-sm-6">           
                <label for="stock">Stock:</label>
                 <input type="text" class="form-control" name="stock" placeholder="Stock..." required value="{{old('stock')}}">            
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+        
+        
+             <div class="form-group col-sm-6">           
                <label for="stock">Precio de venta:</label>
                 <input type="text" class="form-control" name="precio_venta" placeholder="Precio venta..." required value="{{old('precio_venta')}}">            
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+        
+        
+             <div class="form-group col-sm-6">           
                <label for="descripcion">Descripcion:</label>
                <input type="text" class="form-control" name="descripcion" placeholder="Descripcion..." required value="{{old('descripcion')}}">            
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-             <div class="form-group">            
+        
+        
+             <div class="form-group col-sm-6">            
                <label for="imagen">Imagen:</label>                
                 <input type="file" class="form-control" name="imagen">            
             </div>
+        
+        
+          <div class="form-group col-sm-12">
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('producto.index') !!}" class="btn btn-default">Cancelar</a>
+  </div>
+</div>                
+
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <div class="form-group">
-            <button class="btn btn-primary" type="submit">Guardar</button>
-            <button class="btn btn-danger" type="reset">Cancelar</button>
-            </div>  
-        </div>
-    </div>                
-        {{Form::close()}}
+    </div>
+  
 @endsection
