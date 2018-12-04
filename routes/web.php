@@ -30,26 +30,26 @@ Route::group(['middleware' => 'auth'], function () {
 Route::middleware(['auth'])->group(function () 
 {
 	//Productos
-	Route::post('productos/store', 'ProductoController@store')->name('productos.store')
-		->middleware('permission:productos.create');
+	Route::post('producto/store', 'ProductoController@store')->name('producto.store')
+		->middleware('permission:producto.create');
 
-	Route::get('productos', 'ProductoController@index')->name('productos.index')
-		->middleware('permission:productos.index');
+	Route::get('producto', 'ProductoController@index')->name('producto.index')
+		->middleware('permission:producto.index');
 
-	Route::get('productos/create', 'ProductoController@create')->name('productos.create')
-		->middleware('permission:productos.create');
+	Route::get('producto/create', 'ProductoController@create')->name('producto.create')
+		->middleware('permission:producto.create');
 
-	Route::put('productos/{producto}', 'ProductoController@update')->name('productos.update')
-		->middleware('permission:productos.edit');
+	Route::put('producto/{producto}', 'ProductoController@update')->name('producto.update')
+		->middleware('permission:producto.edit');
 
-	Route::get('productos/{producto}', 'ProductoController@show')->name('productos.show')
-		->middleware('permission:productos.show');
+	Route::get('producto/{producto}', 'ProductoController@show')->name('producto.show')
+		->middleware('permission:producto.show');
 
-	Route::delete('productos/{producto}', 'ProductoController@destroy')->name('productos.destroy')
-		->middleware('permission:productos.destroy');
+	Route::delete('producto/{producto}', 'ProductoController@destroy')->name('producto.destroy')
+		->middleware('permission:producto.destroy');
 
-	Route::get('productos/{producto}/edit', 'ProductoController@edit')->name('productos.edit')
-		->middleware('permission:productos.edit');
+	Route::get('producto/{producto}/edit', 'ProductoController@edit')->name('producto.edit')
+		->middleware('permission:producto.edit');
 
 		//CATEGORIAS
 	Route::post('categorias/store', 'CategoriaController@store')->name('categorias.store')
@@ -203,18 +203,14 @@ Route::resource('domicilios', 'DomicilioController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('ventas/venta', 'VentaController');
-Route::get('/venta/pdf/{id}', 'VentaController@pdf')->name('venta_pdf');
+Route::get('/venta/pdf/{id_venta}', 'VentaController@pdf')->name('venta_pdf');
 
 
 
 
 
-Route::resource('producto', 'ProductoController');
 
 
-Route::resource('productos', 'ProductoController');
-Route::resource('almacen/articulo', 'ArticuloController');
 
-Route::resource('categorias', 'CategoriaController');
 
-Route::resource('marcas', 'MarcaController');
+

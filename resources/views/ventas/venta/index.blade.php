@@ -64,6 +64,9 @@
                         <a href="" data-target="#modal-delete-{{$ven -> id_venta}}" data-toggle="modal">
                             <button class="btn btn-danger">Anular</button>
                         </a>
+                         <a class="btn btn-success btn-block btn-xs" href="{{ url('venta/pdf/' . $ven->id_venta) }}">
+                                <i class="fa fa-file-pdf-o"></i> Descargar
+                            </a>
                     </td>
                 </tr> 
                 @include('ventas.venta.modal')

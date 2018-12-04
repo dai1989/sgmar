@@ -36,7 +36,7 @@ class VentaController extends Controller
       {
         //almacenar la busqueda 
         $querry =  trim ($request -> get('searchText'));
-        //obtener las categorias
+        //obtener 
         $ventas = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id')
         -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
@@ -146,22 +146,27 @@ class VentaController extends Controller
         public function pdf(Request $request,$id){
         $venta = Venta::join('personas','ventas.id_cliente','=','id')
         ->join('users','ventas.id_user','=','users.id')
-        ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
-        'ventas.num_comprobante','ventas.created_at','ventas.impuesto','ventas.total',
-        'ventas.estado','personas.nombre','personas.tipo_documento','personas.num_documento','users.user')
-        ->where('ventas.id','=',$id)
-        ->orderBy('ventas.id','desc')->take(1)->get();
+        ->select('ventas.id_venta','ventas.tipo_comprobante','ventas.serie_comprobante',
+        'ventas.num_comprobante','ventas.fecha_hora','ventas.impuesto','ventas.total_venta',
+        'ventas.estado','ventas.entrega','personas.nombre','personas.tipo_documento','personas.documento','users.name')
+        ->where('ventas.id_venta','=',$id)
+        ->orderBy('ventas.id_venta','desc')->take(1)->get();
 
-        $detalles = DetalleVenta::join('productos','detalle_ventas.id_producto','=','productos.id')
-        ->select('detalle_ventas.cantidad','detalle_ventas.precio_venta','detalle_ventas.descuento',
+        $detalles = DetalleVenta::join('productos','detalles_ventas.id_producto','=','productos.id_producto')
+        ->select('detalles_ventas.cantidad','detalles_ventas.precio_venta','detalles_ventas.descuento',
         'productos.descripcion as producto')
-        ->where('detalle_ventas.id_venta','=',$id)
-        ->orderBy('detalle_ventas.id','desc')->get();
+        ->where('detalles_ventas.id_venta','=',$id)
+        ->orderBy('detalles_ventas.id_detalle_venta','desc')->get();
 
-        $numventa=Venta::select('num_comprobante')->where('id',$id)->get();
+        $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
 
-        $pdf = \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles]);
-        return $pdf->download('venta-'.$numventa[0]->num_comprobante.'.pdf');
+        $pdf = PDF::loadView('ventas/venta.pdf',['venta'=>$venta,'detalles'=>$detalles]);
+        return $pdf->download($factura_name);  
+
+
+
+        
+   
 
     }
 
