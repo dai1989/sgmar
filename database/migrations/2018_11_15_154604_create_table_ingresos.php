@@ -20,7 +20,7 @@ class CreateTableIngresos extends Migration
             $table->string('num_comprobante');
             $table->datetime('fecha_hora');
             $table->decimal('impuesto');
-            $table->decimal('total_venta');
+            $table->decimal('total_compra');
             $table->string('estado');
           
             

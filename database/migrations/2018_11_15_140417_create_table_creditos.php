@@ -14,8 +14,8 @@ class CreateTableCreditos extends Migration
     public function up()
     {
         Schema::create('creditos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('tipo_comprobante');
+            $table->increments('id'); 
+             $table->string('tipo_comprobante');
             $table->string('serie_comprobante');
             $table->string('num_comprobante');
             $table->datetime('fecha_hora');

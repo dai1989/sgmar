@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Credito;
-use App\Models\CreditoDetalle;
+use App\Models\DetalleCredito;
 use DB;
 
 class CreditoRepository {

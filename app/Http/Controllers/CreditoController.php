@@ -2,113 +2,180 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request,
- App\Http\Requests;
-use App\Repositories\ProductoRepository;
-use App\Repositories\AutorizacionesRepository;
-use App\Repositories\CreditoRepository;
-use App\Repositories\UsersRepository;
-use App\User;
-use App\Models\Persona;
-use App\Models\Autorizacion;
-use App\Models\Producto;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\CreateCreditoRequest;
+
 use App\Models\Credito;
-use App\Models\CreditoDetalle;
-use App\Models\Stock;
+use App\Models\Producto;
+use App\Models\Autorizacion;
+use App\Models\DetalleCredito;
+use App\User;
+use App\Models\TipoPago;
+use App\Models\TipoFactura;
 use Barryvdh\DomPDF\Facade as PDF;
+use DB;
+use Carbon\Carbon;
+use Response;
+use Illuminate\Support\Collection;
 
 class CreditoController extends Controller
 {
-    private $_creditoRepo;
-    private $_productoRepo;
-    private $_usersRepo;
-    private $_autorizacionesRepo;
-
-    public function __CONSTRUCT(
-        CreditoRepository $creditoRepo,
-        ProductoRepository $productoRepo,
-        UsersRepository $usersRepo,
-        AutorizacionesRepository $autorizacionesRepo
-    )
+    
+    //contructor
+    public function __construct()
     {
-        $this->_creditoRepo = $creditoRepo;
-        $this->_productoRepo = $productoRepo;
-        $this->_usersRepo = $usersRepo;
-        $this->_autorizacionesRepo = $autorizacionesRepo;
+        $this -> middleware('auth');
     }
 
-    public function index()
+    //index 
+    public function index(Request $request)
     {
-        return view(
-            'credito.index', [
-                'model' => $this->_creditoRepo->getAll()
-            ]
-        );
+      if($request)
+      {
+        //almacenar la busqueda 
+        $querry =  trim ($request -> get('searchText'));
+        //obtener 
+        $creditos = DB::table('creditos as c') 
+        -> join('autorizacion as a','c.id_autorizacion','=','a.id_autorizacion')
+        -> join('detalles_creditos as dc','c.id_credito','=','dc.id_credito')
+        -> select('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
+        -> where('c.num_comprobante','LIKE','%'.$querry.'%')         
+        -> orderBy('c.id_credito', 'asc')
+        -> groupBy('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado')
+        -> paginate(7);
+        
+        return view('credito.index', ["creditos" => $creditos, "searchText" => $querry]);
+      }
     }
 
-    public function detail($id)
+    //create (muestra la vista de crear)
+    public function create()
     {
-        return view('credito.detail', [
-            'model' => $this->_creditoRepo->get($id)
-        ]);
+       $user_list = User::all();
+       $tipofactura_list = TipoFactura::all();
+       $tipopago_list = TipoPago::all();
+      $autorizaciones = Autorizacion::all();
+      $productos = DB::table('productos as prod')      
+      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto', 'prod.stock', 'prod.precio_venta')
+      -> where ('prod.estado', '=', 'Activo')
+      -> where ('prod.stock' , '>', '0')
+      -> get();
+
+      return view('credito.create', ['autorizaciones' => $autorizaciones, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
     }
 
-    public function pdf($id)
-    {
-        $model = $this->_creditoRepo->get($id);
-        $credito_name = sprintf('comprobante-%s.pdf', str_pad ($model->id, 7, '0', STR_PAD_LEFT));
-
-        $pdf = PDF::loadView('credito.pdf', [
-            'model' => $model
-        ]);
-
-        return $pdf->download($credito_name);
-    }
     
 
-    public function add()
+    //store(insertar un registro)
+    public function store(CreateCreditoRequest $request)
     {
-        return view('credito.add');
-    }
+      
+    try {
 
-    public function save(Request $req)
-    {
-        $data = (object)[
-          
-            'iva' => $req->input('iva'),
-            'subTotal' => $req->input('subTotal'),
-            'total' => $req->input('total'),
-            'autorizacion_id' => $req->input('autorizacion_id'),
-            'user_id' => $req->input('user_id'),
-            'detail' => []
-        ];
+        DB::beginTransaction();
 
-        foreach($req->input('detail') as $d){
-            $data->detail[] = (object)[
-                'producto_id' => $d['id'],
-                'cantidad'   => $d['cantidad'],
-                'precio_venta'  => $d['precio_venta'],
-                'total'      => $d['total']
-            ];
+        $credito = new Credito;     
+        $credito -> id_autorizacion = $request -> get('id_autorizacion');//este valor es el que se encuentra en el formulario
+      $credito -> id_user = $request -> get('id_user');
+      $credito -> tipofactura_id = $request -> get('tipofactura_id');
+      $credito -> tipopago_id = $request -> get('tipopago_id');
+        $credito -> tipo_comprobante = $request -> get('tipo_comprobante');
+        $credito -> serie_comprobante = $request -> get('serie_comprobante');
+        $credito -> num_comprobante = $request -> get('num_comprobante');
+      $credito -> total_credito = $request -> get('total_credito');
+      
+        $mytime = Carbon::now('America/Argentina/Salta');
+        $credito -> fecha_hora = $mytime -> toDateTimeString();
+      $credito -> impuesto = '0.21';
+      
+        
+        $credito -> estado = 'Efectuada';     
+        $credito -> save();
+
+        $id_producto  = $request -> get('id_producto');
+        $cantidad = $request -> get('cantidad');
+        $descuento = $request -> get('descuento');
+        $precio_venta = $request -> get('precio_venta');
+
+        $cont=0;
+
+        while($cont < count ($id_producto)){
+
+            $detalle = new DetalleCredito();
+            $detalle -> id_credito = $credito -> id_credito;
+            $detalle -> id_producto = $id_producto[$cont];
+            $detalle -> cantidad = $cantidad[$cont];
+            $detalle -> descuento = $descuento[$cont];
+            $detalle -> precio_venta = $precio_venta[$cont];
+            $detalle -> save();
+            
+            $cont = $cont+1;
         }
 
-        return $this->_creditoRepo->save($data); 
+        DB::commit();
+
+    } catch (\Exception $e) {
+        DB::rollback();
     }
 
-    public function findAutorizacion(Request $req)
-    {
-        return $this->_autorizacionesRepo
-                    ->findByCodigo($req->input('q'));
+      return Redirect::to('credito');
     }
 
-    public function findProducto(Request $req)
-    {
-        return $this->_productoRepo
-                    ->findByDescripcion($req->input('q'));
+    //show
+    public function show ($id){
+
+        $credito = DB::table('creditos as c') 
+        -> join('autorizacion as a','c.id_autorizacion','=','a.id_autorizacion')
+        -> join('detalles_creditos as dc','c.id_credito','=','dc.id_credito')
+        -> select('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
+        -> where ('c.id_credito','=', $id)
+        -> first();
+
+
+        $detalles = DB::table('detalles_creditos as d') 
+         -> join('productos as a','d.id_producto','=','a.id_producto')
+         -> select('a.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
+         -> where ('d.id_credito', '=', $id) -> get();
+
+         return view('credito.show', ['credito' => $credito, 'detalles' => $detalles]);
     }
-     public function findUser(Request $req)
+
+
+        public function pdf(Request $request,$id){
+        $venta = Venta::join('autorizacion','creditos.id_autorizacion','=','id_autorizacion')
+        ->join('users','creditos.id_user','=','users.id')
+        ->select('creditos.id_credito','creditos.tipo_comprobante','creditos.serie_comprobante',
+        'creditos.num_comprobante','creditos.fecha_hora','creditos.impuesto','creditos.total_credito',
+        'creditos.estado','autorizacion.codigo','autorizacion.monto_actual','users.name')
+        ->where('creditos.id_credito','=',$id)
+        ->orderBy('creditos.id_credito','desc')->take(1)->get();
+
+        $detalles = DetalleCredito::join('productos','detalles_creditos.id_producto','=','productos.id_producto')
+        ->select('detalles_creditos.cantidad','detalles_creditos.precio_venta','detalles_creditos.descuento',
+        'productos.descripcion as producto')
+        ->where('detalles_creditos.id_credito','=',$id)
+        ->orderBy('detalles_creditos.id_detalle_credito','desc')->get();
+
+        $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
+
+        $pdf = PDF::loadView('credito.pdf',['credito'=>$credito,'detalles'=>$detalles]);
+        return $pdf->download($factura_name);  
+      }
+
+    //update (actualizar un registro)
+    
+
+    //destroy (eliminar logicamente un registro)
+    public function destroy($id)
     {
-        return $this->_usersRepo
-                    ->findByName($req->input('q'));
+      $credito =  Credito::findOrFail($id);
+      $credito -> estado = 'Cancelada'; 
+      $credito -> update();
+
+      return Redirect::to('credito');
     }
+
 }
+

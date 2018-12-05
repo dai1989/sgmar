@@ -123,27 +123,11 @@ Route::resource('stock', 'StockController');
 
 Route::resource('roles', 'RoleController');
 
-Route::get('/compra', 'CompraController@index');
-Route::get('/compra/add', 'CompraController@add');
-Route::get('/compra/detail/{id}', 'CompraController@detail');
-Route::get('/compra/pdf/{id}', 'CompraController@pdf');
-Route::get('/compra/findProveedor', 'CompraController@findProveedor');
-Route::get('/compra/findProducto', 'CompraController@findProducto');
-Route::get('/compra/findUser', 'CompraController@findUser');
-Route::get('/compra/findTipoPago', 'CompraController@findTipoPago');
-Route::get('/compra/findTipoFactura', 'CompraController@findTipoFactura');
-Route::post('/compra/save', 'CompraController@save');
 
 
 
-Route::get('/presupuesto', 'PresupuestoController@index');
-Route::get('/presupuesto/add', 'PresupuestoController@add');
-Route::get('/presupuesto/detail/{id}', 'PresupuestoController@detail');
-Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@pdf');
-Route::get('/presupuesto/findPersona', 'PresupuestoController@findPersona');
-Route::get('/presupuesto/findProducto', 'PresupuestoController@findProducto');
-Route::get('/presupuesto/findUser', 'PresupuestoController@findUser');
-Route::post('/presupuesto/save', 'PresupuestoController@save');
+
+
 
 Route::resource('contactos', 'ContactoController');
 
@@ -151,24 +135,7 @@ Route::resource('contactos', 'ContactoController');
 
 Route::resource('proveedores', 'ProveedorController');
 
-Route::get('/credito', 'CreditoController@index');
-Route::get('/credito/add', 'CreditoController@add');
-Route::get('/credito/detail/{id}', 'CreditoController@detail');
-Route::get('/credito/pdf/{id}', 'CreditoController@pdf');
-Route::get('/credito/findAutorizacion', 'CreditoController@findAutorizacion');
-Route::get('/credito/findProducto', 'CreditoController@findProducto');
-Route::get('/credito/findUser', 'CreditoController@findUser');
-Route::post('/credito/save', 'CreditoController@save');
 
-
-Route::get('/devolucion', 'DevolucionController@index');
-Route::get('/devolucion/add', 'DevolucionController@add');
-Route::get('/devolucion/detail/{id}', 'DevolucionController@detail');
-Route::get('/devolucion/pdf/{id}', 'DevolucionController@pdf');
-Route::get('/devolucion/findFactura', 'DevolucionController@findFactura');
-Route::get('/devolucion/findProducto', 'DevolucionController@findProducto');
-Route::get('/devolucion/findUser', 'DevolucionController@findUser');
-Route::post('/devolucion/save', 'DevolucionController@save');
 
 
 
@@ -195,6 +162,8 @@ Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('ventas/venta', 'VentaController');
 Route::resource('ingreso', 'IngresoController');
+Route::resource('credito', 'CreditoController');
+
 Route::get('/venta/pdf/{id_venta}', 'VentaController@pdf')->name('venta_pdf');
 Route::get('/ingreso/pdf/{id_ingreso}', 'IngresoController@pdf')->name('ingreso_pdf');
 

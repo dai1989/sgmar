@@ -1,19 +1,26 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Cuenta Cte
+    Compras
 @endsection
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Cuenta Cte</h1>
+        <h1 class="pull-left">Listado de compras</h1>
         <h1 class="pull-right">
-           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{url('credito/add')}}">
+           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="credito/create">
               <i class="fa fa-plus"></i>
               <span class="hidden-xs hidden-sm">Agregar</span>
+              
            </a>
+           
         </h1>
     </section>
+    <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        
+         @include('credito.search') </div>
+</div>
     <div class="content">
         <div class="clearfix"></div>
 
@@ -22,42 +29,46 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                     <table class="table table-striped">
+                     <table class="table table-striped"> 
                 <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th style="width:100px;" class="text-right">IVA</th>
-                        <th style="width:160px;" class="text-right">Sub Total</th>
-                        <th style="width:160px;" class="text-right">Total</th>
-                        <th style="width:180px;" class="text-right">Creado</th>
-                        <th style="width:30px;"></th>
-                    </tr>
+                    
+                    <th>Fecha</th>
+                    <th>Proveedor</th>
+                    <th>Tipo de comprobante</th>
+                    
+                    <th>Numero del comprobante</th>
+                    <th>Impuesto</th>
+                    <th>Total</th> 
+                    <th>Estado</th>                      
+                     <th colspan="3">Acciones</th>
                 </thead>
-                <tbody>
-                    @foreach ($model as $m)
-                    <tr>
-                        <td>
-                            <a href="{{url('credito/detail/' . $m->id )}}">
-                                {{ $m->autorizacion->persona->nombre }},{{ $m->autorizacion->persona->apellido }}
+                @foreach($creditos as $credito)
+                <tr>
+                    
+                    <td>{{$credito -> fecha_hora}}</td>
+                    <td>{{$credito -> codigo}} </td>
+                    <td>{{$credito -> tipo_comprobante}}</td>
+                   
+                    <td>{{$credito -> num_comprobante}}</td>
+                    <td>{{$credito -> impuesto}}</td>
+                    <td>{{$credito -> total_credito}}</td>                    
+                    <td>{{$credito -> estado}}</td>                    
+                    <td>
+                        <a href="{{URL::action('CreditoController@show', $credito -> id_credito)}}">
+                            <button class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></button>
+                        </a>
+                        <a href="" data-target="#modal-delete-{{$credito -> id_credito}}" data-toggle="modal">
+                            <button class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></button>
+                        </a>
+                        <a href="{{ url('credito/pdf/' . $credito->id_credito) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
+                                
                             </a>
-                        </td>
-                        <td class="text-right">$ {{number_format($m->iva, 2)}}</td>
-                        <td class="text-right">$ {{number_format($m->subTotal, 2)}}</td>
-                        <td class="text-right">$ {{number_format($m->total, 2)}}</td>
-                        <td class="text-right">{{ $m->created_at  }}</td>
-                        <td class="text-right">
-                            <a class="btn btn-success btn-block btn-xs" href="{{ url('credito/pdf/' . $m->id) }}">
-                                <i class="fa fa-file-pdf-o"></i> Descargar
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            </div>
+                    </td>
+                </tr> 
+                @include('credito.modal')
+                @endforeach </table>
         </div>
+         {{$creditos -> render()}}
     </div>
+</div> 
 @endsection
-
-
-      

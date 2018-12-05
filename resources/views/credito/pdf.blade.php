@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de credito a cuenta corriente</title>
+    <title>Reporte de compras</title>
     <style>
         body {
         /*position: relative;*/
@@ -112,19 +112,19 @@
         }
     </style>
     <body>
-    
+        @foreach ($ingreso as $ing)
         <header>
             <div id="logo">
-                <img src="img/sapukai.jpg" alt="Sapukai" id="imagen">
+                <img src="img/sapukai.jpg"  alt="Sapukai" id="imagen">
             </div>
             <div id="datos">
                 <p id="encabezado">
-                    <b>Sapukai Motos</b><br>Ituzaingo, Ctes<br>Telefono:(+3786)999999999<br>Email: sapukai_motos@gmail.com
+                    <b>Sapukai Motos</b><br>Ituzaingo, Ctes<br>Telefono:(+3786)999999<br>Email: sapukai_motos@gmail.com
                 </p>
             </div>
             <div id="fact">
-                <p>{{str_pad ($model->id, 7, '0', STR_PAD_LEFT) }}<br>
-                {{$model->created_at }}</p>
+                <p>{{$ing->tipo_comprobante}}<br> 
+                {{$ing->serie_comprobante}}-{{$ing->num_comprobante}}</p>
             </div>
         </header>
         <br>
@@ -133,23 +133,20 @@
                 <table id="facliente">
                     <thead>                        
                         <tr>
-                            <th id="fac">Cliente</th>
+                            <th id="fac">Proveedor</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="cliente">Sr(a). {{$model->autorizacion->persona->nombre}},
-                            {{$model->autorizacion->persona->apellido}}<br>
-                            Documento:{{$model->autorizacion->persona->documento}}<br>
-                            Dirección:<br>
-                            Teléfono:<br>
-                            Email:</</p></th>
+                            <th><p id="cliente">Empresa. {{$ing->razonsocial}}<br>
+                            {{$ing->cuit}}: {{$ing->cuit}}<br>
+                           
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
-        
+        @endforeach
         <br>
         <section>
             <div>
@@ -162,8 +159,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$user->name}}</td>
-                            <td>{{$model->created_at}}</td>
+                            <td>{{$user->name}}</td> 
+                            <td>{{$ing->fecha_hora}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -177,49 +174,49 @@
                         <tr id="fa">
                             
                             <th>DESCRIPCION</th>
-                            <th>CANTIDAD</th>
+                            <th>CANT</th>
                             <th>PRECIO UNIT</th>
-                            <th>DESCUENTO</th>
-                            
+                            <th>DESC.</th>
                             <th>PRECIO TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($model->detail as $d)
+                        @foreach ($detalles as $det)
                         <tr>
-                            <td>{{$d->producto->descripcion}}</td>
-                            <td>{{$d->cantidad}}</td>
-                            <td>{{$d->precio_venta}}</td>
-                            <td>0.00</td>
-                            <td>{{$d->total}}</td>
-                            
+                            <td>{{$det->producto}}</td>
+                            <td>{{$det->cantidad}}</td>
+                            <td>{{$det->precio_compra}}</td> 
+                            <td>{{$det->descuento}}</td>
+                            <td>{{$det->cantidad*$det->precio_compra-$det->descuento}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
-                        
+                        @foreach ($ingreso as $ing)
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>SUBTOTAL</th>
-                            <td>$ {{round($model->subTotal,2)}}</td>
+                            <td>$ {{round($ing->total_compra-($ing->total_compra*$ing->impuesto),2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>IVA</th>
-                            <td>$ {{round($model->iva,2)}}</td>
+                            <td>$ {{round($ing->total_compra*$ing->impuesto,2)}}</td>
                         </tr>
+                        
+                        
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>TOTAL</th>
-                            <td>$ {{$model->total}}</td>
+                            <td>$ {{$ing->total_compra}}</td>
                         </tr>
-                        
+                        @endforeach
                     </tfoot>
                 </table>
             </div>

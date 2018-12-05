@@ -14,10 +14,14 @@ class AddForeignKeyCreditosTable extends Migration
     public function up()
     {
         Schema::table('creditos', function (Blueprint $table) {
-              $table->integer('autorizacion_id')->unsigned();
-            $table->foreign('autorizacion_id')->references('id')->on('autorizacion');
-             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+             $table->integer('id_autorizacion')->unsigned();
+            $table->foreign('id_autorizacion')->references('id')->on('autorizacion');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->integer('tipofactura_id')->unsigned();
+            $table->foreign('tipofactura_id')->references('id')->on('tipo_facturas');
+            $table->integer('tipopago_id')->unsigned();
+            $table->foreign('tipopago_id')->references('id')->on('tipo_pagos');
         });
     }
 

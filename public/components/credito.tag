@@ -5,7 +5,7 @@
                 <input id="autorizacion" class="form-control typeahead" type="text" placeholder="Codigo" />
             </div>
             <div class="col-xs-2">
-                <input class="form-control" type="text" placeholder="condicion" readonly value="{condicion}" />
+                <input class="form-control" type="text" placeholder="monto autorizado" readonly value="{monto_actual}" />
             </div>
             
         </div>
@@ -13,9 +13,7 @@
             <div class="col-xs-6">
                 <input id="user" class="form-control typeahead" type="text" placeholder="Vendedor" />
             </div>
-            <div class="col-xs-2">
-                <input class="form-control" type="text" placeholder="username" readonly value="{username}" />
-            </div>
+           
             
         </div>
     </div>
@@ -165,7 +163,7 @@
                     onClickEvent: function() {
                         var e = autorizacion.getSelectedItemData();
                         self.autorizacion_id = e.id;
-                        self.condicion = e.condicion;
+                        self.monto_actual = e.monto_actual;
                         
 
                         self.update();

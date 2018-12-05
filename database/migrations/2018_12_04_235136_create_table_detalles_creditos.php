@@ -11,7 +11,7 @@ class CreateTableDetallesCreditos extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::create('detalles_creditos', function (Blueprint $table) {
             $table->increments('id');
