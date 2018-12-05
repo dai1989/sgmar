@@ -7,7 +7,6 @@ use App\Models\Ingreso;
 
 class CreateIngresoRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,6 +24,19 @@ class CreateIngresoRequest extends FormRequest
      */
     public function rules()
     {
-        return Ingreso::$rules;
+        return [
+
+            //para el ingreso
+            'id_proveedor' => 'required',
+            'tipo_comprobante' => 'required|max:20',
+            'serie_comprobante' => 'max:7',
+            'num_comprobante' => 'required|max:10',
+
+            //para el detalle de ingreso
+            'id_producto' => 'required',
+            'cantidad' => 'required',
+            'precio_compra' => 'required'            
+            
+        ];
     }
 }

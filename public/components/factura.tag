@@ -1,7 +1,7 @@
 <factura>
     <div class="well well-sm">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-6"> 
                 <input id="persona" class="form-control typeahead" type="text" placeholder="Cliente" />
             </div>
             <div class="col-xs-2">

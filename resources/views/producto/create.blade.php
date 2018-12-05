@@ -42,6 +42,7 @@
           <unique-barcode-input>
                         </unique-barcode-input>
                       </div>
+                      
         
             <div class="form-group col-sm-6">           
                <label for="stock">Stock:</label>
@@ -78,5 +79,7 @@
             </div>
         </div>
     </div>
-  
+  <script src="{{ asset('js/manifest.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script> 
 @endsection

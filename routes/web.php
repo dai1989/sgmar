@@ -171,17 +171,7 @@ Route::get('/devolucion/findUser', 'DevolucionController@findUser');
 Route::post('/devolucion/save', 'DevolucionController@save');
 
 
-Route::get('/factura', 'FacturaController@index');
-Route::get('/factura/add', 'FacturaController@add');
-Route::get('/factura/detail/{id}', 'FacturaController@detail');
-Route::get('/factura/pdf/{id}', 'FacturaController@pdf');
 
-Route::get('/factura/findPersona', 'FacturaController@findPersona');
-Route::get('/factura/findProducto', 'FacturaController@findProducto');
-Route::get('/factura/findUser', 'FacturaController@findUser');
-Route::get('/factura/findTipoPago', 'FacturaController@findTipoPago');
-Route::get('/factura/findTipoFactura', 'FacturaController@findTipoFactura');
-Route::post('/factura/save', 'FacturaController@save');
 
 
 
@@ -190,6 +180,7 @@ Route::post('/factura/save', 'FacturaController@save');
 
 
 Route::resource('provincias', 'ProvinciaController');
+Route::resource('producto', 'ProductoController');
 
 Route::resource('autorizaciones', 'AutorizacionController');
 
@@ -198,12 +189,14 @@ Route::resource('ingresos', 'IngresoController');
 Route::resource('tipoDomicilios', 'TipoDomicilioController');
 
 Route::resource('domicilios', 'DomicilioController');
- route::resource('chart','ChartController');
-
+ route::resource('/chart','ChartController');
+   Route::get('/dashboard','DashboardController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('ventas/venta', 'VentaController');
+Route::resource('ingreso', 'IngresoController');
 Route::get('/venta/pdf/{id_venta}', 'VentaController@pdf')->name('venta_pdf');
+Route::get('/ingreso/pdf/{id_ingreso}', 'IngresoController@pdf')->name('ingreso_pdf');
 
 
 

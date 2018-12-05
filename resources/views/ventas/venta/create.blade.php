@@ -5,8 +5,9 @@
 @endsection
 
 @section('content')
+
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+     <div class="col-md-12"> 
         <h3>Nueva venta</h3>
         @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -24,48 +25,44 @@
         <div class="well well-sm">
     <div class="row">
         <div class="col-xs-6">
-             <div class="form-group">            
+                         
                <label for="nombre">Cliente:</label>
                <select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-Live-search="true">
                    @foreach($personas as $persona)
                        <option value="{{$persona -> id}}">{{$persona -> nombre}} {{$persona -> apellido}}</option>
                    @endforeach
                </select>
-            </div>
+            
         </div>
           <div class="col-xs-6">
-             <div class="form-group">            
+                         
                <label for="id_user">Vendedor:</label>
                <select name="id_user" id="id_user" class="form-control selectpicker" data-Live-search="true">
                    @foreach($user_list as $user)
                        <option value="{{$user -> id}}">{{$user -> name}}</option>
                    @endforeach
                </select>
-            </div>
+            
         </div>
-          
-        <div class="col-xs-2">
-             <div class="form-group">            
-               <label for="nombre">Tipo de comprobante:</label>
-               <select name="tipo_comprobante" id="" class="form-control selectpicker">                  
-                   <option value="Boleta">Boleta</option> 
-                   <option value="Factura">Factura</option>
-                   <option value="Ticket">Ticket</option>
-               </select>
-        </div>
-        </div>
-        <div class="col-xs-2">
-            <div class="form-group">            
+        <div class="form-group col-sm-6">         
                <label for="codigo">Serie del comprobante:</label>
-                <input type="text" class="form-control" name="serie_comprobante" placeholder="Serie del comprobante..."  value="{{old('serie_comprobante')}}">            
+                <input type="text" class="form-control" name="serie_comprobante" placeholder="Serie del comprobante..."  value="{{old('serie_comprobante')}}">
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="form-group">            
+
+        
+            <div class="form-group col-sm-6">            
                <label for="codigo">Numero del comprobante:</label>
                 <input type="text" class="form-control" name="num_comprobante" placeholder="Numero del comprobante..."  required value="{{old('num_comprobante')}}">            
             </div>
-        </div>
+                <div class="form-group col-sm-6">        
+               <label for="nombre">Tipo de comprobante:</label>
+               <select name="tipo_comprobante" id="" class="form-control selectpicker">                  
+                   <option>--Seleccione--</option> 
+                   <option value="Factura">Factura</option>
+                   <option value="Ticket">Ticket</option>
+               </select>
+           </div>
+        
 
 <div class="form-group col-sm-6">
     <label for="tipofactura_id">Tipo factura</label>

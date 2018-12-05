@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableIngresos extends Migration
+class CreateTableIngresos extends Migration 
 {
     /**
      * Run the migrations.
@@ -15,13 +15,13 @@ class CreateTableIngresos extends Migration
     {
         Schema::create('ingresos', function (Blueprint $table) { 
             $table->increments('id');
-             $table->string('tipo_comprobante', 20);
-            $table->string('serie_comprobante', 7)->nullable();
-            $table->string('num_comprobante', 10);
-            $table->dateTime('fecha_hora');
-            $table->decimal('impuesto', 4, 2);
-            $table->decimal('total', 11, 2);
-            $table->string('estado', 20);
+            $table->string('tipo_comprobante');
+            $table->string('serie_comprobante');
+            $table->string('num_comprobante');
+            $table->datetime('fecha_hora');
+            $table->decimal('impuesto');
+            $table->decimal('total_venta');
+            $table->string('estado');
           
             
             $table->timestamps();

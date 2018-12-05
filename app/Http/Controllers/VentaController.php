@@ -162,13 +162,7 @@ class VentaController extends Controller
 
         $pdf = PDF::loadView('ventas/venta.pdf',['venta'=>$venta,'detalles'=>$detalles]);
         return $pdf->download($factura_name);  
-
-
-
-        
-   
-
-    }
+      }
 
     //update (actualizar un registro)
     
