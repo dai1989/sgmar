@@ -18,7 +18,7 @@ class ProveedorDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'proveedors.datatables_actions');
+        return $dataTable->addColumn('action', 'proveedores.datatables_actions');
     }
 
     /**
@@ -50,11 +50,7 @@ class ProveedorDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                    'create',
-                    'export',
-                    'print',
-                    'reset',
-                    'reload',
+                    
                 ],
             ]);
     }

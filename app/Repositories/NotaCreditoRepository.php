@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Devolucion;
-use App\Models\DevolucionDetalle; 
+use App\Models\NotaCredito;
+use App\Models\NotaCreditoDetalle;
 use DB;
 
-class DevolucionRepository {
+class NotaCreditoRepository {
     private $model;
     
     public function __construct(){
-        $this->model = new Devolucion();
+        $this->model = new NotaCredito();
     }
 
     public function get($id) {
@@ -32,28 +32,23 @@ class DevolucionRepository {
           
             
             
-            
-            
-            
             $this->model->iva = $data->iva;
             $this->model->subTotal = $data->subTotal;
             $this->model->total = $data->total;
-            $this->model->venta_id = $data->venta_id;
+            $this->model->id_venta = $data->id_venta;
             $this->model->user_id = $data->user_id;
 
             $this->model->save();
 
             $detail = [];
             foreach($data->detail as $d) {
-                $obj = new DevolucionDetalle;
+                $obj = new NotaCreditoDetalle;
 
-                $obj->producto_id = $d->producto_id;
+                $obj->id_producto = $d->id_producto;
                 $obj->cantidad = $d->cantidad;
-                $obj->precio_venta = $d->precio_venta;
                 $obj->observacion = $d->observacion;
-              
-                
-                $obj->total = $d->total;
+                $obj->precio_venta = $d->precio_venta;
+                $obj->total = $d->total; 
 
                 $detail[] = $obj;
             }

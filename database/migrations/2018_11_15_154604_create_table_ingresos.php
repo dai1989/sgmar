@@ -16,11 +16,11 @@ class CreateTableIngresos extends Migration
         Schema::create('ingresos', function (Blueprint $table) { 
             $table->increments('id');
             $table->string('tipo_comprobante');
-            $table->string('serie_comprobante');
+            $table->string('serie_comprobante')->nullable();
             $table->string('num_comprobante');
             $table->datetime('fecha_hora');
             $table->decimal('impuesto');
-            $table->decimal('total_compra');
+            $table->decimal('total_compra')->nullable();
             $table->string('estado');
           
             

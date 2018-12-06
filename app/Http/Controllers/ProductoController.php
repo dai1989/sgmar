@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateProductoRequest;
 use App\Models\Producto;
+use App\Models\Marca;
+use App\Models\Categoria;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Flash;
@@ -33,12 +35,12 @@ class ProductoController extends Controller
         $querry =  trim ($request -> get('searchText'));
         //obtener las categorias
         $productos = DB::table('productos as prod') 
-        -> join('categorias as c', 'prod.id_categoria', '=', 'c.id_categoria')
-        -> join('marcas as m', 'prod.id_marca', '=', 'm.id_marca')
-        -> select('prod.id_producto', 'prod.descripcion', 'prod.barcode', 'prod.stock', 'prod.precio_venta','c.categoria_descripcion as categoria','m.descripcion as marca', 'prod.imagen', 'prod.estado')
+        -> join('categorias as c', 'prod.id_categoria', '=', 'c.id')
+        -> join('marcas as m', 'prod.id_marca', '=', 'm.id')
+        -> select('prod.id', 'prod.descripcion', 'prod.barcode', 'prod.stock', 'prod.precio_venta','c.categoria_descripcion as categoria','m.descripcion as marca', 'prod.imagen', 'prod.estado')
         -> where('prod.descripcion','LIKE','%'.$querry.'%')         
         -> orwhere('prod.barcode','LIKE','%'.$querry.'%')         
-        -> orderBy('prod.id_producto', 'asc')
+        -> orderBy('prod.id', 'asc')
         -> paginate(7);
         
         return view('producto.index', ["productos" => $productos, "searchText" => $querry]);
@@ -94,7 +96,7 @@ class ProductoController extends Controller
       }
 
       $producto -> save();
-      Flash::success('Producto saved successfully.');
+      Flash::success('Producto guardado exitosamente.');
 
       return Redirect::to('producto');
     }

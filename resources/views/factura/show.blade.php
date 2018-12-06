@@ -76,23 +76,5 @@
        </div>
        
     </div> 
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="page-header">
-                Nuevo devolucion
-            </h2>
-           
-
-            <devolucion></devolucion>
-        </div>
-    </div>
 
     @endsection
-    @section('bottom')
-    <script src="{{asset('components/devolucion.tag')}}" type="riot/tag"></script>
-    <script>
-        $(document).ready(function(){
-            riot.mount('devolucion');
-        })
-    </script>
-@endsection

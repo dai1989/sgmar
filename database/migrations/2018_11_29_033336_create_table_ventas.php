@@ -17,7 +17,7 @@ class CreateTableVentas extends Migration
             $table->increments('id');
          
             $table->string('tipo_comprobante');
-            $table->string('serie_comprobante');
+            $table->string('serie_comprobante')->nullable();
             $table->string('num_comprobante');
             $table->datetime('fecha_hora');
             $table->decimal('impuesto');

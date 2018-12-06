@@ -37,12 +37,12 @@ class IngresoController extends Controller
         $querry =  trim ($request -> get('searchText'));
         //obtener las categorias
         $ingresos = DB::table('ingresos as i') 
-        -> join('proveedores as p','i.id_proveedor','=','p.id_proveedor')
-        -> join('detalles_ingresos as di','i.id_ingreso','=','di.id_ingreso')
-        -> select('i.id_ingreso', 'i.fecha_hora', 'p.razonsocial','p.cuit', 'i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado', DB::raw('sum(di.cantidad*precio_compra) as total_compra'))
+        -> join('proveedores as p','i.id_proveedor','=','p.id')
+        -> join('detalles_ingresos as di','i.id','=','di.id_ingreso')
+        -> select('i.id', 'i.fecha_hora', 'p.razonsocial','p.cuit', 'i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado', DB::raw('sum(di.cantidad*precio_compra) as total_compra'))
         -> where('i.num_comprobante','LIKE','%'.$querry.'%')         
-        -> orderBy('i.id_ingreso', 'asc')
-        -> groupBy('i.id_ingreso', 'i.fecha_hora', 'p.razonsocial','i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado')
+        -> orderBy('i.id', 'asc')
+        -> groupBy('i.id', 'i.fecha_hora', 'p.razonsocial','i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado')
         -> paginate(7);
         
         return view('ingreso.index', ["ingresos" => $ingresos, "searchText" => $querry]);
@@ -57,7 +57,7 @@ class IngresoController extends Controller
        $tipopago_list = TipoPago::all();
       $proveedores = Proveedor::all();
       $productos = DB::table('productos as prod')
-      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto')
+      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id')
       -> where ('prod.estado', '=', 'Activo')
       -> get();
 
@@ -107,7 +107,7 @@ class IngresoController extends Controller
         while($cont < count ($id_producto)){
 
             $detalle = new DetalleIngreso();
-            $detalle -> id_ingreso = $ingreso -> id_ingreso;
+            $detalle ->id_ingreso = $ingreso ->id;
             $detalle -> id_producto = $id_producto[$cont];
             $detalle -> cantidad = $cantidad[$cont];
             $detalle -> precio_compra = $precio_compra[$cont];
@@ -129,15 +129,15 @@ class IngresoController extends Controller
     public function show ($id){
 
         $ingreso = DB::table('ingresos as i') 
-        -> join('proveedores as p','i.id_proveedor','=','p.id_proveedor')
-        -> join('detalles_ingresos as di','i.id_ingreso','=','di.id_ingreso')
-        -> select('i.id_ingreso', 'i.fecha_hora', 'p.razonsocial', 'p.cuit','i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado', DB::raw('sum(di.cantidad*precio_compra) as total_compra'))
-        -> where ('i.id_ingreso','=', $id)
+        -> join('proveedores as p','i.id_proveedor','=','p.id')
+        -> join('detalles_ingresos as di','i.id','=','di.id_ingreso')
+        -> select('i.id', 'i.fecha_hora', 'p.razonsocial', 'p.cuit','i.tipo_comprobante', 'i.serie_comprobante', 'i.num_comprobante', 'i.impuesto', 'i.estado', DB::raw('sum(di.cantidad*precio_compra) as total_compra'))
+        -> where ('i.id','=', $id)
         -> first();
 
 
         $detalles = DB::table('detalles_ingresos as d') 
-         -> join('productos as prod','d.id_producto','=','prod.id_producto')
+         -> join('productos as prod','d.id_producto','=','prod.id')
          -> select('prod.descripcion as producto', 'd.cantidad', 'd.precio_compra')
          -> where ('d.id_ingreso', '=', $id) -> get();
 
@@ -158,24 +158,25 @@ class IngresoController extends Controller
     }
 
        public function pdf(Request $request,$id){
-       $ingreso = Ingreso::join('proveedores','ingresos.id_proveedor','=','ingresos.id_proveedor')
+        $ingreso = Ingreso::join('proveedores','ingresos.id_proveedor','=','proveedores.id')
         ->join('users','ingresos.id_user','=','users.id')
-        ->select('ingresos.id_ingreso','ingresos.tipo_comprobante','ingresos.serie_comprobante',
+        ->select('ingresos.id','ingresos.tipo_comprobante','ingresos.serie_comprobante',
         'ingresos.num_comprobante','ingresos.fecha_hora','ingresos.impuesto','ingresos.total_compra',
         'ingresos.estado','proveedores.razonsocial','proveedores.cuit','users.name')
-        ->where('ingresos.id_ingreso','=',$id)
-        ->orderBy('ingresos.id_ingreso','desc')->take(1)->get();
+        ->where('ingresos.id','=',$id)
+        ->orderBy('ingresos.id','desc')->take(1)->get();
 
-        $detalles = DetalleIngreso::join('productos','detalles_ingresos.id_producto','=','productos.id_producto')
+        $detalles = DetalleIngreso::join('productos','detalles_ingresos.id_producto','=','productos.id')
         ->select('detalles_ingresos.cantidad','detalles_ingresos.precio_compra','detalles_ingresos.descuento',
         'productos.descripcion as producto')
         ->where('detalles_ingresos.id_ingreso','=',$id)
-        ->orderBy('detalles_ingresos.id_detalle_ingreso','desc')->get();
+        ->orderBy('detalles_ingresos.id','desc')->get();
 
         $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
 
         $pdf = PDF::loadView('ingreso.pdf',['ingreso'=>$ingreso,'detalles'=>$detalles]);
         return $pdf->download($factura_name);  
       }
+
 
 }

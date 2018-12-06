@@ -9,17 +9,17 @@
             </h2>
            
 
-            <factura></factura>
+            <notacredito></notacredito>
         </div>
     </div>
 </div>
 @endsection
 
 @section('bottom')
-    <script src="{{asset('components/factura.tag')}}" type="riot/tag"></script>
+    <script src="{{asset('components/notacredito.tag')}}" type="riot/tag"></script>
     <script>
         $(document).ready(function(){
-            riot.mount('factura');
+            riot.mount('notacredito');
         })
     </script>
 @endsection

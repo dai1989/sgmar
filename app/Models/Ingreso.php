@@ -10,7 +10,7 @@ class Ingreso extends Model
      //
     protected $table = 'ingresos';
     
-    protected $primaryKey= 'id_ingreso';
+    protected $primaryKey= 'id';
 
     public $timestamps = false;
 

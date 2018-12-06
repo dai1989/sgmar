@@ -29,7 +29,7 @@
                <label for="codigo">Cliente:</label>
                <select name="id_autorizacion" id="id_autorizacion" class="form-control selectpicker" data-Live-search="true">
                    @foreach($autorizaciones as $autorizacion)
-                       <option value="{{$autorizacion -> id_autorizacion}}">{{$autorizacion -> codigo}} {{$autorizacion ->persona-> nombre}},{{$autorizacion->persona->apellido}}</option>
+                       <option value="{{$autorizacion -> id}}">{{$autorizacion -> codigo}} {{$autorizacion ->persona-> nombre}},{{$autorizacion->persona->apellido}}</option>
                    @endforeach
                </select>
             
@@ -94,7 +94,7 @@
                         <label for="">Producto</label>
                         <select class="form-control selectpicker" name="pid_producto" id="pid_producto" data-Live-search="true">
                             @foreach($productos as $producto)
-                                <option value="{{$producto -> id_producto}}_{{$producto -> stock}}_{{$producto -> precio_venta}}">{{$producto -> producto}}</option>
+                                <option value="{{$producto -> id}}_{{$producto -> stock}}_{{$producto -> precio_venta}}">{{$producto -> producto}}</option>
                             @endforeach
                         </select>
                     </div>

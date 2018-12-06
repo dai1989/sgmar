@@ -20,14 +20,14 @@
         @endif
     </div>
 </div>
-        {{Form::open(array('url' => 'ventas/venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
+        {{Form::open(array('url' => 'factura', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
         <div class="well well-sm">
     <div class="row">
         <div class="col-xs-6">
                          
                <label for="nombre">Cliente:</label>
-               <select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-Live-search="true">
+               <select name="idcliente" id="idcliente" class="form-control selectpicker" data-Live-search="true">
                    @foreach($personas as $persona)
                        <option value="{{$persona -> id}}">{{$persona -> nombre}} {{$persona -> apellido}}</option>
                    @endforeach
@@ -92,7 +92,7 @@
                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="form-group">
                         <label for="">Producto</label>
-                        <select class="form-control selectpicker" name="pid_producto" id="pid_producto" data-Live-search="true">
+                        <select class="form-control selectpicker" name="pidproducto" id="pidproducto" data-Live-search="true">
                             @foreach($productos as $producto)
                                 <option value="{{$producto -> id}}_{{$producto -> stock}}_{{$producto -> precio_venta}}">{{$producto -> producto}}</option>
                             @endforeach
@@ -192,27 +192,27 @@
     $('#guardar').hide();
     
     //cada vez que se cambie el producto se ejecuta
-    $('#pid_producto').change(mostrarValores);
+    $('#pidproducto').change(mostrarValores);
     
     function mostrarValores(){
-        datosProducto = document.getElementById('pid_producto').value.split('_');
+        datosProducto = document.getElementById('pidproducto').value.split('_');
         $('#pprecio_venta').val(datosProducto[2]);
         $('#pstock').val(datosProducto[1]);
     }
     
     function agregar(){
         
-        datosProducto = document.getElementById('pid_producto').value.split('_');
+        datosProducto = document.getElementById('pidproducto').value.split('_');
         
-        id_producto = datosProducto[0];
-        producto = $('#pid_producto option:selected').text();
+        idproducto = datosProducto[0];
+        producto = $('#pidproducto option:selected').text();
         cantidad = $('#pcantidad').val();
         precio_venta = $('#pprecio_venta').val();
         descuento = $('#pdescuento').val();
         stock = $('#pstock').val();
         
         
-        if(id_producto != "" && cantidad != "" && cantidad > 0 && precio_venta != "" && descuento != "")
+        if(idproducto != "" && cantidad != "" && cantidad > 0 && precio_venta != "" && descuento != "")
         {
             
             if(stock >= cantidad)
@@ -221,7 +221,7 @@
             total = total  + subtotal[cont] ;
             
             
-            var fila = '<tr class="selected" id="fila'+cont+'"><td><button class"btn btn-danger" type"button" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precio_venta[]" value="'+precio_venta+'" readonly></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td> <td>'+subtotal[cont]+'</td></tr>';
+            var fila = '<tr class="selected" id="fila'+cont+'"><td><button class"btn btn-danger" type"button" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precio_venta[]" value="'+precio_venta+'" readonly></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td> <td>'+subtotal[cont]+'</td></tr>';
             
             //aumentar el contador
             cont++;

@@ -11,11 +11,14 @@ class Devolucion extends Model
     public function detail(){
         return $this->hasMany('App\Models\DevolucionDetalle');
     }
-    public function persona(){
-        return $this->belongsTo('App\Models\Persona');
+    public function venta(){
+        return $this->belongsTo('App\Models\Venta');
     }
-    public function factura(){
-        return $this->belongsTo('App\Models\Factura');
+    public function tipopago(){
+        return $this->belongsTo('App\Models\TipoPago');
+    }
+     public function tipofactura(){
+        return $this->belongsTo('App\Models\TipoFactura');
     }
      public function user()
     {

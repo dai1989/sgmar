@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Factura;
+use App\Models\Devolucion;
 
-class CreateFacturaRequest extends FormRequest
+class CreateDevolucionRequest extends FormRequest
 {
 
      /**
@@ -28,17 +28,18 @@ class CreateFacturaRequest extends FormRequest
         return [
 
             //para la venta
-            'idcliente' => 'required',
+            'id_venta' => 'required',
             'tipo_comprobante' => 'required|max:20',
             'serie_comprobante' => 'max:7',
             'num_comprobante' => 'required|max:10',
-            'total_venta' => 'required',
+            
 
             //para el detalle de la venta
-            'idproducto' => 'required',
+            'id_producto' => 'required',
             'cantidad' => 'required',
             'precio_venta' => 'required',
-            'descuento' => 'required'
+            'descuento' => 'required',
+            'observacion' => 'required'
 
         ];
     }

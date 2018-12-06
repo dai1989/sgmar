@@ -6,9 +6,12 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Devolucion</h1>
+        <h1 class="pull-left">Venta</h1>
         <h1 class="pull-right">
-           
+           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{url('notacredito/add')}}">
+              <i class="fa fa-plus"></i>
+              <span class="hidden-xs hidden-sm">Agregar</span>
+           </a>
         </h1>
     </section>
     <div class="content">
@@ -34,8 +37,8 @@
                     @foreach ($model as $m)
                     <tr>
                         <td>
-                            <a href="{{url('devolucion/detail/' . $m->id )}}">
-                                {{ $m->venta->num_comprobante }},{{$m->venta->id_cliente}}
+                            <a href="{{url('notacredito/detail/' . $m->id )}}">
+                                {{ $m->persona->nombre }},{{ $m->persona->apellido }}
                             </a>
                         </td>
                         <td class="text-right">$ {{number_format($m->iva, 2)}}</td>
@@ -43,7 +46,7 @@
                         <td class="text-right">$ {{number_format($m->total, 2)}}</td>
                         <td class="text-right">{{ $m->created_at  }}</td>
                         <td class="text-right">
-                            <a class="btn btn-success btn-block btn-xs" href="{{ url('devolucion/pdf/' . $m->id) }}">
+                            <a class="btn btn-success btn-block btn-xs" href="{{ url('notacredito/pdf/' . $m->id) }}">
                                 <i class="fa fa-file-pdf-o"></i> Descargar
                             </a>
                         </td>

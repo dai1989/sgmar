@@ -54,13 +54,13 @@
                     <td>{{$ing -> total_compra}}</td>                    
                     <td>{{$ing -> estado}}</td>                    
                     <td>
-                        <a href="{{URL::action('IngresoController@show', $ing -> id_ingreso)}}">
+                        <a href="{{URL::action('IngresoController@show', $ing -> id)}}">
                             <button class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></button>
                         </a>
-                        <a href="" data-target="#modal-delete-{{$ing -> id_ingreso}}" data-toggle="modal">
+                        <a href="" data-target="#modal-delete-{{$ing -> id}}" data-toggle="modal">
                             <button class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></button>
                         </a>
-                        <a href="{{ url('ingreso/pdf/' . $ing->id_ingreso) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
+                        <a href="{{ url('ingreso/pdf/' . $ing->id) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
                                 
                             </a>
                     </td>

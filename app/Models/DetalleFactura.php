@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FacturaDetalle extends Model
+class DetalleFactura extends Model
 {
-     protected $table = 'factura_detalles';
+     protected $table = 'detalle_facturas';
 
     public function producto()
     {

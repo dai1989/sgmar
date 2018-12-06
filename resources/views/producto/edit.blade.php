@@ -15,7 +15,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                    {{Form::model($producto, ['method' => 'PATCH', 'route' => ['producto.update', $producto -> id_producto], 'files' => 'true'])}}
+                    {{Form::model($producto, ['method' => 'PATCH', 'route' => ['producto.update', $producto -> id], 'files' => 'true'])}}
         {{Form::token()}}
 
                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -29,10 +29,10 @@
                <label for="categoria_descripcion">Categoria:</label>
                <select name="id_categoria" id="" class="form-control">
                   @foreach($categorias as $cat)
-                      @if($cat ->id_categoria == $producto -> id_categoria)
-                           <option value="{{$cat -> id_categoria}}" selected>{{$cat -> categoria_descripcion}}</option>
+                      @if($cat ->id == $producto -> id_categoria)
+                           <option value="{{$cat -> id}}" selected>{{$cat -> categoria_descripcion}}</option>
                     @else
-                            <option value="{{$cat -> id_categoria}}" >{{$cat -> categoria_descripcion}}</option>
+                            <option value="{{$cat -> id}}" >{{$cat -> categoria_descripcion}}</option>
                     @endif
                    @endforeach
                </select>
@@ -43,10 +43,10 @@
                <label for="descripcion">Marca:</label>
                <select name="id_marca" id="" class="form-control">
                   @foreach($marcas as $m)
-                      @if($m ->id_marca == $producto -> id_marca)
-                           <option value="{{$m -> id_marca}}" selected>{{$m -> descripcion}}</option>
+                      @if($m ->id == $producto -> id_marca)
+                           <option value="{{$m -> id}}" selected>{{$m -> descripcion}}</option>
                     @else
-                            <option value="{{$m -> id_marca}}" >{{$m -> descripcion}}</option>
+                            <option value="{{$m -> id}}" >{{$m -> descripcion}}</option>
                     @endif
                    @endforeach
                </select>

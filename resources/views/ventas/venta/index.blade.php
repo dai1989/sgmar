@@ -59,13 +59,13 @@
                     <td>{{$ven -> estado}}</td>                    
                     <td>
                         
-                        <a href="{{URL::action('VentaController@show', $ven -> id_venta)}}">
+                        <a href="{{URL::action('VentaController@show', $ven -> id)}}">
                             <button data-toggle="tooltip" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></button>
                         </a>
-                        <a href="" data-target="#modal-delete-{{$ven -> id_venta}}" data-toggle="modal">
+                        <a href="" data-target="#modal-delete-{{$ven -> id}}" data-toggle="modal">
                             <button class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></button>
                         </a>
-                         <a href="{{ url('venta/pdf/' . $ven->id_venta) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
+                         <a href="{{ url('venta/pdf/' . $ven->id) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
                                 
                             </a>
 

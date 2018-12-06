@@ -10,7 +10,7 @@ class Credito extends Model
      //
     protected $table = 'creditos';
     
-    protected $primaryKey= 'id_credito';
+    protected $primaryKey= 'id';
 
     public $timestamps = false;
 

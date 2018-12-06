@@ -9,7 +9,7 @@ class Articulo extends Model
     //
     protected $table = 'articulos';
     
-    protected $primaryKey= 'id_articulo';
+    protected $primaryKey= 'id';
 
     public $timestamps = false;
 

@@ -33,7 +33,7 @@
                 <thead>
                     
                     <th>Fecha</th>
-                    <th>Proveedor</th>
+                    <th>Codigo de credito</th>
                     <th>Tipo de comprobante</th>
                     
                     <th>Numero del comprobante</th>
@@ -54,13 +54,13 @@
                     <td>{{$credito -> total_credito}}</td>                    
                     <td>{{$credito -> estado}}</td>                    
                     <td>
-                        <a href="{{URL::action('CreditoController@show', $credito -> id_credito)}}">
+                        <a href="{{URL::action('CreditoController@show', $credito -> id)}}">
                             <button class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></button>
                         </a>
-                        <a href="" data-target="#modal-delete-{{$credito -> id_credito}}" data-toggle="modal">
+                        <a href="" data-target="#modal-delete-{{$credito -> id}}" data-toggle="modal">
                             <button class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></button>
                         </a>
-                        <a href="{{ url('credito/pdf/' . $credito->id_credito) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
+                        <a href="{{ url('credito/pdf/' . $credito->id) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
                                 
                             </a>
                     </td>

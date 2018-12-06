@@ -1,4 +1,4 @@
-<devolucion>
+<notacredito>
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-6">
@@ -7,7 +7,9 @@
             <div class="col-xs-2">
                 <input class="form-control" type="text" placeholder="total de venta" readonly value="{total_venta}" />
             </div>
-           
+            <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="descripcion de venta" readonly value="{producto_id}" />
+            </div>
             
             
         </div>
@@ -93,7 +95,7 @@
         var self = this;
 
         // Detalle del comprobante
-        self.venta_id = 0;
+        self.id_venta = 0;
         self.user_id = 0;
         self.detail = [];
         self.iva = 0;
@@ -116,7 +118,7 @@
 
         __addProductoToDetail() {
             self.detail.push({
-                id: self.producto_id,
+                id: self.id_producto,
                 descripcion: self.producto.value,
                 cantidad: parseFloat(self.cantidad.value),
                 observacion: self.observacion.value,
@@ -124,7 +126,7 @@
                 total: parseFloat(self.precio_venta * self.cantidad.value)
             });
 
-            self.producto_id = 0;
+            self.id_producto = 0;
             self.producto.value = '';
             self.cantidad.value = '';
             self.observacion.value = '';
@@ -134,8 +136,8 @@
         }
 
         __save() {
-            $.post(baseUrl('devolucion/save'), {
-                venta_id: self.venta_id,
+            $.post(baseUrl('notacredito/save'), {
+                id_venta: self.id_venta,
                 user_id: self.user_id,
                 iva: self.iva,
                 subTotal: self.subTotal,
@@ -143,7 +145,7 @@
                 detail: self.detail
             }, function(r){
                 if(r.response) {
-                    window.location.href = baseUrl('devolucion');
+                    window.location.href = baseUrl('notacredito');
                 } else {
                     alert('Ocurrio un error');
                 }
@@ -166,15 +168,15 @@
             var venta = $("#venta"),
                 options = {
                 url: function(q) {
-                    return baseUrl('devolucion/findVenta?q=' + q);
+                    return baseUrl('notacredito/findVenta?q=' + q);
                 },
                 getValue: 'num_comprobante',
                 list: {
                     onClickEvent: function() {
                         var e = venta.getSelectedItemData();
-                        self.venta_id = e.id;
+                        self.id_venta = e.id;
                         self.total_venta = e.total_venta;
-                        
+                    
                         
 
                         self.update();
@@ -189,7 +191,7 @@
             var user = $("#user"),
                 options = {
                 url: function(q) {
-                    return baseUrl('devolucion/findUser?q=' + q);
+                    return baseUrl('notacredito/findUser?q=' + q);
                 },
                 getValue: 'name',
                 list: {
@@ -211,13 +213,13 @@
             var producto = $("#producto"),
                 options = {
                 url: function(q) {
-                    return baseUrl('devolucion/findProducto?q=' + q);
+                    return baseUrl('notacredito/findProducto?q=' + q);
                 },
                 getValue: 'descripcion',
                 list: {
                     onClickEvent: function() {
                         var e = producto.getSelectedItemData();
-                        self.producto_id = e.id;
+                        self.id_producto = e.id;
                         self.precio_venta = e.precio_venta;
 
                         self.update();
@@ -228,4 +230,4 @@
             producto.easyAutocomplete(options);
         }
     </script>
-</devolucion>
+</notacredito>

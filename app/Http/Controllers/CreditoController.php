@@ -38,12 +38,12 @@ class CreditoController extends Controller
         $querry =  trim ($request -> get('searchText'));
         //obtener 
         $creditos = DB::table('creditos as c') 
-        -> join('autorizacion as a','c.id_autorizacion','=','a.id_autorizacion')
-        -> join('detalles_creditos as dc','c.id_credito','=','dc.id_credito')
-        -> select('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
+        -> join('autorizacion as a','c.id_autorizacion','=','a.id')
+        -> join('detalles_creditos as dc','c.id','=','dc.id_credito')
+        -> select('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
         -> where('c.num_comprobante','LIKE','%'.$querry.'%')         
-        -> orderBy('c.id_credito', 'asc')
-        -> groupBy('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado')
+        -> orderBy('c.id', 'asc')
+        -> groupBy('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado')
         -> paginate(7);
         
         return view('credito.index', ["creditos" => $creditos, "searchText" => $querry]);
@@ -58,7 +58,7 @@ class CreditoController extends Controller
        $tipopago_list = TipoPago::all();
       $autorizaciones = Autorizacion::all();
       $productos = DB::table('productos as prod')      
-      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto', 'prod.stock', 'prod.precio_venta')
+      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id', 'prod.stock', 'prod.precio_venta')
       -> where ('prod.estado', '=', 'Activo')
       -> where ('prod.stock' , '>', '0')
       -> get();
@@ -104,7 +104,7 @@ class CreditoController extends Controller
         while($cont < count ($id_producto)){
 
             $detalle = new DetalleCredito();
-            $detalle -> id_credito = $credito -> id_credito;
+            $detalle ->id_credito = $credito ->id;
             $detalle -> id_producto = $id_producto[$cont];
             $detalle -> cantidad = $cantidad[$cont];
             $detalle -> descuento = $descuento[$cont];
@@ -127,16 +127,16 @@ class CreditoController extends Controller
     public function show ($id){
 
         $credito = DB::table('creditos as c') 
-        -> join('autorizacion as a','c.id_autorizacion','=','a.id_autorizacion')
-        -> join('detalles_creditos as dc','c.id_credito','=','dc.id_credito')
-        -> select('c.id_credito', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
-        -> where ('c.id_credito','=', $id)
+        -> join('autorizacion as a','c.id_autorizacion','=','a.id')
+        -> join('detalles_creditos as dc','c.id','=','dc.id_credito')
+        -> select('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
+        -> where ('c.id','=', $id)
         -> first();
 
 
         $detalles = DB::table('detalles_creditos as d') 
-         -> join('productos as a','d.id_producto','=','a.id_producto')
-         -> select('a.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
+         -> join('productos as prod','d.id_producto','=','prod.id')
+         -> select('prod.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
          -> where ('d.id_credito', '=', $id) -> get();
 
          return view('credito.show', ['credito' => $credito, 'detalles' => $detalles]);
@@ -144,19 +144,19 @@ class CreditoController extends Controller
 
 
         public function pdf(Request $request,$id){
-        $venta = Venta::join('autorizacion','creditos.id_autorizacion','=','id_autorizacion')
+        $credito = Credito::join('autorizacion','creditos.id_autorizacion','=','autorizacion.id')
         ->join('users','creditos.id_user','=','users.id')
-        ->select('creditos.id_credito','creditos.tipo_comprobante','creditos.serie_comprobante',
+        ->select('creditos.id','creditos.tipo_comprobante','creditos.serie_comprobante',
         'creditos.num_comprobante','creditos.fecha_hora','creditos.impuesto','creditos.total_credito',
         'creditos.estado','autorizacion.codigo','autorizacion.monto_actual','users.name')
-        ->where('creditos.id_credito','=',$id)
-        ->orderBy('creditos.id_credito','desc')->take(1)->get();
+        ->where('creditos.id','=',$id)
+        ->orderBy('creditos.id','desc')->take(1)->get();
 
-        $detalles = DetalleCredito::join('productos','detalles_creditos.id_producto','=','productos.id_producto')
+        $detalles = DetalleCredito::join('productos','detalles_creditos.id_producto','=','productos.id')
         ->select('detalles_creditos.cantidad','detalles_creditos.precio_venta','detalles_creditos.descuento',
         'productos.descripcion as producto')
         ->where('detalles_creditos.id_credito','=',$id)
-        ->orderBy('detalles_creditos.id_detalle_credito','desc')->get();
+        ->orderBy('detalles_creditos.id','desc')->get();
 
         $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
 

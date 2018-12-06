@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\Producto    ;
+use App\Models\Articulo    ;
 
-class ProductoRepository {
+class ArticuloRepository {
     private $model;
     
     public function __construct(){
-        $this->model = new Producto();
+        $this->model = new Articulo();
     }
 
     public function findByDescripcion($q) {

@@ -9,7 +9,7 @@ class DetalleCredito extends Model
     //
     protected $table = 'detalles_creditos';
     
-    protected $primaryKey= 'id_detalle_credito';
+    protected $primaryKey= 'id';
 
     public $timestamps = false;
 

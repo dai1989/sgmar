@@ -39,12 +39,12 @@ class VentaController extends Controller
         //obtener 
         $ventas = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id')
-        -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
-        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
+        -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
+        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where('v.num_comprobante','LIKE','%'.$querry.'%')         
-        -> orderBy('v.id_venta', 'asc')
-        -> groupBy('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
-        -> paginate(7);
+        -> orderBy('v.id', 'asc')
+        -> groupBy('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
+        -> paginate(7); 
         
         return view('ventas.venta.index', ["ventas" => $ventas, "searchText" => $querry]);
       }
@@ -58,7 +58,7 @@ class VentaController extends Controller
        $tipopago_list = TipoPago::all();
       $personas = Persona::all();
       $productos = DB::table('productos as prod')      
-      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id_producto', 'prod.stock', 'prod.precio_venta')
+      -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id', 'prod.stock', 'prod.precio_venta')
       -> where ('prod.estado', '=', 'Activo')
       -> where ('prod.stock' , '>', '0')
       -> get();
@@ -76,8 +76,8 @@ class VentaController extends Controller
 
     	DB::beginTransaction();
 
-		$venta = new Venta;	    
-	    $venta -> id_cliente = $request -> get('id_cliente');//este valor es el que se encuentra en el formulario
+		  $venta = new Venta;	    
+	    $venta->id_cliente = $request -> get('id_cliente');//este valor es el que se encuentra en el formulario
       $venta -> id_user = $request -> get('id_user');
       $venta -> tipofactura_id = $request -> get('tipofactura_id');
       $venta -> tipopago_id = $request -> get('tipopago_id');
@@ -104,7 +104,7 @@ class VentaController extends Controller
 	    while($cont < count ($id_producto)){
 
 	    	$detalle = new DetalleVenta();
-	    	$detalle -> id_venta = $venta -> id_venta;
+	    	$detalle ->id_venta = $venta ->id;
 	    	$detalle -> id_producto = $id_producto[$cont];
 	    	$detalle -> cantidad = $cantidad[$cont];
 	    	$detalle -> descuento = $descuento[$cont];
@@ -128,15 +128,15 @@ class VentaController extends Controller
 
     	$venta = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id')
-        -> join('detalles_ventas as dv','v.id_venta','=','dv.id_venta')
-        -> select('v.id_venta', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
-        -> where ('v.id_venta','=', $id)
+        -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
+        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
+        -> where ('v.id','=', $id)
         -> first();
 
 
         $detalles = DB::table('detalles_ventas as d') 
-         -> join('productos as a','d.id_producto','=','a.id_producto')
-         -> select('a.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
+         -> join('productos as prod','d.id_producto','=','prod.id')
+         -> select('prod.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
          -> where ('d.id_venta', '=', $id) -> get();
 
          return view('ventas.venta.show', ['venta' => $venta, 'detalles' => $detalles]);
@@ -146,17 +146,17 @@ class VentaController extends Controller
         public function pdf(Request $request,$id){
         $venta = Venta::join('personas','ventas.id_cliente','=','id')
         ->join('users','ventas.id_user','=','users.id')
-        ->select('ventas.id_venta','ventas.tipo_comprobante','ventas.serie_comprobante',
+        ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
         'ventas.num_comprobante','ventas.fecha_hora','ventas.impuesto','ventas.total_venta',
         'ventas.estado','ventas.entrega','personas.nombre','personas.tipo_documento','personas.documento','users.name')
-        ->where('ventas.id_venta','=',$id)
-        ->orderBy('ventas.id_venta','desc')->take(1)->get();
+        ->where('ventas.id','=',$id)
+        ->orderBy('ventas.id','desc')->take(1)->get();
 
-        $detalles = DetalleVenta::join('productos','detalles_ventas.id_producto','=','productos.id_producto')
+        $detalles = DetalleVenta::join('productos','detalles_ventas.id_producto','=','productos.id')
         ->select('detalles_ventas.cantidad','detalles_ventas.precio_venta','detalles_ventas.descuento',
         'productos.descripcion as producto')
         ->where('detalles_ventas.id_venta','=',$id)
-        ->orderBy('detalles_ventas.id_detalle_venta','desc')->get();
+        ->orderBy('detalles_ventas.id','desc')->get();
 
         $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
 

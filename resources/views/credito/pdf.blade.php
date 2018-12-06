@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de compras</title>
+    <title>Reporte de credito</title>
     <style>
         body {
         /*position: relative;*/
@@ -112,7 +112,7 @@
         }
     </style>
     <body>
-        @foreach ($ingreso as $ing)
+        @foreach ($credito as $cred)
         <header>
             <div id="logo">
                 <img src="img/sapukai.jpg"  alt="Sapukai" id="imagen">
@@ -123,8 +123,8 @@
                 </p>
             </div>
             <div id="fact">
-                <p>{{$ing->tipo_comprobante}}<br> 
-                {{$ing->serie_comprobante}}-{{$ing->num_comprobante}}</p>
+                <p>{{$cred->tipo_comprobante}}<br> 
+                {{$cred->serie_comprobante}}-{{$cred->num_comprobante}}</p>
             </div>
         </header>
         <br>
@@ -133,13 +133,13 @@
                 <table id="facliente">
                     <thead>                        
                         <tr>
-                            <th id="fac">Proveedor</th>
+                            <th id="fac">Cliente</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="cliente">Empresa. {{$ing->razonsocial}}<br>
-                            {{$ing->cuit}}: {{$ing->cuit}}<br>
+                            <th><p id="cliente">Sr(a). {{$cred->nombre}}<br>
+                            {{$cred->tipo_documento}}: {{$cred->documento}}<br>
                            
                         </tr>
                     </tbody>
@@ -160,7 +160,7 @@
                     <tbody>
                         <tr>
                             <td>{{$user->name}}</td> 
-                            <td>{{$ing->fecha_hora}}</td>
+                            <td>{{$cred->fecha_hora}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -185,36 +185,48 @@
                         <tr>
                             <td>{{$det->producto}}</td>
                             <td>{{$det->cantidad}}</td>
-                            <td>{{$det->precio_compra}}</td> 
+                            <td>{{$det->precio_venta}}</td>
                             <td>{{$det->descuento}}</td>
-                            <td>{{$det->cantidad*$det->precio_compra-$det->descuento}}</td>
+                            <td>{{$det->cantidad*$det->precio_venta-$det->descuento}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
-                        @foreach ($ingreso as $ing)
+                        @foreach ($credito as $cred)
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>SUBTOTAL</th>
-                            <td>$ {{round($ing->total_compra-($ing->total_compra*$ing->impuesto),2)}}</td>
+                            <td>$ {{round($cred->total_credito-($cred->total_credito*$cred->impuesto),2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>IVA</th>
-                            <td>$ {{round($ing->total_compra*$ing->impuesto,2)}}</td>
+                            <td>$ {{round($cred->total_credito*$cred->impuesto,2)}}</td>
                         </tr>
-                        
-                        
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Entrega</th>
+                            <td>$ {{round($cred->entrega,2)}}</td>
+                        </tr>
+                         <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Vuelto</th>
+                            <td>$ {{round($cred->total_credito-$cred->entrega ,2)}}</td>
+                        </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>TOTAL</th>
-                            <td>$ {{$ing->total_compra}}</td>
+                            <td>$ {{$cred->total_credito}}</td>
                         </tr>
                         @endforeach
                     </tfoot>

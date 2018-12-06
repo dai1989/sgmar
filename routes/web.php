@@ -163,12 +163,25 @@ Route::resource('contacto_proveedores', 'ContactoProveedorController');
 Route::resource('ventas/venta', 'VentaController');
 Route::resource('ingreso', 'IngresoController');
 Route::resource('credito', 'CreditoController');
+Route::resource('factura', 'FacturaController');
+
 
 Route::get('/venta/pdf/{id_venta}', 'VentaController@pdf')->name('venta_pdf');
 Route::get('/ingreso/pdf/{id_ingreso}', 'IngresoController@pdf')->name('ingreso_pdf');
+Route::get('/credito/pdf/{id_credito}', 'CreditoController@pdf')->name('creito_pdf');
 
 
+Route::get('/devolucion', 'DevolucionController@index');
+Route::get('/devolucion/add', 'DevolucionController@add');
+Route::get('/devolucion/detail/{id}', 'DevolucionController@detail');
+Route::get('/devolucion/pdf/{id}', 'DevolucionController@pdf');
 
+
+Route::get('/devolucion/findVenta', 'DevolucionController@findVenta');
+Route::get('/devolucion/findProducto', 'DevolucionController@findProducto');
+Route::get('/devolucion/findUser', 'DevolucionController@findUser');
+
+Route::post('/devolucion/save', 'DevolucionController@save');
 
 
 
