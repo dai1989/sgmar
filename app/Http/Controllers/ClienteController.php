@@ -38,7 +38,7 @@ class ClienteController extends Controller
       $fechaNacimiento = $request->input("FechaNacimiento");
       $genero = $request->input("Genero");
       $tipodocumento = $request->input("tipodocumento");
-      $tipopersona = $request->input("tipopersona");
+      
       /*$tipo_documento = $request->input("cboTipoDocumento");*/
        request()->validate ([
           'Nombre' => 'required',
@@ -56,7 +56,7 @@ class ClienteController extends Controller
       $persona->fecha_nacimiento =$fechaNacimiento;
       $persona->genero =$genero;
       $persona->tipo_documento =$tipodocumento;
-      $persona->tipo_persona =$tipopersona;
+      
       /*$persona->tipodocumento_id =$tipo_documento;*/
       $persona-> save();
 
@@ -103,7 +103,7 @@ class ClienteController extends Controller
       $fechaNacimiento = $request->input("FechaNacimiento");
       $genero = $request->input("Genero");
       $tipodocumento = $request->input("tipodocumento");
-      $tipopersona = $request->input("tipopersona");
+      
       /*$tipo_documento = $request->input("cboTipoDocumento");*/
        request()->validate ([
           'Nombre' => 'required',
@@ -125,7 +125,7 @@ class ClienteController extends Controller
       $cliente->persona->fecha_nacimiento=$fechaNacimiento;
       $cliente->persona->genero=$genero;
       $cliente->persona->tipo_documento=$tipodocumento;
-      $cliente->persona->tipo_persona=$tipopersona;
+      
       /*$cliente->persona->tipo_documento=$tipo_documento;*/
       
       $cliente->persona->save();

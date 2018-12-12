@@ -160,7 +160,7 @@ Route::resource('domicilios', 'DomicilioController');
    Route::get('/dashboard','DashboardController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
-Route::resource('ventas/venta', 'VentaController');
+Route::resource('venta', 'VentaController');
 Route::resource('ingreso', 'IngresoController');
 Route::resource('credito', 'CreditoController');
 Route::resource('factura', 'FacturaController');
@@ -184,7 +184,17 @@ Route::get('/devolucion/findUser', 'DevolucionController@findUser');
 Route::post('/devolucion/save', 'DevolucionController@save');
 
 
+Route::get('/presupuesto', 'PresupuestoController@index');
+Route::get('/presupuesto/add', 'PresupuestoController@add');
+Route::get('/presupuesto/detail/{id}', 'PresupuestoController@detail');
+Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@pdf');
 
+
+Route::get('/presupuesto/findPersona', 'PresupuestoController@findPersona');
+Route::get('/presupuesto/findProducto', 'PresupuestoController@findProducto');
+Route::get('/presupuesto/findUser', 'PresupuestoController@findUser');
+
+Route::post('/presupuesto/save', 'PresupuestoController@save');
 
 
 

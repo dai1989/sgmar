@@ -40,13 +40,13 @@ class VentaController extends Controller
         $ventas = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id')
         -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
-        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
+        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante','v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where('v.num_comprobante','LIKE','%'.$querry.'%')         
         -> orderBy('v.id', 'asc')
-        -> groupBy('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
+        -> groupBy('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
         -> paginate(7); 
         
-        return view('ventas.venta.index', ["ventas" => $ventas, "searchText" => $querry]);
+        return view('venta.index', ["ventas" => $ventas, "searchText" => $querry]);
       }
     }
 
@@ -61,9 +61,9 @@ class VentaController extends Controller
       -> select(DB::raw('CONCAT (prod.barcode, " - " ,prod.descripcion) as  producto'), 'prod.id', 'prod.stock', 'prod.precio_venta')
       -> where ('prod.estado', '=', 'Activo')
       -> where ('prod.stock' , '>', '0')
-      -> get();
+      -> get(); 
 
-      return view('ventas.venta.create', ['personas' => $personas, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
+      return view('venta.create', ['personas' => $personas, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
     }
 
     
@@ -82,7 +82,7 @@ class VentaController extends Controller
       $venta -> tipofactura_id = $request -> get('tipofactura_id');
       $venta -> tipopago_id = $request -> get('tipopago_id');
 	    $venta -> tipo_comprobante = $request -> get('tipo_comprobante');
-	    $venta -> serie_comprobante = $request -> get('serie_comprobante');
+	    
 	    $venta -> num_comprobante = $request -> get('num_comprobante');
       $venta -> total_venta = $request -> get('total_venta');
       $venta -> entrega = $request -> get('entrega');
@@ -120,7 +120,7 @@ class VentaController extends Controller
     	DB::rollback();
     }
 
-      return Redirect::to('ventas/venta');
+      return Redirect::to('venta');
     }
 
     //show
@@ -129,7 +129,7 @@ class VentaController extends Controller
     	$venta = DB::table('ventas as v') 
         -> join('personas as p','v.id_cliente','=','p.id')
         -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
-        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
+        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where ('v.id','=', $id)
         -> first();
 
@@ -139,16 +139,16 @@ class VentaController extends Controller
          -> select('prod.descripcion as producto', 'd.cantidad', 'd.descuento', 'd.precio_venta')
          -> where ('d.id_venta', '=', $id) -> get();
 
-         return view('ventas.venta.show', ['venta' => $venta, 'detalles' => $detalles]);
+         return view('venta.show', ['venta' => $venta, 'detalles' => $detalles]);
     }
 
 
         public function pdf(Request $request,$id){
-        $venta = Venta::join('personas','ventas.id_cliente','=','id')
+         $venta = Venta::join('personas','ventas.id_cliente','=','personas.id')
         ->join('users','ventas.id_user','=','users.id')
-        ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
-        'ventas.num_comprobante','ventas.fecha_hora','ventas.impuesto','ventas.total_venta',
-        'ventas.estado','ventas.entrega','personas.nombre','personas.tipo_documento','personas.documento','users.name')
+        ->select('ventas.id','ventas.tipo_comprobante',
+        'ventas.num_comprobante','ventas.fecha_hora','ventas.impuesto','ventas.total_venta','ventas.entrega',
+        'ventas.estado','personas.nombre','personas.apellido','personas.documento','personas.tipo_documento','users.name')
         ->where('ventas.id','=',$id)
         ->orderBy('ventas.id','desc')->take(1)->get();
 
@@ -158,9 +158,9 @@ class VentaController extends Controller
         ->where('detalles_ventas.id_venta','=',$id)
         ->orderBy('detalles_ventas.id','desc')->get();
 
-        $factura_name= sprintf('comprobante-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
+        $factura_name= sprintf('venta-%s.pdf', str_pad (strval($id),5, '0', STR_PAD_LEFT));
 
-        $pdf = PDF::loadView('ventas/venta.pdf',['venta'=>$venta,'detalles'=>$detalles]);
+        $pdf = PDF::loadView('venta.pdf',['venta'=>$venta,'detalles'=>$detalles]);
         return $pdf->download($factura_name);  
       }
 
@@ -174,7 +174,7 @@ class VentaController extends Controller
       $venta -> estado = 'Cancelada'; 
       $venta -> update();
 
-      return Redirect::to('ventas/venta');
+      return Redirect::to('venta');
     }
 
 }

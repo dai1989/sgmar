@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
-use App\Models\Factura;
-use App\Models\FacturaDetalle;
+use App\Models\Venta;
+use App\Models\DetalleVenta;
 
 class ChartController extends Controller
 {
@@ -18,9 +18,9 @@ class ChartController extends Controller
     public function index()
     {
         
-        $pastel = FacturaDetalle::
-                  select('productos.descripcion','factura_detalles.cantidad')
-                  ->join('productos','productos.id', '=', 'factura_detalles.producto_id')->get();
+        $pastel = DetalleVenta::
+                  select('productos.descripcion','detalles_ventas.cantidad')
+                  ->join('productos','productos.id', '=', 'detalles_ventas.id_producto')->get();
 
         return view('chart',['pastel'=>$pastel]);
 

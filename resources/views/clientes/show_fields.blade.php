@@ -1,10 +1,8 @@
-<!-- Id Field -->
-{!! Form::label('id', 'Id:') !!}
-{!! $cliente->id !!}<br>
+
 
 
 <!-- Persona Id Field -->
-{!! Form::label('persona_id', 'Persona Id:') !!}
+{!! Form::label('persona_id', 'Cliente:') !!}
 {!! $cliente->persona_id !!}<br>
 
 

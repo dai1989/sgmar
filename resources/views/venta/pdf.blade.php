@@ -124,7 +124,7 @@
             </div>
             <div id="fact">
                 <p>{{$v->tipo_comprobante}}<br> 
-                {{$v->serie_comprobante}}-{{$v->num_comprobante}}</p>
+                {{$v->num_comprobante}}</p>
             </div>
         </header>
         <br>
@@ -138,7 +138,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="cliente">Sr(a). {{$v->nombre}}<br>
+                            <th><p id="cliente">Sr(a). {{$v->nombre}},{{$v->apellido}}<br>
                             {{$v->tipo_documento}}: {{$v->documento}}<br>
                            
                         </tr>

@@ -21,12 +21,7 @@
                 <p>{{$venta -> tipo_comprobante}}</p>
         </div>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="form-group">            
-               <label for="codigo">Serie del comprobante:</label>
-               <p>{{$venta -> serie_comprobante}}</p>         
-            </div>
-        </div>
+       
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <div class="form-group">            
                <label for="codigo">Numero del comprobante:</label>

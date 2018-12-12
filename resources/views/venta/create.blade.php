@@ -20,7 +20,7 @@
         @endif
     </div>
 </div>
-        {{Form::open(array('url' => 'ventas/venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
+        {{Form::open(array('url' => 'venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
         <div class="well well-sm">
     <div class="row">
@@ -44,10 +44,7 @@
                </select>
             
         </div>
-        <div class="form-group col-sm-6">         
-               <label for="codigo">Serie del comprobante:</label>
-                <input type="text" class="form-control" name="serie_comprobante" placeholder="Serie del comprobante..."  value="{{old('serie_comprobante')}}">
-            </div>
+        
 
         
             <div class="form-group col-sm-6">            

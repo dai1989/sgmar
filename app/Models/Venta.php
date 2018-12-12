@@ -16,7 +16,7 @@ class Venta extends Model
     protected $fillable = [
     	'id_cliente',
     	'tipo_comprobante',
-    	'serie_comprobante',
+    	
     	'num_comprobante',
     	'fecha_hora',
     	'impuesto',

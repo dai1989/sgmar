@@ -52,7 +52,7 @@ class Persona extends Model
         'documento',
         'fecha_nacimiento',
         'genero',
-        'tipo_persona',
+       
         'tipo_documento'
     ];
 
@@ -68,7 +68,7 @@ class Persona extends Model
         'documento' => 'integer',
         'fecha_nacimiento' => 'date',
         'genero' => 'string',
-        'tipo_persona' => 'string',
+        
         'tipo_documento' => 'string'
     ];
 
@@ -84,7 +84,7 @@ class Persona extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function autorizacions()
+    public function autorizacion()
     {
         return $this->hasMany(\App\Models\Autorizacion::class);
     }

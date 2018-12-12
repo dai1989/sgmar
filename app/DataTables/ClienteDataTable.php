@@ -70,7 +70,7 @@ class ClienteDataTable extends DataTable
             'documento',
             'fecha_nacimiento',
             'genero',
-            'tipo_persona',
+            
             'tipo_documento'
             
         ];
