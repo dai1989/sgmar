@@ -60,7 +60,7 @@
                 <div class='btn-group'>
                     <a href="{!! route('producto.show', [$prod->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('producto.edit', [$prod->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                     <a href="#" class="btn btn-info download"
+                     <a href="#" class="btn btn-info download btn-xs"
                                             data-barcode="{{ $prod->barcode }}"
                                             data-name="{{ str_slug($prod->descripcion) }}"
                                             title="Download">

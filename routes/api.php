@@ -23,3 +23,14 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_api_routes
 });
+
+Route::get('producto', function (){
+
+	//return App\User::all();
+	return datatables()
+		->eloquent(App\Models\Producto::with('marca','categoria'))
+		->addColumn('btn','producto_actions')
+		->rawColumns(['btn'])
+		->toJson();
+
+});

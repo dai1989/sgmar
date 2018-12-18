@@ -22,6 +22,7 @@ class CreateTableVentas extends Migration
             $table->datetime('fecha_hora');
             $table->decimal('impuesto');
             $table->decimal('total_venta');
+            $table->decimal('entrega');
             $table->string('estado');
             $table->timestamps();
             $table->softDeletes();

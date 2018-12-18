@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\EloquentDataTable;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateProductoRequest;

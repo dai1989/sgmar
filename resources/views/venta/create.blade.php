@@ -22,32 +22,27 @@
 </div>
         {{Form::open(array('url' => 'venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
+         <div class="box-body">
         <div class="well well-sm">
+            <div class="box-body">
     <div class="row">
         <div class="col-xs-6">
-                         
-               <label for="nombre">Cliente:</label>
+            <label for="nombre">Cliente:</label>
                <select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-Live-search="true">
                    @foreach($personas as $persona)
                        <option value="{{$persona -> id}}">{{$persona -> nombre}} {{$persona -> apellido}}</option>
                    @endforeach
                </select>
-            
-        </div>
+           </div>
           <div class="col-xs-6">
-                         
-               <label for="id_user">Vendedor:</label>
+            <label for="id_user">Vendedor:</label>
                <select name="id_user" id="id_user" class="form-control selectpicker" data-Live-search="true">
                    @foreach($user_list as $user)
                        <option value="{{$user -> id}}">{{$user -> name}}</option>
                    @endforeach
                </select>
-            
-        </div>
-        
-
-        
-            <div class="form-group col-sm-6">            
+           </div>
+           <div class="form-group col-sm-6">            
                <label for="codigo">Numero del comprobante:</label>
                 <input type="text" class="form-control" name="num_comprobante" placeholder="Numero del comprobante..."  required value="{{old('num_comprobante')}}">            
             </div>
@@ -59,17 +54,15 @@
                    <option value="Ticket">Ticket</option>
                </select>
            </div>
-        
-
-<div class="form-group col-sm-6">
-    <label for="tipofactura_id">Tipo factura</label>
-  <select  type="text" name="tipofactura_id" class="form-control" id="tipofactura_id" placeholder="tipo de factura" >
-    <option value="">--Seleccionar--</option>
+           <div class="form-group col-sm-6">
+            <label for="tipofactura_id">Tipo factura</label>
+            <select  type="text" name="tipofactura_id" class="form-control" id="tipofactura_id" placeholder="tipo de factura" >
+                <option value="">--Seleccionar--</option>
     @foreach ($tipofactura_list as $tipofactura)
     <option value="{{ $tipofactura->id }}">{{ $tipofactura->descripcion }}</option>
     @endforeach
-  </select>
-</div> 
+</select>
+</div>
 <div class="form-group col-sm-6">
     <label for="tipopago_id">Tipo de Pago</label>
   <select  type="text" name="tipopago_id" class="form-control" id="tipopago_id" placeholder="tipo de factura" >
@@ -78,15 +71,16 @@
     <option value="{{ $tipopago->id }}">{{ $tipopago->descripcionpago }}</option>
     @endforeach
   </select>
-</div> 
-
+    </div>
 </div>
 </div>
+</div>
+</div>
+ <div class="box-body">
+        <div class="panel panel-primary">
+            <div class="panel-body">
     <div class="row">
-       
-       <div class="panel panel-primary">
-           <div class="panel-body">
-               <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="form-group">
                         <label for="">Producto</label>
                         <select class="form-control selectpicker" name="pid_producto" id="pid_producto" data-Live-search="true">
@@ -126,9 +120,9 @@
                        <button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                        <thead style="background-color: #FE642E">
+                        <thead style="background-color: #A9D0F5">
                             <th>Opciones</th>
                             <th>Producto</th>
                             <th>Cantidad</th>
@@ -137,38 +131,47 @@
                             
                             <th>Subtotal</th>
                         </thead>
-                        <tfoot>
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="form-group">            
-               <label for="codigo">entrega:</label>
-                <input type="text" class="form-control" name="entrega" placeholder="entrega..."  required value="{{old('entrega')}}">            
-            </div>
-        </div>
+                         <tfoot>
+                            <th>ENTREGA</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><h4 id="codigo">$/.</h4> <input type="text" class="form-control" name="entrega" placeholder="entrega..."  required value="{{old('entrega')}}"> </th>
                         </tfoot>
-                        <tfoot>
+                         <tbody>
+                            
+                        </tbody>
+                       
+                         <tfoot>
                             <th>TOTAL</th>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th><h4 id="total">S/. 0.00</h4> <input type="text" name="total_venta" id="total_venta"></th>
+                            <th><h4 id="total">$/. 0.00</h4> <input type="text" name="total_venta" id="total_venta"></th>
                         </tfoot>
+
                         <tbody>
                             
                         </tbody>
+
                     </table>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="guardar">
+    <div class="form-group">
+        <input name="_token" value="{{csrf_token()}}" type="hidden"></input>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <button class="btn btn-danger" type="reset">Cancelar</button>
+    </div>
+</div>
                 </div>
-           </div>
-       </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="guardar">
-          <div class="form-group">
-              <input name="_token" value="{{csrf_token()}}" type="hidden"></input>
-            <button class="btn btn-primary" type="submit">Guardar</button>
-            <button class="btn btn-danger" type="reset">Cancelar</button>
-            </div>  
+            </div>
         </div>
-    </div>                
-        {{Form::close()}}
+    </div>
+</div>
+ 
+
+ {{Form::close()}}
         
 @push('scripts')
 <script>
@@ -283,3 +286,6 @@
 @endpush       
 
 @endsection
+
+          
+

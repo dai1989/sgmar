@@ -28,4 +28,15 @@ class Producto extends Model
 
         
     ];
+
+
+     public function categoria ()
+    {
+        return $this->belongsTo("App\Models\Categoria");
+    }
+     
+     public function marca ()
+    {
+        return $this->belongsTo("App\Models\Marca");
+    }
 }
