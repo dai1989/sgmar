@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Provincia;
+use App\Models\Producto;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class ProvinciaDataTable extends DataTable
+class ProductoDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class ProvinciaDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'provincias.datatables_actions');
+        return $dataTable->addColumn('action', 'producto.datatables_actions');
     }
 
     /**
@@ -27,10 +27,9 @@ class ProvinciaDataTable extends DataTable
      * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Provincia $model)
+    public function query(Producto $model)
     {
-        return $model->with('localidad.descripcion');
-        
+        return $model->with('marca','categoria');
     }
 
     /**
@@ -64,8 +63,16 @@ class ProvinciaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'localidad',
-            'descripcion'
+            'Cod.Producto' => ['name' => 'barcode', 'data' => 'barcode'],
+            'Descripcion' => ['name' => 'descripcion', 'data' => 'descripcion'],
+            'Marca' => ['name' => 'id_marca', 'data' => 'id_marca'],
+            'Categoria' => ['name' => 'id_categoria', 'data' => 'id_categoria'],
+            'precio_venta' => ['name' => 'precio_venta', 'data' => 'precio_venta'],
+             'Stock' => ['name' => 'stock', 'data' => 'stock'],
+             'imagen' => ['name' => 'imagen', 'data' => 'imagen', 'render' => '"<img src=\"imagenes/productos/"+data+"\" height=\"100\"/>"'],
+             'estado'
+            
+            
         ];
     }
 
@@ -76,6 +83,6 @@ class ProvinciaDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'provinciasdatatable_' . time();
+        return 'productodatatable_' . time();
     }
 }

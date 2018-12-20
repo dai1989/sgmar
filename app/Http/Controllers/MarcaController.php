@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\MarcaDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateMarcaRequest;
 use App\Http\Requests\UpdateMarcaRequest;
 use App\Repositories\MarcaRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class MarcaController extends AppBaseController
@@ -25,16 +25,12 @@ class MarcaController extends AppBaseController
     /**
      * Display a listing of the Marca.
      *
-     * @param Request $request
+     * @param MarcaDataTable $marcaDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(MarcaDataTable $marcaDataTable)
     {
-        $this->marcaRepository->pushCriteria(new RequestCriteria($request));
-        $marcas = $this->marcaRepository->all();
-
-        return view('marcas.index')
-            ->with('marcas', $marcas);
+        return $marcaDataTable->render('marcas.index');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\ProductoDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Illuminate\Support\Facades\Redirect;
@@ -29,24 +30,9 @@ class ProductoController extends Controller
     }
 
     //index 
-    public function index(Request $request) 
+    public function index(ProductoDataTable $productoDataTable)
     {
-      if($request)
-      {
-        //almacenar la busqueda 
-        $querry =  trim ($request -> get('searchText'));
-        //obtener las categorias
-        $productos = DB::table('productos as prod') 
-        -> join('categorias as c', 'prod.id_categoria', '=', 'c.id')
-        -> join('marcas as m', 'prod.id_marca', '=', 'm.id')
-        -> select('prod.id', 'prod.descripcion', 'prod.barcode', 'prod.stock', 'prod.precio_venta','c.categoria_descripcion as categoria','m.descripcion as marca', 'prod.imagen', 'prod.estado')
-        -> where('prod.descripcion','LIKE','%'.$querry.'%')         
-        -> orwhere('prod.barcode','LIKE','%'.$querry.'%')         
-        -> orderBy('prod.id', 'asc')
-        -> paginate(7);
-        
-        return view('producto.index', ["productos" => $productos, "searchText" => $querry]);
-      }
+        return $productoDataTable->render('producto.index');
     }
 
 

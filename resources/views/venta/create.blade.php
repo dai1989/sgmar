@@ -191,7 +191,7 @@
     subtotal=[];
     $('#guardar').hide();
     
-    //cada vez que se cambie el producto se ejecuta
+    //cada vez que se seleccione un producto nuevo se ejecuta
     $('#pid_producto').change(mostrarValores);
     
     function mostrarValores(){

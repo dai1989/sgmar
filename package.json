@@ -47,8 +47,10 @@
   "license": "ISC",
   "dependencies": {
     "ajax": "0.0.4",
+    "highcharts": "^7.0.0",
     "jsbarcode": "^3.11.0",
     "vue-barcode": "^1.1.0",
+    "vue-highcharts": "0.0.11",
     "vue-select": "^2.5.1"
   }
 }

@@ -8,7 +8,7 @@ use InfyOm\Generator\Common\BaseRepository;
 /**
  * Class MarcaRepository
  * @package App\Repositories
- * @version December 2, 2018, 2:24 am -03
+ * @version December 19, 2018, 11:37 am -03
  *
  * @method Marca findWithoutFail($id, $columns = ['*'])
  * @method Marca find($id, $columns = ['*'])

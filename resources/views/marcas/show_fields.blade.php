@@ -1,6 +1,6 @@
-<!-- Id Marca Field -->
-{!! Form::label('id_marca', 'Id Marca:') !!}
-{!! $marca->id_marca !!}<br>
+<!-- Id Field -->
+{!! Form::label('id', 'Id:') !!}
+{!! $marca->id !!}<br>
 
 
 <!-- Descripcion Field -->
