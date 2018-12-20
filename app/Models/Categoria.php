@@ -8,26 +8,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Categoria
  * @package App\Models
- * @version December 2, 2018, 2:19 am -03
+ * @version December 20, 2018, 2:16 pm -03
  *
- * @property \Illuminate\Database\Eloquent\Collection articulos
  * @property \Illuminate\Database\Eloquent\Collection contactoProveedores
  * @property \Illuminate\Database\Eloquent\Collection contactos
- * @property \Illuminate\Database\Eloquent\Collection creditoDetalles
- * @property \Illuminate\Database\Eloquent\Collection creditos
+ * @property \Illuminate\Database\Eloquent\Collection detallesCreditos
+ * @property \Illuminate\Database\Eloquent\Collection detallesIngresos
  * @property \Illuminate\Database\Eloquent\Collection detallesVentas
- * @property \Illuminate\Database\Eloquent\Collection ingresos
+ * @property \Illuminate\Database\Eloquent\Collection devolucionDetalles
+ * @property \Illuminate\Database\Eloquent\Collection devoluciones
  * @property \Illuminate\Database\Eloquent\Collection optionUser
- * @property \Illuminate\Database\Eloquent\Collection pedidoDetalles
- * @property \Illuminate\Database\Eloquent\Collection pedidos
  * @property \Illuminate\Database\Eloquent\Collection permissionRole
  * @property \Illuminate\Database\Eloquent\Collection permissionUser
  * @property \Illuminate\Database\Eloquent\Collection presupuesto
  * @property \Illuminate\Database\Eloquent\Collection presupuestoDetalles
- * @property \Illuminate\Database\Eloquent\Collection productos
+ * @property \Illuminate\Database\Eloquent\Collection Producto
  * @property \Illuminate\Database\Eloquent\Collection roleUser
  * @property string categoria_descripcion
- * @property boolean status
  */
 class Categoria extends Model
 {
@@ -43,8 +40,7 @@ class Categoria extends Model
 
 
     public $fillable = [
-        'categoria_descripcion',
-        'status'
+        'categoria_descripcion'
     ];
 
     /**
@@ -53,9 +49,8 @@ class Categoria extends Model
      * @var array
      */
     protected $casts = [
-        'id_categoria' => 'integer',
-        'categoria_descripcion' => 'string',
-        'status' => 'boolean'
+        'id' => 'integer',
+        'categoria_descripcion' => 'string'
     ];
 
     /**
@@ -68,13 +63,10 @@ class Categoria extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function marcas()
+    public function productos()
     {
-        return $this->belongsToMany(\App\Models\Marca::class, 'articulos');
+        return $this->hasMany(\App\Models\Producto::class);
     }
-
-    
-    
 }

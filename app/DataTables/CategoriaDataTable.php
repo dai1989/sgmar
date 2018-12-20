@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Marca;
+use App\Models\Categoria;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class MarcaDataTable extends DataTable
+class CategoriaDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class MarcaDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'marcas.datatables_actions');
+        return $dataTable->addColumn('action', 'categorias.datatables_actions');
     }
 
     /**
@@ -27,7 +27,7 @@ class MarcaDataTable extends DataTable
      * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Marca $model)
+    public function query(Categoria $model)
     {
         return $model->newQuery();
     }
@@ -50,8 +50,11 @@ class MarcaDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                    
-                   
+                    'create',
+                    'export',
+                    'print',
+                    'reset',
+                    'reload',
                 ],
             ]);
     }
@@ -64,7 +67,7 @@ class MarcaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'descripcion'
+            'categoria_descripcion'
         ];
     }
 
@@ -75,6 +78,6 @@ class MarcaDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'marcasdatatable_' . time();
+        return 'categoriasdatatable_' . time();
     }
 }

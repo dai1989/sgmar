@@ -54,8 +54,8 @@ class Producto extends Model
         'stock',
         'imagen',
         'estado',
-        'id_marca',
-        'id_categoria'
+        'marca_id',
+        'categoria_id'
     ];
 
     /**
@@ -71,8 +71,8 @@ class Producto extends Model
         'stock' => 'integer',
         'imagen' => 'string',
         'estado' => 'string',
-        'id_marca' => 'integer',
-        'id_categoria' => 'integer'
+        'marca_id' => 'integer',
+        'categoria_id' => 'integer'
     ];
 
     /**

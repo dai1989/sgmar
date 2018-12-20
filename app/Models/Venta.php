@@ -28,4 +28,25 @@ class Venta extends Model
 
     	
     ];
+
+     public function cliente()
+    {
+        return $this->belongsTo(\App\Models\Cliente::class);
+    }
+     public function producto()
+    {
+        return $this->belongsTo(\App\Models\Producto::class);
+    }
+     public function tipopago()
+    {
+        return $this->belongsTo(\App\Models\TipoPago::class);
+    }
+     public function tipofactura()
+    {
+        return $this->belongsTo(\App\Models\TipoFactura::class);
+    }
+     public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }

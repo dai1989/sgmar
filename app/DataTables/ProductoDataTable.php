@@ -65,8 +65,8 @@ class ProductoDataTable extends DataTable
         return [
             'Cod.Producto' => ['name' => 'barcode', 'data' => 'barcode'],
             'Descripcion' => ['name' => 'descripcion', 'data' => 'descripcion'],
-            'Marca' => ['name' => 'id_marca', 'data' => 'id_marca'],
-            'Categoria' => ['name' => 'id_categoria', 'data' => 'id_categoria'],
+            'Marca' => ['name' => 'marca.descripcion', 'data' => 'marca.descripcion'],
+            'Categoria' => ['name' => 'categoria.categoria_descripcion', 'data' => 'categoria.categoria_descripcion'],
             'precio_venta' => ['name' => 'precio_venta', 'data' => 'precio_venta'],
              'Stock' => ['name' => 'stock', 'data' => 'stock'],
              'imagen' => ['name' => 'imagen', 'data' => 'imagen', 'render' => '"<img src=\"imagenes/productos/"+data+"\" height=\"100\"/>"'],

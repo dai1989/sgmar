@@ -20,8 +20,7 @@ class MarcaRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'descripcion',
-        'status'
+        'descripcion'
     ];
 
     /**

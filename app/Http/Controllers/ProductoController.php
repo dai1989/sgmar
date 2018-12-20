@@ -39,8 +39,9 @@ class ProductoController extends Controller
     //create (mostra la vista de crear)
     public function create()
     {
-      $categorias = DB::table('categorias') -> where('status', '=', '1') -> get();
-      $marcas = DB::table('marcas') -> where('status', '=', '1') -> get();
+      $categorias = Categoria::all();
+      $marcas = Marca::all();
+      
       return view('producto.create', ["categorias" => $categorias,"marcas"=>$marcas]);
     }
 
@@ -55,8 +56,8 @@ class ProductoController extends Controller
     {
 
       $producto = Producto::findOrFail($id);
-      $categorias = DB::table('categorias') -> where('status', '=', '1') -> get();
-      $marcas = DB::table('marcas') -> where('status', '=', '1') -> get();
+      $categorias = Categoria::all();
+      $marcas = Marca::all();
 
       return view ('producto.edit', ['producto' => $producto, 'categorias' => $categorias,'marcas'=>$marcas]);
     }
@@ -66,8 +67,8 @@ class ProductoController extends Controller
     {
       //creamos un objeto del tipo categoria
       $producto = new Producto;
-      $producto -> id_categoria = $request -> get('id_categoria');//este valor es el que se encuentra en el formulario
-      $producto -> id_marca = $request -> get('id_marca');//este valor es el que se encuentra en el formulario
+      $producto -> categoria_id = $request -> get('categoria_id');//este valor es el que se encuentra en el formulario
+      $producto -> marca_id = $request -> get('marca_id');//este valor es el que se encuentra en el formulario
       $producto -> barcode = $request -> get('barcode');
       $producto -> descripcion = $request -> get('descripcion');
       $producto -> stock = $request -> get('stock');
@@ -94,8 +95,8 @@ class ProductoController extends Controller
     {
     
       $producto = Producto::findOrFail($id);
-      $producto -> id_categoria = $request -> get('id_categoria');//este valor es el que se encuentra en el formulario
-      $producto -> id_marca = $request -> get('id_marca');//este valor es el que se encuentra en el formulario
+      $producto -> categoria_id = $request -> get('categoria_id');//este valor es el que se encuentra en el formulario
+      $producto -> marca_id = $request -> get('marca_id');//este valor es el que se encuentra en el formulario
       $producto -> barcode = $request -> get('barcode');
       $producto -> descripcion = $request -> get('descripcion');
       $producto -> stock = $request -> get('stock');

@@ -27,17 +27,6 @@
             </div>
         </div>
     </div>
-     <div class="hidden">
-    <canvas id="canvas"></canvas>
-</div>
-
-<script>
-    window.onload = function() {
-        window.downloadBarcode.default.init();
-    };
-</script>
-  <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    
 @endsection
 

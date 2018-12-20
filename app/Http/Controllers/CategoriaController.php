@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CategoriaDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
 use App\Repositories\CategoriaRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class CategoriaController extends AppBaseController
@@ -25,16 +25,12 @@ class CategoriaController extends AppBaseController
     /**
      * Display a listing of the Categoria.
      *
-     * @param Request $request
+     * @param CategoriaDataTable $categoriaDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(CategoriaDataTable $categoriaDataTable)
     {
-        $this->categoriaRepository->pushCriteria(new RequestCriteria($request));
-        $categorias = $this->categoriaRepository->all();
-
-        return view('categorias.index')
-            ->with('categorias', $categorias);
+        return $categoriaDataTable->render('categorias.index');
     }
 
     /**

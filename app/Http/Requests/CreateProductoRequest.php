@@ -27,8 +27,8 @@ class CreateProductoRequest extends FormRequest
     {
         return [
             //
-            'id_categoria' => 'required',
-            'id_marca' => 'required',
+            'categoria_id' => 'required',
+            'marca_id' => 'required',
             'barcode' => 'required|unique:productos|max:13|min:12',
             'descripcion' => 'required|max:100',
             'stock' => 'required|numeric',

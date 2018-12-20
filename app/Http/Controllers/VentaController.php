@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateVentaRequest;
-
+use App\DataTables\VentaDataTable;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\EloquentDataTable;
 use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\Persona;

@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Marca;
+use App\Models\Venta;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class MarcaDataTable extends DataTable
+class VentaDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class MarcaDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'marcas.datatables_actions');
+        return $dataTable->addColumn('action', 'venta.datatables_actions');
     }
 
     /**
@@ -27,9 +27,9 @@ class MarcaDataTable extends DataTable
      * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Marca $model)
+    public function query(Venta $model)
     {
-        return $model->newQuery();
+        return $model->with('cliente','producto','user','tipofactura','tipopago');
     }
 
     /**
@@ -51,7 +51,6 @@ class MarcaDataTable extends DataTable
                 'responsive' => true,
                 'buttons' => [
                     
-                   
                 ],
             ]);
     }
@@ -64,7 +63,14 @@ class MarcaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'descripcion'
+            'Fecha' => ['name' => 'fecha_hora', 'data' => 'fecha_hora'],
+            'Cliente' => ['name' => 'cliente.nombre', 'data' => 'cliente.nombre'],
+            'Usuario' => ['name' => 'user.name', 'data' => 'user.name'],
+            'Impuesto' => ['name' => '.impuesto', 'data' => '.impuesto'],
+            'total_venta' => ['name' => 'total_venta', 'data' => 'total_venta']
+             
+            
+            
         ];
     }
 
@@ -75,6 +81,6 @@ class MarcaDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'marcasdatatable_' . time();
+        return 'ventadatatable_' . time();
     }
 }

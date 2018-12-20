@@ -204,3 +204,5 @@ Route::post('/presupuesto/save', 'PresupuestoController@save');
 Route::resource('marcas', 'MarcaController');
 
 Route::resource('productos', 'ProductoController');
+
+Route::resource('categorias', 'CategoriaController');

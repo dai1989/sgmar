@@ -27,9 +27,9 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
              <div class="form-group">            
                <label for="categoria_descripcion">Categoria:</label>
-               <select name="id_categoria" id="" class="form-control">
+               <select name="categoria_id" id="" class="form-control">
                   @foreach($categorias as $cat)
-                      @if($cat ->id == $producto -> id_categoria)
+                      @if($cat ->id == $producto -> categoria_id)
                            <option value="{{$cat -> id}}" selected>{{$cat -> categoria_descripcion}}</option>
                     @else
                             <option value="{{$cat -> id}}" >{{$cat -> categoria_descripcion}}</option>
@@ -41,9 +41,9 @@
          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
              <div class="form-group">            
                <label for="descripcion">Marca:</label>
-               <select name="id_marca" id="" class="form-control">
+               <select name="marca_id" id="" class="form-control">
                   @foreach($marcas as $m)
-                      @if($m ->id == $producto -> id_marca)
+                      @if($m ->id == $producto -> marca_id)
                            <option value="{{$m -> id}}" selected>{{$m -> descripcion}}</option>
                     @else
                             <option value="{{$m -> id}}" >{{$m -> descripcion}}</option>
