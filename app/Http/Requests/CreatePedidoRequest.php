@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Venta; 
+use App\Models\Pedido; 
 
-class CreateVentaRequest extends FormRequest
+class CreatePedidoRequest extends FormRequest
 {
 
      /**
@@ -28,8 +28,9 @@ class CreateVentaRequest extends FormRequest
         return [
 
             //para la venta
-            'persona_id' => 'required',
-            'tipo_comprobante' => 'required|max:20',
+            'id_proveedor' => 'required',
+            
+            'condiciones' => 'required',
             
             'num_comprobante' => 'required|max:10',
             'total_venta' => 'required',

@@ -29,7 +29,7 @@ class VentaDataTable extends DataTable
      */
     public function query(Venta $model)
     {
-        return $model->with('cliente','producto','user','tipofactura','tipopago');
+        return $model->with('persona','producto','user','tipofactura','tipopago');
     }
 
     /**
@@ -64,10 +64,12 @@ class VentaDataTable extends DataTable
     {
         return [
             'Fecha' => ['name' => 'fecha_hora', 'data' => 'fecha_hora'],
-            'Cliente' => ['name' => 'cliente.nombre', 'data' => 'cliente.nombre'],
+            'N° Factura' => ['name' => 'num_comprobante', 'data' => 'num_comprobante'],
+            'Cliente' => ['name' => 'persona.nombre', 'data' => 'persona.nombre'],
             'Usuario' => ['name' => 'user.name', 'data' => 'user.name'],
             'Impuesto' => ['name' => '.impuesto', 'data' => '.impuesto'],
-            'total_venta' => ['name' => 'total_venta', 'data' => 'total_venta']
+            'Total_venta' => ['name' => 'total_venta', 'data' => 'total_venta'],
+            'Estado' => ['name' => 'estado', 'data' => 'estado']
              
             
             

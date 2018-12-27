@@ -14,7 +14,7 @@ class Venta extends Model
     public $timestamps = false;
 
     protected $fillable = [
-    	'id_cliente',
+    	'persona_id',
     	'tipo_comprobante',
     	
     	'num_comprobante',
@@ -29,9 +29,9 @@ class Venta extends Model
     	
     ];
 
-     public function cliente()
+     public function persona()
     {
-        return $this->belongsTo(\App\Models\Cliente::class);
+        return $this->belongsTo(\App\Models\Persona::class);
     }
      public function producto()
     {

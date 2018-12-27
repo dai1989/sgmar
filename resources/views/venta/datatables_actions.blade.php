@@ -3,9 +3,9 @@
     <i class="glyphicon glyphicon-eye-open"></i>
 </a>
 
-<a href="{{ route('venta.edit', $id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
-    <i class="glyphicon glyphicon-edit"></i>
-</a>
+ <a href="{{ url('venta/pdf/' . $id) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
+                                
+                            </a>
 
 <span data-toggle="tooltip" title="Eliminar">
     <a href="#modal-delete-{{$id}}" data-toggle="modal" data-keyboard="true" class='btn btn-danger btn-xs'>

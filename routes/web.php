@@ -200,7 +200,8 @@ Route::post('/presupuesto/save', 'PresupuestoController@save');
 
 
 
-
+Route::resource('pedidos','PedidoController');
+Route::get('venta/reporte/{id}', 'VentaController@crear_pdf');
 Route::resource('marcas', 'MarcaController');
 
 Route::resource('productos', 'ProductoController');

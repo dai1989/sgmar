@@ -28,23 +28,23 @@
     <div class="row">
         <div class="col-xs-6">
             <label for="nombre">Cliente:</label>
-               <select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-Live-search="true">
+               <select name="persona_id" id="persona_id" class="form-control selectpicker" data-Live-search="true">
                    @foreach($personas as $persona)
                        <option value="{{$persona -> id}}">{{$persona -> nombre}} {{$persona -> apellido}}</option>
                    @endforeach
                </select>
            </div>
           <div class="col-xs-6">
-            <label for="id_user">Vendedor:</label>
-               <select name="id_user" id="id_user" class="form-control selectpicker" data-Live-search="true">
+            <label for="user_id">Vendedor:</label>
+               <select name="user_id" id="user_id" class="form-control selectpicker" data-Live-search="true">
                    @foreach($user_list as $user)
-                       <option value="{{$user -> id}}">{{$user -> name}}</option>
+                       <option value="{{$user -> id}}">{{$user -> name}}</option> 
                    @endforeach
                </select>
            </div>
            <div class="form-group col-sm-6">            
-               <label for="codigo">Numero del comprobante:</label>
-                <input type="text" class="form-control" name="num_comprobante" placeholder="Numero del comprobante..."  required value="{{old('num_comprobante')}}">            
+               <label for="num_comprobante">Numero de Comprobante</label>
+                <input type="text" name="num_comprobante" required readonly value= "{{$idventa}}" class="form-control" placeholder="Numero de comprobante...">           
             </div>
                 <div class="form-group col-sm-6">        
                <label for="nombre">Tipo de comprobante:</label>

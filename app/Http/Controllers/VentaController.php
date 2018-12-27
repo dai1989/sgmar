@@ -32,29 +32,15 @@ class VentaController extends Controller
     }
 
     //index 
-    public function index(Request $request)
+     public function index(VentaDataTable $ventaDataTable)
     {
-      if($request)
-      {
-        //almacenar la busqueda 
-        $querry =  trim ($request -> get('searchText'));
-        //obtener 
-        $ventas = DB::table('ventas as v') 
-        -> join('personas as p','v.id_cliente','=','p.id')
-        -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
-        -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante','v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
-        -> where('v.num_comprobante','LIKE','%'.$querry.'%')         
-        -> orderBy('v.id', 'asc')
-        -> groupBy('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
-        -> paginate(7); 
-        
-        return view('venta.index', ["ventas" => $ventas, "searchText" => $querry]);
-      }
+        return $ventaDataTable->render('venta.index');
     }
 
     //create (muestra la vista de crear)
     public function create()
     {
+       $idventa=DB::table('ventas')->max('id')+1;
        $user_list = User::all();
        $tipofactura_list = TipoFactura::all();
        $tipopago_list = TipoPago::all();
@@ -65,7 +51,7 @@ class VentaController extends Controller
       -> where ('prod.stock' , '>', '0')
       -> get(); 
 
-      return view('venta.create', ['personas' => $personas, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
+      return view('venta.create', ['personas' => $personas, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list,'idventa'=>$idventa]);
     }
 
     
@@ -79,8 +65,8 @@ class VentaController extends Controller
     	DB::beginTransaction();
 
 		  $venta = new Venta;	    
-	    $venta->id_cliente = $request -> get('id_cliente');//este valor es el que se encuentra en el formulario
-      $venta -> id_user = $request -> get('id_user');
+	    $venta->persona_id = $request -> get('persona_id');//este valor es el que se encuentra en el formulario
+      $venta -> user_id = $request -> get('user_id');
       $venta -> tipofactura_id = $request -> get('tipofactura_id');
       $venta -> tipopago_id = $request -> get('tipopago_id');
 	    $venta -> tipo_comprobante = $request -> get('tipo_comprobante');
@@ -129,7 +115,7 @@ class VentaController extends Controller
     public function show ($id){
 
     	$venta = DB::table('ventas as v') 
-        -> join('personas as p','v.id_cliente','=','p.id')
+        -> join('personas as p','v.persona_id','=','p.id')
         -> join('detalles_ventas as dv','v.id','=','dv.id_venta')
         -> select('v.id', 'v.fecha_hora', 'p.nombre', 'p.apellido', 'v.tipo_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','v.entrega')
         -> where ('v.id','=', $id)
@@ -146,8 +132,8 @@ class VentaController extends Controller
 
 
         public function pdf(Request $request,$id){
-         $venta = Venta::join('personas','ventas.id_cliente','=','personas.id')
-        ->join('users','ventas.id_user','=','users.id')
+         $venta = Venta::join('personas','ventas.persona_id','=','personas.id')
+        ->join('users','ventas.user_id','=','users.id')
         ->select('ventas.id','ventas.tipo_comprobante',
         'ventas.num_comprobante','ventas.fecha_hora','ventas.impuesto','ventas.total_venta','ventas.entrega',
         'ventas.estado','personas.nombre','personas.apellido','personas.documento','personas.tipo_documento','users.name')

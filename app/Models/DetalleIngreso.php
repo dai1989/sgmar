@@ -17,7 +17,8 @@ class DetalleIngreso extends Model
     	'id_ingreso',
     	'id_producto',
     	'cantidad',
-    	'precio_compra'      	
+        'precio_compra',        
+    	'precio_venta'     	
     ];
 
     protected $guarded = [

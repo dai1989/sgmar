@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableVentas extends Migration
+class CreateTablePedidos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,13 @@ class CreateTableVentas extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
-            $table->increments('id'); 
-         
-            $table->string('tipo_comprobante');
-            $table->string('serie_comprobante')->nullable();
+        Schema::create('pedidos', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('num_comprobante');
             $table->datetime('fecha_hora');
-            $table->decimal('impuesto');
             $table->decimal('total_venta');
-            $table->decimal('entrega');
-            $table->string('estado');
+            $table->longtext('condiciones');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -36,6 +30,6 @@ class CreateTableVentas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('pedidos');
     }
 }

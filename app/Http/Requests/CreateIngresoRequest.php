@@ -29,8 +29,8 @@ class CreateIngresoRequest extends FormRequest
             //para el ingreso
             'id_proveedor' => 'required',
             'tipo_comprobante' => 'required|max:20',
-            'serie_comprobante' => 'max:7',
-            'num_comprobante' => 'required|max:10',
+            'serie_comprobante' => 'required',
+            'num_comprobante' => 'required',
 
             //para el detalle de ingreso
             'id_producto' => 'required',

@@ -52,6 +52,7 @@ class IngresoController extends Controller
     //create (mostra la vista de crear)
     public function create()
     {
+       $iingreso=DB::table('ingresos')->max('id')+1;
        $user_list = User::all();
        $tipofactura_list = TipoFactura::all();
        $tipopago_list = TipoPago::all();
@@ -61,7 +62,7 @@ class IngresoController extends Controller
       -> where ('prod.estado', '=', 'Activo')
       -> get();
 
-      return view('ingreso.create', ['proveedores' => $proveedores, 'productos' => $productos,'user_list'=>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
+      return view('ingreso.create', ['proveedores' => $proveedores, 'productos' => $productos,'user_list'=>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list,"iingreso"=>$iingreso]);
     }
 
     // //show (mostrar la vista de show)
@@ -101,6 +102,7 @@ class IngresoController extends Controller
         $id_producto  = $request -> get('id_producto');
         $cantidad = $request -> get('cantidad');
         $precio_compra = $request -> get('precio_compra');
+        $precio_venta=$request->get('precio_venta');
 
         $cont=0;
 
@@ -111,6 +113,7 @@ class IngresoController extends Controller
             $detalle -> id_producto = $id_producto[$cont];
             $detalle -> cantidad = $cantidad[$cont];
             $detalle -> precio_compra = $precio_compra[$cont];
+            $detalle -> precio_venta = $precio_venta[$cont];
             $detalle -> save();
             
             $cont = $cont+1;
@@ -138,7 +141,7 @@ class IngresoController extends Controller
 
         $detalles = DB::table('detalles_ingresos as d') 
          -> join('productos as prod','d.id_producto','=','prod.id')
-         -> select('prod.descripcion as producto', 'd.cantidad', 'd.precio_compra')
+         -> select('prod.descripcion as producto', 'd.cantidad', 'd.precio_compra','d.precio_venta')
          -> where ('d.id_ingreso', '=', $id) -> get();
 
          return view('ingreso.show', ['ingreso' => $ingreso, 'detalles' => $detalles]);
