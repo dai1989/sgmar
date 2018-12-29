@@ -45,14 +45,14 @@
             
         </div>
         <div class="form-group col-sm-6">         
-               <label for="codigo">Serie del comprobante:</label>
-                <input type="text" class="form-control" name="serie_comprobante" placeholder="Serie del comprobante..."  value="{{old('serie_comprobante')}}">
+             <label for="serie_comprobante">Serie Comprobante</label>
+            <input type="text" name="serie_comprobante" readonly value="<?php echo date("Y-m-d");?>" class="form-control" placeholder="Serie de comprobante...">
             </div>
 
         
             <div class="form-group col-sm-6">            
-               <label for="codigo">Numero del comprobante:</label>
-                <input type="text" class="form-control" name="num_comprobante" placeholder="Numero del comprobante..."  required value="{{old('num_comprobante')}}">            
+              <label for="num_comprobante">Numero de Comprobante</label>
+                <input type="text" name="num_comprobante" required readonly value= "{{$idcredito}}" class="form-control" placeholder="Numero de comprobante...">             
             </div>
                 <div class="form-group col-sm-6">        
                <label for="nombre">Tipo de comprobante:</label>

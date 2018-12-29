@@ -55,7 +55,7 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group">            
                <label for="barcode">Codigo:</label>
-                <input type="text" class="form-control" name="barcode"  required value="{{$producto->barcode}}">            
+                <input type="text" class="form-control" name="barcode" readonly required value="{{$producto->barcode}}">            
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

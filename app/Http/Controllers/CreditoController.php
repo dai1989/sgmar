@@ -39,6 +39,7 @@ class CreditoController extends Controller
         //obtener 
         $creditos = DB::table('creditos as c') 
         -> join('autorizacion as a','c.id_autorizacion','=','a.id')
+        -> join('personas as p','a.persona_id','=','p.id')
         -> join('detalles_creditos as dc','c.id','=','dc.id_credito')
         -> select('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
         -> where('c.num_comprobante','LIKE','%'.$querry.'%')         
@@ -53,6 +54,7 @@ class CreditoController extends Controller
     //create (muestra la vista de crear)
     public function create()
     {
+       $idcredito=DB::table('creditos')->max('id')+1;
        $user_list = User::all();
        $tipofactura_list = TipoFactura::all();
        $tipopago_list = TipoPago::all();
@@ -63,7 +65,7 @@ class CreditoController extends Controller
       -> where ('prod.stock' , '>', '0')
       -> get();
 
-      return view('credito.create', ['autorizaciones' => $autorizaciones, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
+      return view('credito.create', ['autorizaciones' => $autorizaciones, 'productos' => $productos, 'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list,'idcredito'=>$idcredito]);
     }
 
     
@@ -128,8 +130,9 @@ class CreditoController extends Controller
 
         $credito = DB::table('creditos as c') 
         -> join('autorizacion as a','c.id_autorizacion','=','a.id')
+         ->join('personas as p','a.persona_id','=','p.id')
         -> join('detalles_creditos as dc','c.id','=','dc.id_credito')
-        -> select('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito')
+        -> select('c.id', 'c.fecha_hora', 'a.codigo', 'a.monto_actual', 'c.tipo_comprobante', 'c.serie_comprobante', 'c.num_comprobante', 'c.impuesto', 'c.estado', 'c.total_credito','p.nombre','p.apellido')
         -> where ('c.id','=', $id)
         -> first();
 
@@ -145,10 +148,12 @@ class CreditoController extends Controller
 
         public function pdf(Request $request,$id){
         $credito = Credito::join('autorizacion','creditos.id_autorizacion','=','autorizacion.id')
+        ->join('personas','autorizacion.persona_id','=','personas.id')
+        ->join('tipo_facturas','creditos.tipofactura_id','=','tipo_facturas.id')
         ->join('users','creditos.id_user','=','users.id')
         ->select('creditos.id','creditos.tipo_comprobante','creditos.serie_comprobante',
         'creditos.num_comprobante','creditos.fecha_hora','creditos.impuesto','creditos.total_credito',
-        'creditos.estado','autorizacion.codigo','autorizacion.monto_actual','users.name')
+        'creditos.estado','autorizacion.codigo','autorizacion.monto_actual','users.name','personas.nombre','personas.apellido','personas.tipo_documento','personas.documento','tipo_facturas.descripcion')
         ->where('creditos.id','=',$id)
         ->orderBy('creditos.id','desc')->take(1)->get();
 

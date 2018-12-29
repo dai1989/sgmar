@@ -10,8 +10,14 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
              <div class="form-group">            
-               <label for="nombre">Proveedor:</label>
+               <label for="nombre">Credito Cod:</label>
                <p>{{$credito -> codigo}}</p>
+            </div>
+        </div>
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <div class="form-group">            
+               <label for="nombre">Cliente:</label>
+               <p>{{$credito -> nombre}},{{$credito->apellido}}</p>
             </div>
         </div>
           

@@ -123,7 +123,8 @@
                 </p>
             </div>
             <div id="fact">
-                <p>{{$cred->tipo_comprobante}}<br> 
+                <p>{{$cred->tipo_comprobante}}: {{$cred->descripcion}}<br> 
+            
                 {{$cred->serie_comprobante}}-{{$cred->num_comprobante}}</p>
             </div>
         </header>
@@ -176,7 +177,7 @@
                             <th>DESCRIPCION</th>
                             <th>CANT</th>
                             <th>PRECIO UNIT</th>
-                            <th>DESC.</th>
+                            
                             <th>PRECIO TOTAL</th>
                         </tr>
                     </thead>
@@ -186,20 +187,13 @@
                             <td>{{$det->producto}}</td>
                             <td>{{$det->cantidad}}</td>
                             <td>{{$det->precio_venta}}</td>
-                            <td>{{$det->descuento}}</td>
-                            <td>{{$det->cantidad*$det->precio_venta-$det->descuento}}</td>
+                            
+                            
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         @foreach ($credito as $cred)
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>SUBTOTAL</th>
-                            <td>$ {{round($cred->total_credito-($cred->total_credito*$cred->impuesto),2)}}</td>
-                        </tr>
                         <tr>
                             <th></th>
                             <th></th>
@@ -211,16 +205,12 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th>Entrega</th>
-                            <td>$ {{round($cred->entrega,2)}}</td>
+                            <th>SUBTOTAL</th>
+                            <td>$ {{round($cred->total_credito-($cred->total_credito*$cred->impuesto),2)}}</td>
                         </tr>
-                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>Vuelto</th>
-                            <td>$ {{round($cred->total_credito-$cred->entrega ,2)}}</td>
-                        </tr>
+                       
+                        
+                        
                         <tr>
                             <th></th>
                             <th></th>

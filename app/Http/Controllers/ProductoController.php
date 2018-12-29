@@ -91,7 +91,7 @@ class ProductoController extends Controller
     }
 
     //update (actualizar un registro)
-    public function update(CreateProductoRequest $request, $id)
+    public function update(Request $request, $id)
     {
     
       $producto = Producto::findOrFail($id);
