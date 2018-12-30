@@ -207,3 +207,6 @@ Route::resource('marcas', 'MarcaController');
 Route::resource('productos', 'ProductoController');
 
 Route::resource('categorias', 'CategoriaController');
+
+Route::resource('/pdf','PdfController'); 
+Route::get('crear_reporte_porventa/{tipo}','PdfController@crear_reporte_porventa');

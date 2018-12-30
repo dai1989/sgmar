@@ -50,11 +50,7 @@ class CategoriaDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                    'create',
-                    'export',
-                    'print',
-                    'reset',
-                    'reload',
+                    
                 ],
             ]);
     }
