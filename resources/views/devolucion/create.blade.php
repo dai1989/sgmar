@@ -1,14 +1,14 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Crear venta
+    Crear devolucion
 @endsection
 
 @section('content')
 
 <div class="row">
      <div class="col-md-12"> 
-        <h3>Nueva venta</h3>
+        <h3>Nuevo devolucion</h3>
         @if (count($errors) > 0)
         <div class="alert alert-danger">
 	        <ul>
@@ -20,12 +20,34 @@
         @endif
     </div>
 </div>
-        {{Form::open(array('url' => 'venta', 'method' => 'POST', 'autocomplete' => 'off'))}}
+        {{Form::open(array('url' => 'devolucion', 'method' => 'POST', 'autocomplete' => 'off'))}}
         {{Form::token()}}
          <div class="box-body">
         <div class="well well-sm">
             <div class="box-body">
     <div class="row">
+         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label for="">N° de factura</label>
+                        <select class="form-control selectpicker" name="id_detalleventas" id="id_detalleventas" data-Live-search="true">
+                            @foreach($detalleventas_list as $detalleventa)
+                                <option value="{{$detalleventa -> id}}_{{$detalleventa -> id_producto}}">{{$detalleventa ->id}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+               </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
+                    <div class="form-group">            
+                       <label for="cantidad">Stock:</label>
+                        <input type="number" class="form-control" name="pstock" id="pstock"  readonly>            
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <div class="form-group">            
+                       <label for="cantidad">Precio de venta:</label>
+                        <input type="number" class="form-control" name="pprecio_venta" id="pprecio_venta"readonly>            
+                    </div>
+                </div>
         <div class="col-xs-6">
             <label for="nombre">Cliente:</label>
                <select name="persona_id" id="persona_id" class="form-control selectpicker" data-Live-search="true">
@@ -44,7 +66,7 @@
            </div>
            <div class="form-group col-sm-6">            
                <label for="num_comprobante">Numero de Comprobante</label>
-                <input type="text" name="num_comprobante" required readonly value= "{{$idventa}}" class="form-control" placeholder="Numero de comprobante...">           
+                <input type="text" name="num_comprobante" required readonly value= "{{$iddevolucion}}" class="form-control" placeholder="Numero de comprobante...">           
             </div>
                 <div class="form-group col-sm-6">        
                <label for="nombre">Tipo de comprobante:</label>
@@ -93,7 +115,7 @@
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
                     <div class="form-group">            
                        <label for="cantidad">Stock:</label>
-                        <input type="number" class="form-control" step=".01" name="pstock" id="pstock"  readonly>            
+                        <input type="number" class="form-control" name="pstock" id="pstock"  readonly>            
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
@@ -112,7 +134,7 @@
                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <div class="form-group">            
                        <label for="cantidad">Cantidad:</label>
-                        <input type="number" class="form-control" step=".01" name="pcantidad" id="pcantidad" placeholder="cantidad">            
+                        <input type="number" class="form-control" name="pcantidad" id="pcantidad" placeholder="cantidad">            
                     </div>
                 </div>                                
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">

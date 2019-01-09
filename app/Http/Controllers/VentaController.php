@@ -19,6 +19,7 @@ use App\Models\TipoPago;
 use App\Models\TipoFactura;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
+use Flash;
 use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Collection;
@@ -107,7 +108,9 @@ class VentaController extends Controller
     } catch (\Exception $e) {
     	DB::rollback();
     }
-
+     $venta= Venta::all()->last(); 
+    
+      Flash::success('Su venta, del día '.$venta->fecha_hora=$mytime->format('d-m-Y').' ha sido creada correctamente')->important();
       return Redirect::to('venta');
     }
 

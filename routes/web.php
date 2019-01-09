@@ -161,6 +161,8 @@ Route::resource('domicilios', 'DomicilioController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('venta', 'VentaController');
+Route::resource('recaudacion', 'RecaudacionController');
+Route::resource('devolucion', 'DevolucionController');
 Route::resource('ingreso', 'IngresoController');
 Route::resource('credito', 'CreditoController');
 Route::resource('factura', 'FacturaController');
@@ -171,17 +173,7 @@ Route::get('/ingreso/pdf/{id_ingreso}', 'IngresoController@pdf')->name('ingreso_
 Route::get('/credito/pdf/{id_credito}', 'CreditoController@pdf')->name('creito_pdf');
 
 
-Route::get('/devolucion', 'DevolucionController@index');
-Route::get('/devolucion/add', 'DevolucionController@add');
-Route::get('/devolucion/detail/{id}', 'DevolucionController@detail');
-Route::get('/devolucion/pdf/{id}', 'DevolucionController@pdf');
 
-
-Route::get('/devolucion/findVenta', 'DevolucionController@findVenta');
-Route::get('/devolucion/findProducto', 'DevolucionController@findProducto');
-Route::get('/devolucion/findUser', 'DevolucionController@findUser');
-
-Route::post('/devolucion/save', 'DevolucionController@save');
 
 
 Route::get('/presupuesto', 'PresupuestoController@index');

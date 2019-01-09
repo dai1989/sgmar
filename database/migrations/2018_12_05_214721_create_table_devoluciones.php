@@ -15,15 +15,19 @@ class CreateTableDevoluciones extends Migration
     {
         Schema::create('devoluciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('venta_id')->unsigned();
-            $table->foreign('venta_id')->references('id')->on('ventas');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            
+          
+             $table->string('tipo_comprobante');
+            $table->string('serie_comprobante')->nullable();
+            $table->string('num_comprobante');
+            $table->datetime('fecha_hora');
+            $table->decimal('impuesto');
+            $table->decimal('total_devolucion');
+            
+            $table->string('estado');
           
         
-            $table->decimal('iva', 10,2);
-            $table->decimal('subTotal', 10,2);
-            $table->decimal('total', 10,2);
+           
             $table->timestamps();
         });
     }

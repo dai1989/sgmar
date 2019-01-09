@@ -6,11 +6,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Devolucion extends Model
 {
-     protected $table = 'devoluciones';
+     //
+    protected $table = 'devoluciones'; 
     
-    public function detail(){
-        return $this->hasMany('App\Models\DevolucionDetalle');
-    }
+    protected $primaryKey= 'id';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_detalleventas',
+        'persona_id',
+        'tipo_comprobante',
+        
+        'num_comprobante',
+        'fecha_hora',
+        'impuesto',
+        'total_devolucion',
+        'estado'
+    ];
+
+    protected $guarded = [
+
+        
+    ];
+
+     
+    
+   
     public function venta(){
         return $this->belongsTo('App\Models\Venta');
     }

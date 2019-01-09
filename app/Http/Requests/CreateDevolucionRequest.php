@@ -27,18 +27,19 @@ class CreateDevolucionRequest extends FormRequest
     {
         return [
 
-            //para la venta
-            'id_venta' => 'required',
+            //para la devolucion
+            'id_detalleventas' => 'required',
+            'persona_id' => 'required',
             'tipo_comprobante' => 'required|max:20',
             'serie_comprobante' => 'max:7',
             'num_comprobante' => 'required|max:10',
             
 
-            //para el detalle de la venta
+            //para el detalle de la devolucion
             'id_producto' => 'required',
             'cantidad' => 'required',
             'precio_venta' => 'required',
-            'descuento' => 'required',
+            
             'observacion' => 'required'
 
         ];

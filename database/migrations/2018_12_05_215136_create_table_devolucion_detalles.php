@@ -15,11 +15,11 @@ class CreateTableDevolucionDetalles extends Migration
     {
         Schema::create('devolucion_detalles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('devolucion_id')->unsigned();
-            $table->integer('producto_id')->unsigned();
+            $table->integer('id_devolucion')->unsigned();
+            $table->integer('id_producto')->unsigned();
 
-            $table->foreign('devolucion_id')->references('id')->on('devoluciones');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->foreign('id_devolucion')->references('id')->on('devoluciones');
+            $table->foreign('id_producto')->references('id')->on('productos');
             $table->decimal('cantidad', 10,2);
             $table->decimal('precio_venta', 10,2);
             $table->decimal('total', 10,2);
