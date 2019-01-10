@@ -34,6 +34,10 @@
     <link rel="stylesheet" href="{{asset('/bower/toastr/toastr.min.css')}}">
     <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
+    {{-- tickes  --}}
+  <link rel="stylesheet" href="{{URL::to('/')}}/plantilla/css/ticket.css">
+  {{-- modal de clientes --}}
+  <link rel="stylesheet" href="{{URL::to('/')}}/plantilla/css/jquery-nicelabel.css">
     <!--App css -->
     <style>
         .select2-container--default .select2-selection--multiple .select2-selection__choice{

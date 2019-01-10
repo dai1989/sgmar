@@ -162,6 +162,12 @@ Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('venta', 'VentaController');
 Route::resource('recaudacion', 'RecaudacionController');
+Route::resource('presupuesto', 'PresupuestoController');
+Route::get('presupuestoventa/{id}','PresupuestoController@presupuestoventa');
+Route::get('presupuesto/{presupuesto}','PresupuestoController@show');
+Route::post('crearventa', 'PresupuestoController@crearventa');
+
+
 Route::resource('devolucion', 'DevolucionController');
 Route::resource('ingreso', 'IngresoController');
 Route::resource('credito', 'CreditoController');
@@ -176,17 +182,7 @@ Route::get('/credito/pdf/{id_credito}', 'CreditoController@pdf')->name('creito_p
 
 
 
-Route::get('/presupuesto', 'PresupuestoController@index');
-Route::get('/presupuesto/add', 'PresupuestoController@add');
-Route::get('/presupuesto/detail/{id}', 'PresupuestoController@detail');
-Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@pdf');
 
-
-Route::get('/presupuesto/findPersona', 'PresupuestoController@findPersona');
-Route::get('/presupuesto/findProducto', 'PresupuestoController@findProducto');
-Route::get('/presupuesto/findUser', 'PresupuestoController@findUser');
-
-Route::post('/presupuesto/save', 'PresupuestoController@save');
 
 
 

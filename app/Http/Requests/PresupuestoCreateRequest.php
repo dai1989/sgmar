@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Presupuesto;
 
-class PresupuestoCreateRequest extends FormRequest
+class PresupuestoCreateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class PresupuestoCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,12 @@ class PresupuestoCreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+      return [
+          
+          'cantidad' => 'required',
+          'precio_venta' => 'required',
+          'descuento' => 'required',
+          'total_venta' =>'required'
+      ];
     }
 }

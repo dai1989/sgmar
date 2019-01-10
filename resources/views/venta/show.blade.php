@@ -7,87 +7,100 @@
 @section('content')
 
         
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-             <div class="form-group">            
-               <label for="nombre">Cliente:</label>
-               <p>{{$venta -> nombre}} {{$venta -> apellido}}</p>
-            </div>
-        </div>
-          
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-             <div class="form-group">            
-               <label for="nombre">Tipo de comprobante:</label>
-                <p>{{$venta -> tipo_comprobante}}</p>
-        </div>
-        </div>
-       
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="form-group">            
-               <label for="codigo">Numero del comprobante:</label>
-                <p>{{$venta -> num_comprobante}}</p>            
-            </div>
-        </div>
-</div>
-    <div class="row">
-       
-       <div class="panel panel-primary">
-           <div class="panel-body">               
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                        <thead style="background-color: #A9D0F5">                            
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio venta</th> 
-                            <th>Descuento</th> 
-                            <th>Entrega</th> 
-                            <th>Vuelto</th> 
-
-                            <th>Subtotal</th>
-                        </thead>
-                        <tfoot>                            
-                            <th></th>
-                            <th></th>
-                            <th></th> 
-                            <th></th>                           
-                            <th><h4 id="total">{{$venta -> total_venta}}</h4></th>
-                        </tfoot>
-                        <tbody>
-                            @foreach($detalles as  $det)
-                                <tr>
-                                    <td>{{$det -> producto}}</td>
-                                    <td>{{$det -> cantidad}}</td>
-                                    <td>{{$det -> precio_venta}}</td>
-                                    <td>{{$det -> descuento}}</td>                               
-                                    <td>{{$venta -> entrega}}</td>                               
-                                    <td>{{$venta -> entrega-$venta->total_venta}}</td>                               
-                                    <td>{{$det -> cantidad * $det -> precio_venta}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+   <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label for="proveedor">Cliente</label>
+                            <p>{{$venta->nombre}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label for="fecha_hora">Fecha</label>
+                            <p>{{date("d-m-Y", strtotime($venta->fecha_hora))}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label for="fecha_hora">Vendedor</label>
+                            <p>{{$user->name}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label>Tipo Comprobante</label>
+                            <p>{{$venta->tipo_comprobante}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label for="num_comprobante">Número Comprobante</label>
+                            <p>{{$venta->num_comprobante}}</p>
+                        </div>
+                    </div>
                 </div>
-           </div>
-       </div>
-       
-    </div> 
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="page-header">
-                Nuevo devolucion
-            </h2>
-           
-
-            <devolucion></devolucion>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  table-responsive">
+                            <table  class="table table-bordered">
+                             <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+                                <thead style="background-color: #A9D0F5">
+                                    <th>DD-MM-AAAA</th>
+                                    <th>Productos</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Venta</th>
+                                    <th>Descuento</th>
+                                    <th>Subtotal</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($detalles as $det)
+                                        <tr>
+                                            <td>{{date("d-m-Y", strtotime($venta->fecha_hora))}}</td>
+                                            <td>{{$det->producto}}</td>
+                                            <td class="text-derecha">{{$det->cantidad}}</td>
+                                            <td class="text-derecha">{{$det->precio_venta}}</td>
+                                            <td class="text-derecha">{{number_format($det->descuento, 2, '.', '')}}</td>
+                                            <td class="text-derecha">{{number_format($det->cantidad*$det->precio_venta-$det->descuento, 2, '.', '')}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tbody>
+                                    <th>TOTAL</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-derecha" ><h4>{{number_format($venta->total_venta, 2, '.', '')}}</h4></th>
+                                </tbody>
+                                <tbody>
+                                    <th>PAGA</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-derecha" ><h4>{{$venta->entrega}}</h4></th>
+                                </tbody>
+                                <tbody>
+                                    <th>CAMBIO</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-derecha"><h4>{{number_format($venta->entrega - $venta->total_venta, 2, '.', '')}}</h4></th>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="#"><button class="btn btn-info ">Descargar PDF</button></a>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+    {!!Form::close()!!}
 
-    @endsection
-    @section('bottom')
-    <script src="{{asset('components/devolucion.tag')}}" type="riot/tag"></script>
-    <script>
-        $(document).ready(function(){
-            riot.mount('devolucion');
-        })
-    </script>
 @endsection

@@ -28,7 +28,7 @@ class CreateVentaRequest extends FormRequest
         return [
 
             //para la venta
-            'persona_id' => 'required',
+          
             'tipo_comprobante' => 'required|max:20',
             
             'num_comprobante' => 'required|max:10',
