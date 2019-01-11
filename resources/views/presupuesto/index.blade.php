@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	Crear Persona
+	Presupuesto
 @endsection
 
 @section('content')

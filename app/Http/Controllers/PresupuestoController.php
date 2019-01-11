@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 
 use App\Http\Requests\PresupuestoFormRequest;
-use App\Models\Presupuesto;
-use App\Models\DetallePresupuesto;
-use App\Models\Persona;
-
+use App\Presupuesto;
+use App\User;
+use App\DetallePresupuesto;
+use App\Models\Persona; 
+use App\Models\TipoPago;
+use App\Models\TipoFactura;
 
 use DB;
 
@@ -37,7 +39,7 @@ class PresupuestoController extends Controller
            $presupuesto=DB::table('presupuestos as pr')
             ->join('personas as p','pr.persona_id','=','p.id')
             ->join('presupuesto_detalles as dp','pr.id','=','dp.presupuesto_id')
-            ->select('pr.id','pr.fecha_hora','p.nombre','pr.tipo_comprobante','pr.num_comprobante','pr.impuesto','pr.estado','pr.total_venta')
+            ->select('pr.id','pr.fecha_hora','p.nombre','p.apellido','pr.tipo_comprobante','pr.num_comprobante','pr.impuesto','pr.estado','pr.total_venta')
             ->where('pr.fecha_hora','LIKE','%'.$query.'%')
             ->orderBy('pr.id','desc')
             ->groupBy('pr.id','pr.fecha_hora','p.nombre','pr.tipo_comprobante','pr.num_comprobante','pr.impuesto','pr.estado', 'pr.total_venta')
@@ -50,6 +52,9 @@ class PresupuestoController extends Controller
     public function create()
     {
      $personas = Persona::all();
+     $user_list = User::all();
+     $tipofactura_list = TipoFactura::all();
+     $tipopago_list = TipoPago::all();
      $productos = DB::table('productos as prod')
         ->join('detalles_ingresos as di', 'prod.id', '=', 'di.id_producto' )
             ->select(DB::raw('CONCAT(prod.barcode, " ",prod.descripcion) AS producto'),'prod.id', 'prod.stock',DB::raw('avg(di.precio_venta) as precio_promedio'))
@@ -57,7 +62,7 @@ class PresupuestoController extends Controller
             ->where('prod.stock','>','0')
             ->groupBy('producto','prod.id','prod.stock')
             ->get();
-        return view("presupuesto.create",["personas"=>$personas,"productos"=>$productos]);
+        return view("presupuesto.create",["personas"=>$personas,"productos"=>$productos,'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
     }
 
      public function store (PresupuestoFormRequest $request)
@@ -88,17 +93,17 @@ class PresupuestoController extends Controller
            $venta->total_venta=$totalpro;
            $venta->update();
 
-          $producto_id = $request->get('producto_id');
+          $id_producto = $request->get('id_producto');
           $cantidad = $request->get('cantidad');
           $descuento = $request->get('descuento');
           $precio_venta = $request->get('precio_venta');
 
           $cont = 0;
 
-          while($cont < count($producto_id)){
+          while($cont < count($id_producto)){
               $detalle = new DetallePresupuesto();
               $detalle->presupuesto_id= $ultimoid->id;
-              $detalle->producto_id= $producto_id[$cont];
+              $detalle->id_producto= $id_producto[$cont];
               $detalle->cantidad= $cantidad[$cont];
               $detalle->descuento= $descuento[$cont];
               $detalle->precio_venta= $precio_venta[$cont];
@@ -114,6 +119,9 @@ class PresupuestoController extends Controller
           $venta->num_comprobante=000;
           $venta->total_venta=$request->get('total_venta');
           $venta->user_id=$request->get('user_id');
+          $venta->tipofactura_id = $request -> get('tipofactura_id');
+          $venta->tipopago_id = $request -> get('tipopago_id');
+          $venta->tipo_comprobante=$request->get('tipo_comprobante');
 
           $mytime = Carbon::now('America/Argentina/Mendoza');
           $venta->fecha_hora=$mytime->toDateString();
@@ -121,17 +129,17 @@ class PresupuestoController extends Controller
           $venta->estado='Sin Revisar';
           $venta->save();
 
-          $producto_id = $request->get('producto_id');
+          $id_producto = $request->get('id_producto');
           $cantidad = $request->get('cantidad');
           $descuento = $request->get('descuento');
           $precio_venta = $request->get('precio_venta');
 
           $cont = 0;
 
-          while($cont < count($producto_id)){
+          while($cont < count($id_producto)){
               $detalle = new DetallePresupuesto();
               $detalle->presupuesto_id= $venta->id;
-              $detalle->producto_id= $producto_id[$cont];
+              $detalle->id_producto= $id_producto[$cont];
               $detalle->cantidad= $cantidad[$cont];
               $detalle->descuento= $descuento[$cont];
               $detalle->precio_venta= $precio_venta[$cont];
@@ -149,6 +157,9 @@ class PresupuestoController extends Controller
         $venta->num_comprobante=000;
         $venta->total_venta=$request->get('total_venta');
         $venta->user_id=$request->get('user_id');
+        $venta ->tipofactura_id = $request -> get('tipofactura_id');
+        $venta->tipopago_id = $request -> get('tipopago_id');
+        $venta->tipo_comprobante=$request->get('tipo_comprobante');
 
         $mytime = Carbon::now('America/Argentina/Mendoza');
         $venta->fecha_hora=$mytime->toDateString();
@@ -156,17 +167,17 @@ class PresupuestoController extends Controller
         $venta->estado='Sin Revisar';
         $venta->save();
 
-        $producto_id = $request->get('producto_id');
+        $id_producto = $request->get('id_producto');
         $cantidad = $request->get('cantidad');
         $descuento = $request->get('descuento');
         $precio_venta = $request->get('precio_venta');
 
         $cont = 0;
 
-        while($cont < count($producto_id)){
+        while($cont < count($id_producto)){
             $detalle = new DetallePresupuesto();
             $detalle->presupuesto_id= $venta->id;
-            $detalle->producto_id= $producto_id[$cont];
+            $detalle->id_producto= $id_producto[$cont];
             $detalle->cantidad= $cantidad[$cont];
             $detalle->descuento= $descuento[$cont];
             $detalle->precio_venta= $precio_venta[$cont];
@@ -183,12 +194,12 @@ class PresupuestoController extends Controller
      $venta=DB::table('presupuestos as v')
             ->join('personas as p','v.persona_id','=','p.id')
             ->join('presupuesto_detalles as dv','v.id','=','dv.presupuesto_id')
-            ->select('v.id','v.fecha_hora','p.nombre','v.tipo_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','user_id')
-            ->groupBy('v.id','v.fecha_hora','p.nombre','v.tipo_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','user_id')
+            ->select('v.id','v.fecha_hora','p.nombre','p.apellido','v.tipo_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','user_id')
+            ->groupBy('v.id','v.fecha_hora','p.nombre','p.apellido','v.tipo_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','user_id')
             ->where('v.id','=',$id)
             ->first();
         $detalles=DB::table('presupuesto_detalles as pd')
-             ->join('productos as prod','pd.producto_id','=','prod.id')
+             ->join('productos as prod','pd.id_producto','=','prod.id')
              ->select('prod.descripcion as producto','pd.created_at','pd.cantidad','pd.descuento','pd.precio_venta')
              ->where('pd.presupuesto_id','=',$id)
              ->orderBy('created_at', 'desc')

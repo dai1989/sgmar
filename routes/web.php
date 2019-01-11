@@ -15,7 +15,11 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+// Ignores notices and reports all other kinds... and warnings
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+// error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+}
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
@@ -161,11 +165,12 @@ Route::resource('domicilios', 'DomicilioController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('venta', 'VentaController');
-Route::resource('recaudacion', 'RecaudacionController');
+Route::resource('estimacion', 'EstimacionController');
 Route::resource('presupuesto', 'PresupuestoController');
 Route::get('presupuestoventa/{id}','PresupuestoController@presupuestoventa');
+Route::get('estimacionventa/{id}','EstimacionController@estimacionventa');
 Route::get('presupuesto/{presupuesto}','PresupuestoController@show');
-Route::post('crearventa', 'PresupuestoController@crearventa');
+Route::post('crearventa', 'EstimacionController@crearventa');
 
 
 Route::resource('devolucion', 'DevolucionController');

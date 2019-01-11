@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	Crear Persona
+	Crear Presupuesto
 @endsection
 
 @section('content')
@@ -35,7 +35,7 @@
 							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 								<div class="form-group">
 									<label>Producto</label>
-									<select name="pproducto_id" class="form-control selectpicker" id="pproducto_id" data-live-search="true">
+									<select name="pid_producto" class="form-control selectpicker" id="pid_producto" data-live-search="true">
 									<option value="0"></option>
 									@foreach($productos as $producto)
 									<option value="{{$producto->id}}_{{$producto->stock}}_{{$producto->precio_promedio}}">{{$producto->producto}}</option>
@@ -123,10 +123,10 @@
 					subtotal=[];
 					total=0;
 					$("#guardar").hide();
-					$("#pproducto_id").change(mostrarValores);
+					$("#pid_producto").change(mostrarValores);
 
 					function mostrarValores(){
-						datosProducto=document.getElementById('pproducto_id').value.split('_');
+						datosProducto=document.getElementById('pid_producto').value.split('_');
 						$("#pprecio_venta").val(datosProducto[2]);
 						$("#pstock").val(datosProducto[1]);
 					}
@@ -134,7 +134,7 @@
 					function agregar(){
 
 						var producto_id=datosProducto[0];
-						var producto=$("#pproducto_id option:selected").text();
+						var producto=$("#pid_producto option:selected").text();
 						var cantidad=$("#pcantidad").val();
 						var descuento=$("#pdescuento").val();
 						var precio_venta= parseFloat($("#pprecio_venta").val());
@@ -142,13 +142,13 @@
 						var stock_numero = parseInt(stock);
 						var stock_cantidad = parseInt(cantidad);
 
-							if (producto_id!="" && cantidad!="" && cantidad>0 && pdescuento!="" && precio_venta!="")
+							if (id_producto!="" && cantidad!="" && cantidad>0 && pdescuento!="" && precio_venta!="")
 							{
 								if (stock_numero>=stock_cantidad)
 								{
 								subtotal[cont]=(cantidad*precio_venta-descuento);
 								total=total+subtotal[cont];
-								var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="producto_id[]" value="'+producto_id+'">'+producto+'</td><td><input type="number" readonly name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" readonly name="precio_venta[]" value="'+precio_venta+'"></td><td><input readonly type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
+								var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" readonly name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" readonly name="precio_venta[]" value="'+precio_venta+'"></td><td><input readonly type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
 								cont++;
 								limpiar();
 								$('#total').html("$ " + total);
@@ -164,7 +164,7 @@
 							}
 							else
 							{
-								alert("Error al ingresar el detalle de la venta, revise los datos del artículo");
+								alert("Error al ingresar el detalle de la venta, revise los datos del producto");
 							}
 					}
 					function limpiar(){
@@ -172,7 +172,7 @@
 						$('#pstock').val("");
 						$('#pdescuento').val("");
 						$('#pprecio_venta').val("");
-						$('#pproducto_id').selectpicker('val', '0');
+						$('#pid_producto').selectpicker('val', '0');
 					}
 					function evaluar()
 					{

@@ -15,8 +15,8 @@ class CreateTableEstadisticaVenta extends Migration
     {
         Schema::create('estadistica_venta', function (Blueprint $table) {
             $table->increments('id');
-             $table->integer('producto_id')->unsigned();
-            $table->foreign('producto_id')->references('id')->on('productos');
+             $table->integer('id_producto')->unsigned();
+            $table->foreign('id_producto')->references('id')->on('productos');
 
             
             $table->string('cantidad')->comment('cantidad de productos');
