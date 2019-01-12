@@ -204,11 +204,9 @@ class PresupuestoController extends Controller
              ->where('pd.presupuesto_id','=',$id)
              ->orderBy('created_at', 'desc')
              ->get();
-        $user=DB::table('users')
-                    ->where('id','=',$venta->user_id)
-                    ->first();
+       
     //    dd($usuario);
-        return view("presupuesto.show",["venta"=>$venta,"detalles"=>$detalles,"user"=>$user]);
+        return view("presupuesto.show",["venta"=>$venta,"detalles"=>$detalles]);
 
     }
 

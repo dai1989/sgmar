@@ -21,6 +21,7 @@ class CreateTableDetallesIngresos extends Migration
             $table->foreign('id_producto')->references('id')->on('productos');
             $table->integer('cantidad');
             $table->decimal('precio_compra', 10,2);
+            $table->decimal('precio_venta', 10,2);
             $table->decimal('descuento', 10,2);
             $table->timestamps();
         });

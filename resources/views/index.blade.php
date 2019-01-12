@@ -1,34 +1,6 @@
 @extends('adminlte::layouts.app')
-
-@section('htmlheader_title')
-	{{ trans('adminlte_lang::message.home') }}
-@endsection
-
-
 @section('content')
-	<div class="content">
-		@include('flash::message')
-
-		<div class="row">
-			<div class="col-md-12">
-
-				<!-- Default box -->
-				<div class="box box-primary ">
-					<div class="box-body">
-						<h3 class="box-title">
-							Bienvenido
-							<b class="text-primary">{{Auth::user()->name}}</b>
-							@usernoops
-							<small>No tiene ninguna opción asignada, pida a un administrador que le asigne</small>
-							@endusernoops
-						</h3>
-					</div>
-					<!-- /.box-body -->
-				</div>
-				<!-- /.box -->
-			</div>
-		</div>
-		 <div class="container-fluit">
+  <div class="container-fluit">
     @include('flash::message')
   </div>
   <div class="box box-danger">
@@ -50,10 +22,10 @@
               <h4><i class="icon fa fa-ban"></i> Atención!</h4>
               @if ( $avisos->stock == 0)
                 <h5>No quedan productos de <abbr title="{{$avisos->descripcion}}"><strong>{{$avisos->descripcion}}</abbr></strong></h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
               @else
                 <h5>Quedan {{$avisos->stock}} del producto {{$avisos->descripcion}}</h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
               @endif
             </div>
           </div>
@@ -64,7 +36,7 @@
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-ban"></i> Atención!</h4>
                   <h5>Quedan {{$avisos->stock}} productos de <abbr title="{{$avisos->descripcion}}"><strong>{{$avisos->descripcion}}</abbr></strong></h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
             </div>
           </div>
         @endif
@@ -209,7 +181,6 @@
       hideHover: 'auto',
     });
   </script>
-	</div>
-	 
+
 
 @endsection

@@ -65,7 +65,7 @@
 						</div>
 					</div>
 					<div>
-							<a href="{{URL::action('PDFController@presupuesto', $venta->id)}}"><button class="btn btn-info ">Descargar PDF</button></a>
+							<a href="#"><button class="btn btn-info ">Descargar PDF</button></a>
 					</div>
 
 

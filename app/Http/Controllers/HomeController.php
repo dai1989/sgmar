@@ -8,8 +8,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Models\Producto;
 use Illuminate\Http\Request;
+use DB;
 
+use App\Presupuesto;
+use App\EstadisticasVentas;
+
+use  Carbon\Carbon;
 /**
  * Class HomeController
  * @package App\Http\Controllers
@@ -31,6 +37,25 @@ class HomeController extends Controller
      *
      * @return Response
      */
+     public function avisos()
+    {
+    
+      $aviso=DB::table('productos')
+                  ->orderBy('stock', 'asc')
+                  ->get();
+
+      $estadistica = DB::table('estadistica_venta as es')
+       ->join('productos as a','es.id_producto','=','a.id')
+       ->limit(7)
+       ->get();
+      $promedioventa = DB::table('presupuestos')
+                    ->orderBy('fecha_hora', 'asc')
+                    ->limit(7)
+                    ->get();
+
+      return view('index' ,['aviso'=>$aviso, 'estadistica'=>$estadistica, 'promedioventa'=>$promedioventa]);
+    }
+
     public function index()
     {
         return view('adminlte::home');

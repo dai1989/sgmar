@@ -16,7 +16,11 @@ class CreateTablePresupuestos extends Migration
         Schema::create('presupuestos', function (Blueprint $table) {
             $table->increments('id');
              $table->integer('persona_id')->unsigned();
-            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->foreign('persona_id')->references('id')->on('personas'); 
+             $table->integer('tipofactura_id')->unsigned();
+            $table->foreign('tipofactura_id')->references('id')->on('tipo_facturas');
+            $table->integer('tipopago_id')->unsigned();
+            $table->foreign('tipopago_id')->references('id')->on('tipo_pagos');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('tipo_comprobante',30)->nullable()->comment('tipo de comprobante del presupuesto');

@@ -18,6 +18,7 @@ class CreateTableProveedores extends Migration
             $table->string('razonsocial', 100);
             $table->string('cuit', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

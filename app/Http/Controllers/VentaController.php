@@ -222,6 +222,10 @@ class VentaController extends Controller
         $presupuesto->num_comprobante=$request->get('num_comprobante');
         $presupuesto->total_venta=$request->get('total_venta');
         $presupuesto->user_id=$request->get('user_id');
+         $presupuesto ->tipofactura_id = $request -> get('tipofactura_id');
+         $presupuesto ->tipopago_id = $request -> get('tipopago_id');
+         $presupuesto ->tipo_comprobante = $request -> get('tipo_comprobante');
+      
 
         $mytime = Carbon::now('America/Argentina/Mendoza');
         $presupuesto->fecha_hora=$mytime->toDateTimeString();

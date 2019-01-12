@@ -1,4 +1,4 @@
-
+<script src="http://localhost/sis_gmar/public/plantilla/js/app.min.js"></script>
 
   <!--<script src="{{ asset('js/manifest.js') }}"></script>
     <script src="{{ asset('js/vendor.js') }}"></script>
@@ -26,6 +26,9 @@
 
 <script src="{{asset('/bower/toastr/toastr.min.js')}}"></script>
 <script src="{{URL::to('/')}}/plantilla/js/jquery.nicelabel.js" ></script>
+<script src="{{URL::to('/')}}/plantilla/js/graficas.js" ></script>
+<script src="{{URL::to('/')}}/plantilla/js/graficas2.js" ></script>
+<script src="{{URL::to('/')}}/plantilla/js/morris.min.js" ></script>
 {{--<!-- FastClick -->--}}
 {{--<script src="plugins/fastclick/fastclick.js"></script>--}}
 {{--<!-- Sparkline -->--}}
