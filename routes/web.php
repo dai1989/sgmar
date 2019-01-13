@@ -165,7 +165,7 @@ Route::resource('domicilios', 'DomicilioController');
 Route::resource('contacto_proveedores', 'ContactoProveedorController');
 
 Route::resource('venta', 'VentaController');
-Route::resource('estimacion', 'EstimacionController');
+
 Route::resource('presupuesto', 'PresupuestoController');
 Route::get('presupuestoventa/{id}','PresupuestoController@presupuestoventa');
 Route::get('estimacionventa/{id}','EstimacionController@estimacionventa');
@@ -203,3 +203,11 @@ Route::resource('categorias', 'CategoriaController');
 
 Route::resource('/pdf','PdfController'); 
 Route::get('crear_reporte_porventa/{tipo}','PdfController@crear_reporte_porventa');
+
+
+  // Route::resource('almacen/estimacion', 'EstimacionController');
+  Route::resource('estimacion', 'EstimacionController'); 
+Route::post('crearventa', 'EstimacionController@crearventa');
+ 
+
+  Route::get('estimacionventa/{id}','EstimacionController@estimacionventa');

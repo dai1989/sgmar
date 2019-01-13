@@ -1,11 +1,10 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Crear venta
+    Ventas
 @endsection
 
 @section('content')
-
 <style>
     .rect-checkbox{float:left;margin-left:130px;}
     .span {margin-left: -161px;}
@@ -35,7 +34,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
-                            <label for="persona_id">Cliente</label>
+                            <label for="cliente">Cliente</label>
                             <select name="persona_id" class="form-control selectpicker" id="persona_id" data-live-search="true">
                                 <option></option>
                                 @foreach($personas as $persona)
@@ -44,7 +43,6 @@
                             </select>
                         </div>
                     </div>
-                   
                     <div id="rect-checkbox">
                         <span class="span">Nuevo Cliente:  &nbsp;&nbsp;</span>
                         <input class="rect-nicelabel" name="check" id="check" value="1" onchange="javascript:showContent()" data-nicelabel='{"position_class": "rect-checkbox"}'  type="checkbox" />
@@ -54,49 +52,17 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
-                            <label for="user_id">Vendedor</label>
-                            <select name="user_id" class="form-control selectpicker" id="user_id" data-live-search="true">
-                                <option></option>
-                                @foreach($user_list as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
+                            <label>Tipo Comprobante</label>
+                            <select name="tipo_comprobante" class="form-control">
+                                <option value="Factura A">Factura A</option>
+                                <option value="Factura B">Factura B</option>
+                                <option value="Factura B">Factura C</option>
+                                <option value="Ticket">Ticket</option>
                             </select>
                         </div>
                     </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="tipofactura_id">Tipo de Factura</label>
-                            <select name="tipofactura_id" class="form-control selectpicker" id="tipofactura_id" data-live-search="true">
-                                <option></option>
-                                @foreach($tipofactura_list as $tipofactura)
-                                    <option value="{{$tipofactura->id}}">{{$tipofactura->descripcion}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-6">
-    <label for="tipopago_id">Tipo de Pago</label>
-  <select  type="text" name="tipopago_id" class="form-control" id="tipopago_id" placeholder="tipo de factura" >
-    <option value="">--Seleccionar--</option>
-    @foreach ($tipopago_list as $tipopago)
-    <option value="{{ $tipopago->id }}">{{ $tipopago->descripcionpago }}</option>
-    @endforeach
-  </select>
-    </div>
-                    </div>
-                    </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group col-sm-6">        
-               <label for="nombre">Tipo de comprobante:</label>
-               <select name="tipo_comprobante" id="" class="form-control selectpicker">                  
-                   <option>--Seleccione--</option> 
-                   <option value="Factura">Factura</option>
-                   <option value="Ticket">Ticket</option>
-               </select>
-           </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <label for="num_comprobante">Número Comprobante</label>
@@ -304,6 +270,3 @@
     </script>
 @endpush
 @endsection
-
-          
-

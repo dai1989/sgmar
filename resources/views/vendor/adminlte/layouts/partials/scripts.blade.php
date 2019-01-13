@@ -1,4 +1,4 @@
-<script src="http://localhost/sis_gmar/public/plantilla/js/app.min.js"></script>
+
 
   <!--<script src="{{ asset('js/manifest.js') }}"></script>
     <script src="{{ asset('js/vendor.js') }}"></script>

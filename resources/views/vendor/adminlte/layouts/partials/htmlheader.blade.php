@@ -53,6 +53,24 @@
         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
         .toggle.ios .toggle-handle { border-radius: 20px; }
     </style>
+    <style>
+  .code{
+    height: 60px !important;
+  }
+  </style>
+  <style media="screen">
+  #tamañomodal{
+    width: 90% !important;
+  }
+  .modal-content  {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 5px !important;
+  }
+  .text-derecha{
+    text-align: right !important;
+  }
+  </style>
 
     <!--App css-->
     @yield('css')

@@ -18,7 +18,7 @@ use Flash;
 use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Collection;
-
+use DNS1D;
 class ProductoController extends Controller
 {
     

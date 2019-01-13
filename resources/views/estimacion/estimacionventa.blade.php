@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Crear credito
+    Crear presupuesto
 @endsection
 
 @section('content')
@@ -44,32 +44,17 @@
 					</div>
 					<input type="hidden" name="id" value="{{$estimacion->id}}">
 					<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 						<div class="form-group">
 							<label>Tipo Comprobante</label>
 							<select name="tipo_comprobante" class="form-control">
 								<option value="Factura A">Factura A</option>
-								
+								<option value="Factura B">Factura B</option>
 								<option value="Ticket">Ticket</option>
 							</select>
 						</div>
 					</div>
-					 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="user_id">Vendedor</label>
-                            <select name="user_id" class="form-control selectpicker" id="user_id" data-live-search="true">
-                                <option></option>
-                                @foreach($user_list as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    </div>
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label for="tipofactura_id">Tipo de Factura</label>
                             <select name="tipofactura_id" class="form-control selectpicker" id="tipofactura_id" data-live-search="true">
@@ -79,15 +64,14 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-sm-6">
-    <label for="tipopago_id">Tipo de Pago</label>
-  <select  type="text" name="tipopago_id" class="form-control" id="tipopago_id" placeholder="tipo de factura" >
-    <option value="">--Seleccionar--</option>
-    @foreach ($tipopago_list as $tipopago)
-    <option value="{{ $tipopago->id }}">{{ $tipopago->descripcionpago }}</option>
-    @endforeach
-  </select>
-    </div>
+                    </div>
+                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="tipopago_id">Tipo de Pago</label>
+                        <select  type="text" name="tipopago_id" class="form-control" id="tipopago_id" placeholder="tipo de factura" >
+                            <option value="">--Seleccionar--</option>@foreach ($tipopago_list as $tipopago)
+                            <option value="{{ $tipopago->id }}">{{ $tipopago->descripcionpago }}</option>@endforeach
+                        </select>
                     </div>
                     </div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -128,14 +112,14 @@
 									<th class="text-derecha"><h4 id="total">{{$estimacion->total_venta}}</h4></th>
 								</tfoot>
 								<tbody>
-									@foreach($detalles as $det)
+									@foreach($detalles as $detalle)
 										<tr>
-											<td>{{$det->created_at}}</td>
-											<td>{{$det->producto}}</td>
-											<td class="text-derecha">{{$det->cantidad}}</td>
-											<td class="text-derecha">{{$det->precio_venta}}</td>
-											<td class="text-derecha">{{$det->descuento}}</td>
-											<td class="text-derecha">{{number_format( $det->cantidad*$det->precio_venta-$det->descuento, 2, '.', '')}}</td>
+											<td>{{$detalle->created_at}}</td>
+											<td>{{$detalle->producto}}</td>
+											<td class="text-derecha">{{$detalle->cantidad}}</td>
+											<td class="text-derecha">{{$detalle->precio_venta}}</td>
+											<td class="text-derecha">{{$detalle->descuento}}</td>
+											<td class="text-derecha">{{number_format( $detalle->cantidad*$detalle->precio_venta-$detalle->descuento, 2, '.', '')}}</td>
 										</tr>
 									@endforeach
 								</tbody>

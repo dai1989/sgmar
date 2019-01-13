@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,7 +15,7 @@ use App\Http\Requests\EstimacionRequest;
 use App\Estimacion;
 
 use App\DetalleEstimacion;
-use App\Models\Venta;
+use App\Venta;
 use App\Models\TipoFactura;
 use App\Models\TipoPago;
 use App\Models\DetalleVenta;
@@ -44,7 +44,7 @@ class EstimacionController extends Controller
      $this -> middleware('auth');
   }
 
-  public function index(Request $request)
+ public function index(Request $request)
   {
 
     if ($request)
@@ -63,15 +63,19 @@ class EstimacionController extends Controller
   }
   public function create()
   {
+    $user_list = User::all();
+    $tipofactura_list = TipoFactura::all();
+    $tipopago_list = TipoPago::all();
+    $personas = Persona::all();
     $productos = DB::table('productos as prod')
     ->join('detalles_ingresos as di', 'prod.id', '=', 'di.id_producto' )
     ->select(DB::raw('CONCAT(prod.barcode, " ",prod.descripcion) AS producto'),'prod.id','prod.imagen','prod.stock','prod.precio_venta',DB::raw('avg(di.precio_venta) as precio_promedio'))
     ->where('prod.estado','=','Activo')
     ->where('prod.stock','>','0')
-    ->groupBy('producto','prod.id','prod.stock','prod.imagen','prod.precio_venta')
+    ->groupBy('producto','prod.id','prod.stock','prod.imagen','prod.precio_venta') 
     ->get();
-    //  dd($articulos);
-    return view("estimacion.create",["productos"=>$productos]);
+    //  dd($productos);
+    return view("estimacion.create",["productos"=>$productos,'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list,'personas'=>$personas]);
   }
 
   public function store (EstimacionRequest $request)
@@ -82,6 +86,9 @@ class EstimacionController extends Controller
     $estimacion=new Estimacion;
     $estimacion->total_venta=$request->get('total_venta');
     $estimacion->user_id=$request->get('user_id');
+    $estimacion->persona_id=$request->get('persona_id');
+    $estimacion ->tipofactura_id = $request -> get('tipofactura_id');
+    $estimacion ->tipopago_id = $request -> get('tipopago_id');
 
     $mytime = Carbon::now('America/Argentina/Mendoza');
     $estimacion->fecha_hora=$mytime->toDateTimeString();
@@ -127,10 +134,11 @@ class EstimacionController extends Controller
     ->first();
     //dd($estimacion);
     $detalles=DB::table('detalle_estimacion as d')
-    ->join('productos as p','d.id_producto','=','p.id')
-    ->select('p.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
+    ->join('productos as prod','d.id_producto','=','prod.id')
+    ->select('prod.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
     ->where('d.estimacion_id','=',$id)
     ->get();
+    // dd($detalles);
     
     return view("estimacion.show",["estimacion"=>$estimacion,"detalles"=>$detalles]);
 
@@ -139,12 +147,12 @@ class EstimacionController extends Controller
   public function estimacionventa($id)
   {
 
-       $user_list = User::all();
+     $user_list = User::all();
        $tipofactura_list = TipoFactura::all();
        $tipopago_list = TipoPago::all();
        $personas = Persona::all();
     // dd($personas);
-       $estimacion=DB::table('estimacion as e')
+    $estimacion=DB::table('estimacion as e')
     ->join('detalle_estimacion as de','e.id','=','de.estimacion_id')
     ->select('e.id','e.fecha_hora','e.impuesto','e.estado','e.total_venta','e.user_id')
     ->groupBy('e.id','e.fecha_hora','e.impuesto','e.estado','e.total_venta','e.user_id')
@@ -152,15 +160,15 @@ class EstimacionController extends Controller
     ->first();
     //dd($estimacion);
     $detalles=DB::table('detalle_estimacion as d')
-    ->join('productos as a','d.id_producto','=','a.id')
-    ->select('a.id','a.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
+    ->join('productos as prod','d.id_producto','=','prod.id')
+    ->select('prod.id','prod.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
     ->where('d.estimacion_id','=',$id)
     ->get();
     $ven= Venta::all()->last();
     if ($ven==null)
     {
       $ven='1';
-     return view("estimacionventa",["estimacion"=>$estimacion,"detalles"=>$detalles,"personas"=>$personas,"ven"=>$ven,'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
+     return view("estimacion.estimacionventa",["estimacion"=>$estimacion,"detalles"=>$detalles,"personas"=>$personas,"ven"=>$ven,'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
     }
     else {
       return view("estimacion.estimacionventa",["estimacion"=>$estimacion,"detalles"=>$detalles,"personas"=>$personas,"ven"=>$ven,'user_list' =>$user_list,'tipofactura_list'=>$tipofactura_list,'tipopago_list'=>$tipopago_list]);
@@ -184,8 +192,8 @@ class EstimacionController extends Controller
       ->first();
 
       $detalles=DB::table('detalle_estimacion as d')
-      ->join('productos as a','d.id_producto','=','a.id')
-      ->select('a.id','a.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
+      ->join('productos as prod','d.id_producto','=','prod.id')
+      ->select('prod.id','prod.descripcion as producto','d.created_at','d.cantidad','d.descuento','d.precio_venta')
       ->where('d.estimacion_id','=',$request->estimacion_id)
       ->get();
 
@@ -203,7 +211,12 @@ class EstimacionController extends Controller
       ->orderBy('presupuesto_id','desc')
       ->first();
 
-     
+      foreach ($detalles as $detalle){
+        $arti[] = $detalle->id_producto;
+        $cant[] = $detalle->cantidad;
+        $desc[] = $detalle->descuento;
+        $pre[] = $detalle->precio_venta;
+      }
       // $fe = "";
         //  dd(isset($fecha->fecha_hora));
 
@@ -215,10 +228,10 @@ class EstimacionController extends Controller
           $venta->total_venta=$totalpro;
           $venta->update();
 
-          $id_producto = $request->get('id_producto');
-      $cantidad = $request->get('cantidad');
-      $descuento = $request->get('descuento');
-      $precio_venta = $request->get('precio_venta');
+          $id_producto = $arti;
+          $cantidad = $cant;
+          $descuento = $desc;
+          $precio_venta = $pre;
           $cont = 0;
 
           while($cont < count($id_producto)){
@@ -242,6 +255,8 @@ class EstimacionController extends Controller
           $presupuesto->num_comprobante=$request->get('num_comprobante');
           $presupuesto->total_venta= $estimacion->total_venta;
           $presupuesto->user_id=$request->get('user_id');
+          $presupuesto ->tipofactura_id = $request -> get('tipofactura_id');
+          $presupuesto ->tipopago_id = $request -> get('tipopago_id');
 
           $mytime = Carbon::now('America/Argentina/Mendoza');
           $presupuesto->fecha_hora=$mytime->toDateTimeString();
@@ -250,10 +265,10 @@ class EstimacionController extends Controller
           $presupuesto->save();
 
 
-            $id_producto = $request->get('id_producto');
-      $cantidad = $request->get('cantidad');
-      $descuento = $request->get('descuento');
-      $precio_venta = $request->get('precio_venta');
+          $id_producto = $arti;
+          $cantidad = $cant;
+          $descuento = $desc;
+          $precio_venta = $pre;
 
           $cont = 0;
 
@@ -270,7 +285,45 @@ class EstimacionController extends Controller
           DB::commit();
         }
       }
-     
+      else {
+
+        DB::beginTransaction();
+        $presupuesto=new Presupuesto;
+        $presupuesto->persona_id=$request->get('persona_id');
+        $presupuesto->tipo_comprobante=$request->get('tipo_comprobante');
+        $presupuesto->num_comprobante=$request->get('num_comprobante');
+        $presupuesto->total_venta= $estimacion->total_venta;
+        $presupuesto->user_id=$request->get('user_id');
+         $presupuesto ->tipofactura_id = $request -> get('tipofactura_id');
+          $presupuesto ->tipopago_id = $request -> get('tipopago_id');
+
+        $mytime = Carbon::now('America/Argentina/Mendoza');
+        $presupuesto->fecha_hora=$mytime->toDateTimeString();
+        $presupuesto->impuesto='0.21';
+        $presupuesto->estado='Sin Revisar';
+        $presupuesto->save();
+
+        $id_producto = $arti;
+        $cantidad = $cant;
+        $descuento = $desc;
+        $precio_venta = $pre;
+
+        $cont = 0;
+
+        while($cont < count($id_producto)){
+          $detalle = new DetallePresupuesto();
+          $detalle->presupuesto_id= $presupuesto->id;
+          $detalle->id_producto= $id_producto[$cont];
+          $detalle->cantidad= $cantidad[$cont];
+          $detalle->descuento= $descuento[$cont];
+          $detalle->precio_venta= $precio_venta[$cont];
+          $detalle->save();
+          $cont=$cont+1;
+        }
+        DB::commit();
+
+      }
+
       DB::beginTransaction();
       $venta=new Venta;
       $venta->persona_id=$request->get('persona_id');
@@ -280,8 +333,7 @@ class EstimacionController extends Controller
       $venta->user_id=$request->get('user_id');
       $venta->entrega=$request->get('entrega');
        $venta ->tipofactura_id = $request -> get('tipofactura_id');
-      $venta ->tipopago_id = $request -> get('tipopago_id');
-      $venta ->tipo_comprobante = $request -> get('tipo_comprobante');
+          $venta ->tipopago_id = $request -> get('tipopago_id');
 
       $mytime = Carbon::now('America/Argentina/Mendoza');
       $venta->fecha_hora=$mytime->toDateTimeString();
@@ -289,10 +341,10 @@ class EstimacionController extends Controller
       $venta->estado='Sin Revisar';
       $venta->save();
 
-   $id_producto = $request->get('id_producto');
-      $cantidad = $request->get('cantidad');
-      $descuento = $request->get('descuento');
-      $precio_venta = $request->get('precio_venta');
+      $id_producto = $arti;
+      $cantidad = $cant;
+      $descuento = $desc;
+      $precio_venta = $pre;
 
       $cont = 0;
 

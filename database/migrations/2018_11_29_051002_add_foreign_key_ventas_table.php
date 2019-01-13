@@ -18,10 +18,7 @@ class AddForeignKeyVentasTable extends Migration
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('tipofactura_id')->unsigned();
-            $table->foreign('tipofactura_id')->references('id')->on('tipo_facturas');
-            $table->integer('tipopago_id')->unsigned();
-            $table->foreign('tipopago_id')->references('id')->on('tipo_pagos');
+           
         });
     }
 

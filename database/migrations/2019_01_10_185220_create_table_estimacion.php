@@ -17,6 +17,9 @@ class CreateTableEstimacion extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('persona_id')->unsigned();
+            $table->foreign('persona_id')->references('id')->on('personas');
+              
             $table->date('fecha_hora')->comment('id de la estimacion');
             $table->decimal('impuesto',4 , 2);
             $table->decimal('total_venta',11 , 2);
