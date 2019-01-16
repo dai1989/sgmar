@@ -8,11 +8,11 @@ class DetalleEstimacion extends Model
 {
     protected $table='detalle_estimacion';
 
-    protected $primaryKey='id';
+    protected $primaryKey='iddetalle_estimacion';
 
     protected $fillable=[
-      'estimacion_id',
-      'id_producto',
+      'idestimacion',
+      'idproducto',
       'cantidad',
       'precio_venta',
       'descuento'

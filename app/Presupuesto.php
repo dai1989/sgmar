@@ -8,9 +8,9 @@ use Carbon\Carbon;
 
 class Presupuesto extends Model
 {
-  protected $table='presupuestos';
+  protected $table='presupuesto';
 
-  protected $primaryKey='id';
+  protected $primaryKey='idpresupuesto';
 
   protected $fillable=[
     'persona_id',

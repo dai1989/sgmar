@@ -18,7 +18,7 @@ class ProductoDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'producto.datatables_actions');
+        return $dataTable->addColumn('action', 'producto_actions');
     }
 
     /**
@@ -50,7 +50,11 @@ class ProductoDataTable extends DataTable
                 'scrollX' => false,
                 'responsive' => true,
                 'buttons' => [
-                    
+                    'create',
+                    'export',
+                    'print',
+                    'reset',
+                    'reload',
                 ],
             ]);
     }
@@ -62,7 +66,7 @@ class ProductoDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+       return [
             'Cod.Producto' => ['name' => 'barcode', 'data' => 'barcode'],
             'Descripcion' => ['name' => 'descripcion', 'data' => 'descripcion'],
             'Marca' => ['name' => 'marca.descripcion', 'data' => 'marca.descripcion'],

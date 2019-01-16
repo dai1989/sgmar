@@ -8,7 +8,7 @@ class Estimacion extends Model
 {
   protected $table='estimacion';
 
-  protected $primaryKey='id';
+  protected $primaryKey='idestimacion';
 
   protected $fillable=[
     'user_id',

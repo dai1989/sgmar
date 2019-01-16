@@ -3,17 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Venta; 
 
-class CreateVentaRequest extends FormRequest
+class IngresoFormRequest extends FormRequest
 {
-
-     /**
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() 
+    public function authorize()
     {
         return true;
     }
@@ -27,19 +25,13 @@ class CreateVentaRequest extends FormRequest
     {
         return [
 
-            //para la venta
-          
+            // 'idproveedor' => 'required',
             'tipo_comprobante' => 'required|max:20',
-            
             'num_comprobante' => 'required|max:10',
-            'total_venta' => 'required',
-
-            //para el detalle de la venta
             'idproducto' => 'required',
             'cantidad' => 'required',
-            'precio_venta' => 'required',
-            'descuento' => 'required'
-
+            'precio_compra' => 'required',
+            'precio_venta' => 'required'
         ];
     }
 }

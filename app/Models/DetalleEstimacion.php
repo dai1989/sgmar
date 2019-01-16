@@ -11,8 +11,8 @@ class DetalleEstimacion extends Model
     protected $primaryKey='id';
 
     protected $fillable=[
-      'estimacion_id',
-      'id_producto',
+      'idestimacion',
+      'idproducto',
       'cantidad',
       'precio_venta',
       'descuento'

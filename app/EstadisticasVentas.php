@@ -11,7 +11,7 @@ class EstadisticasVentas extends Model
   protected $primaryKey='id';
 
   protected $fillable=[
-    'id_producto',
+    'idproducto',
     'cantidad',
     'precio_venta',
     'created_at'

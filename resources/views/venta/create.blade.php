@@ -34,11 +34,11 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
-                            <label for="cliente">Cliente</label>
+                            <label for="persona_id">Cliente</label>
                             <select name="persona_id" class="form-control selectpicker" id="persona_id" data-live-search="true">
                                 <option></option>
                                 @foreach($personas as $persona)
-                                    <option value="{{$persona->id}}">{{$persona->nombre}},{{$persona->apellido}}</option>
+                                    <option value="{{$persona->id}}">{{$persona->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -58,7 +58,6 @@
                             <select name="tipo_comprobante" class="form-control">
                                 <option value="Factura A">Factura A</option>
                                 <option value="Factura B">Factura B</option>
-                                <option value="Factura B">Factura C</option>
                                 <option value="Ticket">Ticket</option>
                             </select>
                         </div>
@@ -69,7 +68,7 @@
                             @if ($ven == '1')
                                  <input type="text" readonly  value="0-0" name="num_comprobante" class="form-control" placeholder="Numero Comprobante">
                             @else
-                                <input type="text" readonly  value="0-{{$ven->id}}" name="num_comprobante" class="form-control" placeholder="Numero Comprobante">
+                                <input type="text" readonly  value="0-{{$ven->idventa}}" name="num_comprobante" class="form-control" placeholder="Numero Comprobante">
                             @endif
                         </div>
                     </div>
@@ -80,11 +79,11 @@
                     <div class="panel-body">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Producto</label>
-                                <select name="pid_producto" class="form-control selectpicker" id="pid_producto" data-live-search="true">
+                                <label>Articulo</label>
+                                <select name="pidproducto" class="form-control selectpicker" id="pidproducto" data-live-search="true">
                                     <option value="0"></option>
                                     @foreach($productos as $producto)
-                                        <option value="{{$producto->id}}_{{$producto->stock}}_{{$producto->precio_promedio}}">{{$producto->producto}}</option>
+                                        <option value="{{$producto->idproducto}}_{{$producto->stock}}_{{$producto->precio_promedio}}">{{$producto->producto}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -123,7 +122,7 @@
                             <table class="table table-striped table-bordered table-condensed table-hover">
                                 <thead style="background-color: #A9D0F5">
                                     <th>Opciones</th>
-                                    <th>Productos</th>
+                                    <th>Artículos</th>
                                     <th>Cantidad</th>
                                     <th>Precio Venta</th>
                                     <th>Descuento</th>
@@ -159,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <input type="hidden" name="idusuario" value="{{Auth::user()->id}}">
             {!!Form::close()!!}
         </div>
     </div>
@@ -197,18 +196,18 @@
     subtotal=[];
     total=0;
     $("#guardar").hide();
-    $("#pid_producto").change(mostrarValores);
+    $("#pidproducto").change(mostrarValores);
 
     function mostrarValores(){
-        datosProducto=document.getElementById('pid_producto').value.split('_');
+        datosProducto=document.getElementById('pidproducto').value.split('_');
         $("#pprecio_venta").val(datosProducto[2]);
         $("#pstock").val(datosProducto[1]);
     }
 
     function agregar(){
 
-        var id_producto=datosProducto[0];
-        var producto=$("#pid_producto option:selected").text();
+        var idproducto=datosProducto[0];
+        var producto=$("#pidproducto option:selected").text();
         var cantidad=$("#pcantidad").val();
         var descuento=$("#pdescuento").val();
         var precio_venta= parseFloat($("#pprecio_venta").val());
@@ -216,13 +215,13 @@
         var stock_numero = parseInt(stock);
         var stock_cantidad = parseInt(cantidad);
 
-        if (id_producto!="" && cantidad!="" && cantidad>0 && pdescuento!="" && precio_venta!="")
+        if (idproducto!="" && cantidad!="" && cantidad>0 && pdescuento!="" && precio_venta!="")
         {
             if (stock_numero>=stock_cantidad)
             {
                 subtotal[cont]=(cantidad*precio_venta-descuento);
                 total=total+subtotal[cont];
-                var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input readonly type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input readonly type="number" name="precio_venta[]" value="'+precio_venta+'"></td><td><input readonly type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
+                var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+producto+'</td><td><input readonly type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input readonly type="number" name="precio_venta[]" value="'+precio_venta+'"></td><td><input readonly type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
                 cont++;
                 limpiar();
                 $('#total').html("$ " + total);
@@ -247,7 +246,7 @@
         $('#pstock').val("");
         $('#pdescuento').val("");
         $('#pprecio_venta').val("");
-        $('#pid_producto').selectpicker('val', '0');
+        $('#pidproducto').selectpicker('val', '0');
     }
     function evaluar()
     {

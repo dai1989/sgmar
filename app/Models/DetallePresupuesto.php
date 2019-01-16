@@ -8,11 +8,11 @@ class DetallePresupuesto extends Model
 {
     protected $table='presupuesto_detalles';
 
-    protected $primaryKey='id';
+    protected $primaryKey='iddetalle_presupuesto';
 
     protected $fillable=[
       'venta.id',
-      'producto_id',
+      'id_producto',
       'cantidad',
       'precio_venta',
       'descuento'

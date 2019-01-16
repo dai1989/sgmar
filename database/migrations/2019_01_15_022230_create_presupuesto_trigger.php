@@ -13,29 +13,24 @@ class CreatePresupuestoTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('
-        CREATE TRIGGER tr_updStockPresupuesto AFTER INSERT ON presupuesto_detalles
+      DB::unprepared('
+        CREATE TRIGGER tr_updStockPresupuesto AFTER INSERT ON detalle_presupuesto
         FOR EACH ROW BEGIN
                 UPDATE productos SET stock = stock - NEW.cantidad
-                WHERE productos.id = NEW.id_producto;
+                WHERE productos.idproducto = NEW.idproducto;
 
-                IF EXISTS(SELECT * FROM estadistica_venta WHERE estadistica_venta.id_producto = NEW.id_producto)THEN
+                IF EXISTS(SELECT * FROM estadistica_venta WHERE estadistica_venta.idproducto = NEW.idproducto)THEN
                   UPDATE estadistica_venta SET cantidad = cantidad + NEW.cantidad
-                  WHERE estadistica_venta.id_producto = NEW.id_producto;
+                  WHERE estadistica_venta.idproducto = NEW.idproducto;
                   UPDATE estadistica_venta SET precio_venta = precio_venta + NEW.precio_venta
-                  WHERE estadistica_venta.id_producto = NEW.id_producto;
+                  WHERE estadistica_venta.idproducto = NEW.idproducto;
                 ELSE
-                  INSERT INTO estadistica_venta (id_producto,cantidad,precio_venta,created_at)
-                  VALUES(NEW.id_producto,NEW.cantidad,NEW.precio_venta,NOW());
+                  INSERT INTO estadistica_venta (idproducto,cantidad,precio_venta,created_at)
+                  VALUES(NEW.idproducto,NEW.cantidad,NEW.precio_venta,NOW());
                 END IF;
             END');
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         //

@@ -46,9 +46,9 @@
 												</td>
 												<td>
 													
-													<a href="{{URL::action('EstimacionController@show', $est->id)}}"><button class="btn btn-primary">Detalles</button></a>
+													<a href="{{URL::action('EstimacionController@show', $est->idestimacion)}}"><button class="btn btn-primary">Detalles</button></a>
 													
-													<a href="{{URL::action('EstimacionController@estimacionventa', $est->id)}}"><button class="btn btn-success">Realizar Venta</button></a>
+													<a href="{{URL::action('EstimacionController@estimacionventa', $est->idestimacion)}}"><button class="btn btn-success">Realizar Venta</button></a>
 													
 												</td>
 											</tr>

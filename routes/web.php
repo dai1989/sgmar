@@ -20,8 +20,9 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 // error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
 }
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@avisos');
+
+Route::get('/home', 'HomeController@avisos');
 
 Route::group(['middleware' => 'auth'], function () {
     //    Route::get('/link1', function ()    {
@@ -171,7 +172,7 @@ Route::get('presupuestoventa/{id}','PresupuestoController@presupuestoventa');
 Route::get('estimacionventa/{id}','EstimacionController@estimacionventa');
 Route::get('presupuesto/{presupuesto}','PresupuestoController@show');
 Route::post('crearventa', 'EstimacionController@crearventa');
-
+Route::get('venta/ticke/{id}', ['as' => 'ticke', 'uses' => 'VentaController@ticke']);
 
 Route::resource('devolucion', 'DevolucionController');
 Route::resource('ingreso', 'IngresoController');
@@ -180,11 +181,12 @@ Route::resource('factura', 'FacturaController');
 
 
 Route::get('/venta/pdf/{id_venta}', 'VentaController@pdf')->name('venta_pdf');
+
 Route::get('/ingreso/pdf/{id_ingreso}', 'IngresoController@pdf')->name('ingreso_pdf');
 Route::get('/credito/pdf/{id_credito}', 'CreditoController@pdf')->name('creito_pdf');
 
 
-
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@avisos']);
 
 
 
@@ -211,3 +213,9 @@ Route::post('crearventa', 'EstimacionController@crearventa');
  
 
   Route::get('estimacionventa/{id}','EstimacionController@estimacionventa');
+
+Route::resource('productos', 'ProductoController');
+
+Route::resource('productos', 'ProductoController');
+
+Route::resource('productos', 'ProductoController');

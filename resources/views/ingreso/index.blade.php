@@ -5,70 +5,68 @@
 @endsection
 
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Listado de compras</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="ingreso/create">
-              <i class="fa fa-plus"></i>
-              <span class="hidden-xs hidden-sm">Agregar</span>
-              
-           </a>
-           
-        </h1>
-    </section>
-    <div class="row">
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        
-         @include('ingreso.search') </div>
-</div>
-    <div class="content">
-        <div class="clearfix"></div>
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="container-fluit">
+                    @include('flash::message')
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <h3>Listado de Ingreso
+                           
+                            <a href="{{route('ingreso.create')}}"><button class="btn btn-success">Nuevo</button></a>
+                            
+                        </h3>
+                        @include('ingreso.search')
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover">
+                                <thead>
+                                    <th>Fecha</th>
+                                    <th>Proveedor</th>
+                                    <th>Comprobante</th>
+                                    <th>Impuesto</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Opciones</th>
+                                </thead>
+                                @foreach ($ingresos as $ing)
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ date("d-m-Y", strtotime($ing->fecha_hora))}}</td>
+                                            <td id="toggle-button-{{$ing->proveedor_id}}"><a href="#">{{ $ing->razonsocial}}</a></td>
+                                            <td>{{ $ing->tipo_comprobante.': '. $ing->num_comprobante}}</td>
+                                            <td>{{ $ing->impuesto}}</td>
+                                            <td>{{number_format( $ing->total, 2, '.', '')}}</td>
+                                            <td>@if($ing->estado == "Cancelada")
+                                                <span class="label label-info">{{ $ing->estado}}</span>
+                                                @else
+                                                <span class="label label-danger">{{ $ing->estado}}</span>
+                                                @endif
+                                            </td>
 
-        @include('flash::message')
-
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                     <table class="table table-striped"> 
-                <thead>
-                    
-                    <th>Fecha</th>
-                    <th>Proveedor</th>
-                    <th>Tipo de comprobante</th>
-                    
-                    <th>Numero del comprobante</th>
-                    <th>Impuesto</th>
-                    <th>Total</th> 
-                    <th>Estado</th>                      
-                     <th colspan="3">Acciones</th>
-                </thead>
-                @foreach($ingresos as $ing)
-                <tr>
-                    
-                    <td>{{$ing -> fecha_hora}}</td>
-                    <td>{{$ing -> razonsocial}} {{$ing -> cuit}}</td>
-                    <td>{{$ing -> tipo_comprobante}}</td>
-                   
-                    <td>{{$ing -> num_comprobante}}</td>
-                    <td>{{$ing -> impuesto}}</td>
-                    <td>{{$ing -> total_compra}}</td>                    
-                    <td>{{$ing -> estado}}</td>                    
-                    <td>
-                        <a href="{{URL::action('IngresoController@show', $ing -> id)}}">
-                            <button class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></button>
-                        </a>
-                        <a href="" data-target="#modal-delete-{{$ing -> id}}" data-toggle="modal">
-                            <button class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></button>
-                        </a>
-                        <a href="{{ url('ingreso/pdf/' . $ing->id) }}"><button class="btn btn-success btn-xs" ><i class="fa fa-file-pdf-o"></i></button>
-                                
-                            </a>
-                    </td>
-                </tr> 
-                @include('ingreso.modal')
-                @endforeach </table>
-        </div>
-         {{$ingresos -> render()}}
-    </div>
-</div> 
+                                                    <td>
+                                                      
+                                                        <a href="{{URL::action('IngresoController@show', $ing->idingreso)}}"><button class="btn btn-primary">Detalles</button></a>
+                                                       
+                                                        <a href="" data-target="#modal-delete-{{$ing->idingreso}}" data-toggle="modal" ><button class="btn btn-danger">Anular</button></a>
+                                                       
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            @include('ingreso.modal')
+                                            @include('ingreso.modalproveedor')
+                                        @endforeach
+                                    </table>
+                                </div>
+                                {{$ingresos->render()}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 @endsection

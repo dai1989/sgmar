@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Venta extends Model
 {
-    protected $table='ventas';
+    protected $table='venta';
 
-    protected $primaryKey='id';
+    protected $primaryKey='idventa';
 
     protected $fillable=[
-    	'persona_id',
-    	'tipo_comprobante',
+        'persona_id',
+        'tipo_comprobante',
       'num_comprobante',
-    	'fecha_hora',
-    	'impuesto',
-    	'total_venta',
+        'fecha_hora',
+        'impuesto',
+        'total_venta',
       'entrega',
-    	'estado'
+        'estado'
     ];
 }

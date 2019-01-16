@@ -24,7 +24,7 @@ class PresupuestoFormRequest extends FormRequest
     public function rules()
     {
       return [
-          'id_producto' => 'required',
+          'idproducto' => 'required',
           'cantidad' => 'required',
           'precio_venta' => 'required',
           'descuento' => 'required',

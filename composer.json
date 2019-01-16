@@ -11,6 +11,7 @@
         "barryvdh/laravel-snappy": "^0.4.0",
         "caffeinated/shinobi": "^3.3",
         "codedge/laravel-fpdf": "^1.2",
+        "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "infyomlabs/adminlte-templates": "5.6.x-dev",
@@ -22,6 +23,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
         "milon/barcode": "^5.3",
+        "predis/predis": "^1.1",
         "rtconner/laravel-tagging": "^3.0",
         "yajra/laravel-datatables-buttons": "^3.0",
         "yajra/laravel-datatables-oracle": "~8.0"

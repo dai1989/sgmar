@@ -40,9 +40,9 @@
 										</td>
 										<td>
 											
-											<a href="{{URL::action('PresupuestoController@show', $ven->id)}}"><button class="btn btn-primary btn-sm">Detalles</button></a>
+											<a href="{{URL::action('PresupuestoController@show', $ven->idpresupuesto)}}"><button class="btn btn-primary btn-sm">Detalles</button></a>
 											
-											<a href="" data-target="#modal-delete-{{$ven->id}}" data-toggle="modal" ><button class="btn btn-danger btn-sm">Anular</button></a>
+											<a href="" data-target="#modal-delete-{{$ven->idpresupuesto}}" data-toggle="modal" ><button class="btn btn-danger btn-sm">Anular</button></a>
 												
 										</td>
 									</tr>

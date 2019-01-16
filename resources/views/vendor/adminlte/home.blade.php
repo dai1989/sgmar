@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.home') }}
@@ -50,10 +50,10 @@
               <h4><i class="icon fa fa-ban"></i> Atención!</h4>
               @if ( $avisos->stock == 0)
                 <h5>No quedan productos de <abbr title="{{$avisos->descripcion}}"><strong>{{$avisos->descripcion}}</abbr></strong></h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
               @else
                 <h5>Quedan {{$avisos->stock}} del producto {{$avisos->descripcion}}</h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
               @endif
             </div>
           </div>
@@ -64,7 +64,7 @@
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-ban"></i> Atención!</h4>
                   <h5>Quedan {{$avisos->stock}} productos de <abbr title="{{$avisos->descripcion}}"><strong>{{$avisos->descripcion}}</abbr></strong></h5>
-                  <img src="{{asset('imagenes/articulos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
+                  <img src="{{asset('imagenes/productos/'.$avisos->imagen)}}" alt="{{$avisos->descripcion}}" height="100px" width="100px" class="img-thumbnail">
             </div>
           </div>
         @endif
@@ -129,9 +129,7 @@
       <!-- /.box-body -->
     </div>
 {{-- <td align="right" width="98"><a href="#" onclick="window.open('{{pagina.html}}','TITULO','width =550,height=400');"> <IMG SRC="http://127.0.0.1/sis_gmar/public/imagenes/productos/image.jpg" WIDTH=47 HEIGHT=96 ALT=""></a></td> --}}
-@if ($config == '')
-  @include('layouts.modalconfig')
-@endif
+
 @endsection
 
 @section('js')

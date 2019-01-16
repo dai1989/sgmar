@@ -8,31 +8,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Producto
  * @package App\Models
- * @version December 19, 2018, 4:07 pm -03
+ * @version January 15, 2019, 8:24 pm -03
  *
  * @property \App\Models\Categoria categoria
  * @property \App\Models\Marca marca
  * @property \Illuminate\Database\Eloquent\Collection contactoProveedores
  * @property \Illuminate\Database\Eloquent\Collection contactos
+ * @property \Illuminate\Database\Eloquent\Collection detalleEstimacion
+ * @property \Illuminate\Database\Eloquent\Collection detalleIngreso
+ * @property \Illuminate\Database\Eloquent\Collection detallePresupuesto
+ * @property \Illuminate\Database\Eloquent\Collection detalleVenta
  * @property \Illuminate\Database\Eloquent\Collection DetallesCredito
- * @property \Illuminate\Database\Eloquent\Collection DetallesIngreso
- * @property \Illuminate\Database\Eloquent\Collection DetallesVenta
- * @property \Illuminate\Database\Eloquent\Collection DevolucionDetalle
- * @property \Illuminate\Database\Eloquent\Collection devoluciones
+ * @property \Illuminate\Database\Eloquent\Collection EstadisticaVentum
  * @property \Illuminate\Database\Eloquent\Collection optionUser
  * @property \Illuminate\Database\Eloquent\Collection permissionRole
  * @property \Illuminate\Database\Eloquent\Collection permissionUser
  * @property \Illuminate\Database\Eloquent\Collection presupuesto
- * @property \Illuminate\Database\Eloquent\Collection PresupuestoDetalle
  * @property \Illuminate\Database\Eloquent\Collection roleUser
+ * @property \Illuminate\Database\Eloquent\Collection venta
  * @property string descripcion
  * @property string precio_venta
  * @property string barcode
  * @property integer stock
  * @property string imagen
  * @property string estado
- * @property integer id_marca
- * @property integer id_categoria
+ * @property integer marca_id
+ * @property integer categoria_id
  */
 class Producto extends Model
 {
@@ -64,7 +65,7 @@ class Producto extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'idproducto' => 'integer',
         'descripcion' => 'string',
         'precio_venta' => 'string',
         'barcode' => 'string',
@@ -101,6 +102,38 @@ class Producto extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function estimacions()
+    {
+        return $this->belongsToMany(\App\Models\Estimacion::class, 'detalle_estimacion');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function ingresos()
+    {
+        return $this->belongsToMany(\App\Models\Ingreso::class, 'detalle_ingreso');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function presupuestos()
+    {
+        return $this->belongsToMany(\App\Models\Presupuesto::class, 'detalle_presupuesto');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function venta()
+    {
+        return $this->belongsToMany(\App\Models\Ventum::class, 'detalle_venta');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function detallesCreditos()
@@ -111,32 +144,8 @@ class Producto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function detallesIngresos()
+    public function estadisticaVenta()
     {
-        return $this->hasMany(\App\Models\DetallesIngreso::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function detallesVentas()
-    {
-        return $this->hasMany(\App\Models\DetallesVenta::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function devolucionDetalles()
-    {
-        return $this->hasMany(\App\Models\DevolucionDetalle::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function presupuestoDetalles()
-    {
-        return $this->hasMany(\App\Models\PresupuestoDetalle::class);
+        return $this->hasMany(\App\Models\EstadisticaVentum::class);
     }
 }

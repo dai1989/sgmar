@@ -14,17 +14,16 @@ class CreateTableEstimacion extends Migration
     public function up()
     {
         Schema::create('estimacion', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('persona_id')->unsigned();
-            $table->foreign('persona_id')->references('id')->on('personas');
-              
+        
+             $table->increments('idestimacion') ->comment('id de la estimacion');
+            $table->integer('idusuario')->unsigned()->comment('relación del productos con la estimacion');
             $table->date('fecha_hora')->comment('id de la estimacion');
-            $table->decimal('impuesto',4 , 2);
-            $table->decimal('total_venta',11 , 2);
-            $table->string('estado',20);
-            
+            $table->decimal('impuesto',4 , 2)->comment('id de la estimacion');
+            $table->decimal('total_venta',11 , 2)->comment('id de la estimacion');
+            $table->string('estado',20)->comment('id de la estimacion');
+           
+            $table->foreign('idusuario')
+                  ->references('id')->on('users');
             $table->timestamps();
         });
     }

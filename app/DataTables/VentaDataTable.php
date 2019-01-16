@@ -29,7 +29,7 @@ class VentaDataTable extends DataTable
      */
     public function query(Venta $model)
     {
-        return $model->with('persona','producto','user','tipofactura','tipopago');
+        return $model->with('persona','user','tipofactura','tipopago');
     }
 
     /**

@@ -101,10 +101,7 @@
       <!-- /.box-body -->
     </div>
 {{-- <td align="right" width="98"><a href="#" onclick="window.open('{{pagina.html}}','TITULO','width =550,height=400');"> <IMG SRC="http://127.0.0.1/sis_gmar/public/imagenes/productos/image.jpg" WIDTH=47 HEIGHT=96 ALT=""></a></td> --}}
-@if ($config == '')
-  @include('layouts.modalconfig')
-@endif
-@endsection
+
 
 @section('js')
   <script type="text/javascript">

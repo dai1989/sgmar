@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetallePresupuesto extends Model
 {
-    protected $table='presupuesto_detalles';
+    protected $table='detalle_presupuesto';
 
-    protected $primaryKey='id';
+    protected $primaryKey='iddetalle_presupuesto';
 
     protected $fillable=[
-      'id_venta',
-      'id_producto',
+      'idventa',
+      'idproducto',
       'cantidad',
       'precio_venta',
       'descuento'

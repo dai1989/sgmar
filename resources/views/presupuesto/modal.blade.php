@@ -1,6 +1,6 @@
-<div class="modal modal-info" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$ven->id}}">
+<div class="modal modal-info" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$ven->idpresupuesto}}">
 
-	{{ Form::Open(array('action'=>array('PresupuestoController@destroy', $ven->id), 'method' => 'delete'))}}
+	{{ Form::Open(array('action'=>array('PresupuestoController@destroy', $ven->idpresupuesto), 'method' => 'delete'))}}
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

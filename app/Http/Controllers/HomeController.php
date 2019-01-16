@@ -45,19 +45,16 @@ class HomeController extends Controller
                   ->get();
 
       $estadistica = DB::table('estadistica_venta as es')
-       ->join('productos as a','es.id_producto','=','a.id')
+       ->join('productos as a','es.idproducto','=','a.idproducto')
        ->limit(7)
        ->get();
-      $promedioventa = DB::table('presupuestos')
+      $promedioventa = DB::table('presupuesto')
                     ->orderBy('fecha_hora', 'asc')
                     ->limit(7)
                     ->get();
 
-      return view('index' ,['aviso'=>$aviso, 'estadistica'=>$estadistica, 'promedioventa'=>$promedioventa]);
+      return view('adminlte::home' ,['aviso'=>$aviso, 'estadistica'=>$estadistica, 'promedioventa'=>$promedioventa]);
     }
 
-    public function index()
-    {
-        return view('adminlte::home');
-    }
+    
 }

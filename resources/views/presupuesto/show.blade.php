@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  @php
+  @ @php
     $date = Carbon\Carbon::now('America/Argentina/Mendoza');
   @endphp
 <section class="content">
@@ -21,7 +21,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 						<div class="form-group">
 							<label for="fecha_hora">Vendedor</label>
-							<p>{{$user->name}}</p>
+							<p>{{$usuario->name}}</p>
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 									@foreach($detalles as $det)
 										<tr>
 											<td>{{$det->created_at=$date->format('d-m-Y')}}</td>
-                      <td>{{$det->producto}}</td>
+                      <td>{{$det->articulo}}</td>
 											<td class="text-derecha">{{$det->cantidad}}</td>
 											<td class="text-derecha">{{$det->precio_venta}}</td>
 											<td class="text-derecha">{{number_format($det->descuento, 2, '.', '')}}</td>
@@ -65,7 +65,7 @@
 						</div>
 					</div>
 					<div>
-							<a href="#"><button class="btn btn-info ">Descargar PDF</button></a>
+							<a href="{{URL::action('PDFController@presupuesto', $venta->idpresupuesto)}}"><button class="btn btn-info ">Descargar PDF</button></a>
 					</div>
 
 
