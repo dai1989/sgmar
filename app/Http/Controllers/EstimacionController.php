@@ -290,17 +290,17 @@ class EstimacionController extends Controller
         $presupuesto->estado='Sin Revisar';
         $presupuesto->save();
 
-        $persona_id = $arti;
+        $idproducto = $arti;
         $cantidad = $cant;
         $descuento = $desc;
         $precio_venta = $pre;
 
         $cont = 0;
 
-        while($cont < count($persona_id)){
+        while($cont < count($idproducto)){
           $detalle = new DetallePresupuesto();
           $detalle->idpresupuesto= $presupuesto->idpresupuesto;
-          $detalle->persona_id= $persona_id[$cont];
+          $detalle->idproducto= $idproducto[$cont];
           $detalle->cantidad= $cantidad[$cont];
           $detalle->descuento= $descuento[$cont];
           $detalle->precio_venta= $precio_venta[$cont];

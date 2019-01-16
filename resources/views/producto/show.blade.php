@@ -48,13 +48,13 @@
 
 
 <!-- Id Marca Field -->
-{!! Form::label('id_marca', 'Marca:') !!}
-{!! $producto->id_marca !!}<br>
+{!! Form::label('marca_id', 'Marca:') !!}
+{!! $producto->marca_id !!}<br>
 
 
 <!-- Id Categoria Field -->
-{!! Form::label('id_categoria', 'Categoria:') !!}
-{!! $producto->id_categoria!!}<br>
+{!! Form::label('categoria_id', 'Categoria:') !!}
+{!! $producto->categoria_id!!}<br>
 
 
 

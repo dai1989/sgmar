@@ -65,7 +65,7 @@ class Producto extends Model
      * @var array
      */
     protected $casts = [
-        'idproducto' => 'integer',
+        'id' => 'integer',
         'descripcion' => 'string',
         'precio_venta' => 'string',
         'barcode' => 'string',

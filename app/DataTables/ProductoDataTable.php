@@ -18,7 +18,7 @@ class ProductoDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'producto_actions');
+        return $dataTable->addColumn('action', 'producto.datatables_actions');
     }
 
     /**

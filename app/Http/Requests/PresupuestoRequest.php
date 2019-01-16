@@ -25,7 +25,7 @@ class PresupuestoRequest extends FormRequest
     {
         return [
           
-          'id_producto' => 'required',
+          'idproducto' => 'required',
           'precio_venta' => 'required',
           'descuento' => 'required',
           'total_venta' =>'required'
